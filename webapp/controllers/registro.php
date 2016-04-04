@@ -19,7 +19,7 @@ class Registro extends CI_Controller {
 		
 		$this->load->view('layout/header', $datos, false );
 		
-		if (!is_null($inicio) && ! is_null ($fin)) {
+		if (!is_null($inicio) && ! is_null($fin)) {
 			if ($hoy >= $inicio && $hoy <= $fin) {
 				$this->load->view('registro/busca_beneficiario', $datos, false );
 			} else {
@@ -31,16 +31,19 @@ class Registro extends CI_Controller {
 			$this->load->view('registro/busca_beneficiario', $datos, false );
 		}
 		
-		$this->load->view ('layout/footer', false, false );
+		$this->load->view('layout/footer', false, false );
 	}
 	
 	function getBeneficiario() {
 		$matricula = $this->input->post('matricula');
-		$aux = $this->m_activacion->getMatricula($matricula);
+		$aux = $this->m_registro->getMatricula($matricula);
 	
 		$aux = isset($aux[0]['matricula_asignada']) ? $aux[0]['matricula_asignada'] : null;
 	
-		if (! is_null($aux)) {
+		if (!is_null($aux)) {
+			echo $aux;
+		} else {
+			echo 'bad';
 		}
 	}
 }

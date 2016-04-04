@@ -3,9 +3,11 @@ if (! defined ( 'BASEPATH' ))
 	exit ( 'no se permite el acceso directo al script' );
 
 class M_registro extends MY_Model {
+	protected $db_b;
+	
 	function __construct() {
 		parent::__construct ();
-		$db_beneficiarios = $this->load->database('beneficiarios', TRUE);
+		$this->db_b = $this->load->database('beneficiarios', TRUE);
 	}
 	
 	/**
@@ -26,11 +28,11 @@ class M_registro extends MY_Model {
 	 * @param unknown $dato
 	 */
 	function getMatricula($dato) {
-		$db_beneficiarios->sql = "SELECT B.matricula_asignada
+		$this->sql = "SELECT B.matricula_asignada
 		FROM beneficiarios B
 		INNER JOIN b_personal P on B.matricula_asignada = P.matricula_asignada
 		WHERE  P.matricula_asignada = '$dato' OR P.CURP = '$dato' and B.id_archivo IN (1,2);";
-		$results = $db_beneficiarios->query($db_beneficiarios->sql);
+		$results = $this->db_b->query($this->sql);
 		return $results->result_array();
 	}
 }

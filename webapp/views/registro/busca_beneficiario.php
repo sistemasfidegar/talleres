@@ -10,55 +10,33 @@
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: 'correccion/ajax_beneficiario_matricula',
+    		            url: 'registro/getBeneficiario',
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
-        		            if(data!="bad")
-        		            {
-            		            if(data!="aceptado"){
-	    		            		
-            		            	
-	    		            		irA('correccion/corrigeBeneficiario/'+data);
-            		            }
-            		            else
-            		            {
-            		            	$.unblockUI();
-            		            	$('#letrero').html('<span style="color:#E6007E; font-size:12px;">El expediente del Beneficiario ya fue aprobado en el periodo de InscripciÃ³n-ReinscripciÃ³n (2015-2016).<br>No es posible hacer modificaciones a la informaciÃ³n</span>');
-            		            }   	               
-        		            }
-        		            else
-        		            {
-            		            alert('No se encontrÃ³ al beneficiario');
-            		            irA('correccion');
-
+        		            if(data != 'bad') {
+            		            irA('registro/nuevo/'+ data);
+        		            } else {
+        		            	$.unblockUI();
+        		            	$('#myModalSinRegistro').modal('show'); //open modal
             		        }
     		            }
     		            
     		        });
-             
-    	        }
-    			else if($("#matricula_escuela").val()!= "" ){
-
+    	        } else if($("#matricula_escuela").val()!= "" ){
     				$.blockUI({message: 'Procesando por favor espere...'});
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: 'correccion/ajax_beneficiario_unam/',
+    		            url: 'registro/ajax_beneficiario_unam/',
     		            data: {matricula_escuela: $("#matricula_escuela").val()},
     		            success: function (data) {
-
-        		            if(data!="bad")
-        		            {
-	    		            	matricula = data;
-	    		            	irA('correccion/corrigeBeneficiario/'+matricula);	               
-        		            }
-        		            else
-        		            {
-            		            alert('No se encontrÃ³ al beneficiario');
-            		            irA('correccion');
-            		        }
+    		            	 if(data != 'bad') {
+             		            irA('registro/nuevo/'+ data);
+         		            } else {
+         		            	$.unblockUI();
+         		            	$('#myModalSinRegistro').modal('show'); //open modal
+             		        }
     		            }
-    		            
     		        });
     			}
     		});
@@ -68,10 +46,59 @@
             
         }	
 </script>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinRegistro">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" align="center">Beneficiario Inexistente</h4>
+				</div>
+				<div class="modal-body">
+					<form id="attributeForm" role="form">
+						<div class="form-group">
+							Recuerda que para registarte a los talleres &uacute;nicamente lo puedes llevar a cabo si realizaste con anterioridad tu registro electr&oacute;nico, si entregaste tus documentos y
+	                        si estos fueron aceptados. <br /><br />
+	                        
+	                        1. Verifica que el dato que proporcionaste para ingresar al sistema es correcto (CURP, PS o No. de cuenta), ya que puede ser un error al teclear.<br /><br />
+	                        
+	                        Si los datos proporcionados son correctos, comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs) para que puedan brindarte mayor informaci&oacute;n.<br /><br />  
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<center>
+						Para mayor informaci&oacute;n visita:<br/>
+						<a href="http://www.prepasi.df.gob.mx" target="_blank">www.prepasi.df.gob.mx</a><br/>
+						<a href="https://www.facebook.com/pprepasi" target="_blank">
+							<span class="fa-stack fa-lg">
+                            	<i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                        <a href="https://www.twitter.com/P_Prepa_Si" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                        </a>
+                        <a href="https://www.instagram.com/actividadesps/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                                </span>
+                        </a><br/>
+						Atenci&oacute;n telef&oacute;nica Prepa S&iacute; 1102 1750 (L a V de 9 a 18 hrs)
+					</center>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
 <div class="register-container container">
 	<div class="row">                
 		<div class="register">
-			<form role="form" id="buscar_beneficiario" name="buscar_beneficiario" action="" method="post">
+			<form role="form" id="buscar_beneficiario" name="buscar_beneficiario" action="" method="post" autocomplete="off">
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
                  	<a href="http://www.prepasi.df.gob.mx/">	<img  src="resources/formulario/img/logo_gdf_fidegar.png" style="padding-top:10px;" align="top" />&nbsp;</a>
                  </div>
