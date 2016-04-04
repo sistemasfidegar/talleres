@@ -4,7 +4,7 @@
 
 
     		$("#guardar").click(function () {
-    			if($("#matricula_asignada").val() != ""  ) //&& $("#matricula_asignada").val()
+    			if($("#matricula_asignada").val() != ""  ) 
     	        {
     				$.blockUI({message: 'Procesando por favor espere...'});
     	        	jQuery.ajax({
