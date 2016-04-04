@@ -75,12 +75,13 @@
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
                  	<a href="http://www.prepasi.df.gob.mx/">	<img  src="resources/formulario/img/logo_gdf_fidegar.png" style="padding-top:10px;" align="top" />&nbsp;</a>
                  </div>
-                 <?php	if (isset($disponible) && $disponible == 1){?>
+                 <?php	if (isset($disponible)){ 
+                 			if($disponible == 1) { ?>
 				<div class="form-goup">
 					<br>
 					<table width="100%" border="0">		                        	
 			        	<tr>
-			        		<td>NO HAY ACTIVACIONES DE TARJETA EN ESTE MOMENTO</td>		                        		
+			        		<td>NO HAY TALLERES POR IMPARTIR EN ESTE MOMENTO</td>		                        		
 			            </tr>
 			            <tr><td>&nbsp;&nbsp;</td></tr>
 			            <tr><td>&nbsp;&nbsp;</td></tr>
@@ -92,7 +93,8 @@
 		                	</td>
 	                	</tr>
 			        </table>       	
-					</div>					
+					</div>	
+					<?php } ?>				
 				<?php } else { ?>
                  <br>
                  	<div style="text-align:CENTER !important;"><label class="leyenda" style="color:#E6007E; padding-left:20px;"> REGISTRO TALLER </label></div>

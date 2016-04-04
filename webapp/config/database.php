@@ -77,7 +77,8 @@ $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
 	'username' => 'postgres',
-	'password' => 'koni.pink',
+	//'password' => 'koni.pink',
+	'password' => 'cobos',
 	'database' => 'talleres',
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
@@ -93,4 +94,27 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
+);
+
+$db['beneficiarios'] = array(
+		'dsn'	=> '',
+		'hostname' => 'localhost',
+		'username' => 'postgres',
+		//'password' => 'koni.pink',
+		'password' => 'cobos',
+		'database' => 'beneficiarios_prepasi_v1',
+		'dbdriver' => 'postgre',
+		'dbprefix' => '',
+		'pconnect' => FALSE,
+		'db_debug' => (ENVIRONMENT !== 'production'),
+		'cache_on' => FALSE,
+		'cachedir' => '',
+		'char_set' => 'utf8',
+		'dbcollat' => 'utf8_general_ci',
+		'swap_pre' => '',
+		'encrypt' => FALSE,
+		'compress' => FALSE,
+		'stricton' => FALSE,
+		'failover' => array(),
+		'save_queries' => TRUE
 );

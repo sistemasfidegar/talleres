@@ -5,6 +5,7 @@ if (! defined ( 'BASEPATH' ))
 class M_registro extends MY_Model {
 	function __construct() {
 		parent::__construct ();
+		$db_beneficiarios = $this->load->database('beneficiarios', TRUE);
 	}
 	
 	/**
@@ -25,11 +26,11 @@ class M_registro extends MY_Model {
 	 * @param unknown $dato
 	 */
 	function getMatricula($dato) {
-		$this->sql = "SELECT B.matricula_asignada
+		$db_beneficiarios->sql = "SELECT B.matricula_asignada
 		FROM beneficiarios B
 		INNER JOIN b_personal P on B.matricula_asignada = P.matricula_asignada
-		WHERE  P.matricula_asignada ='$dato' OR P.CURP='$dato' and b.id_archivo IN (1,2);";
-		$results = $this->db->query ( $this->sql );
-		return $results->result_array ();
+		WHERE  P.matricula_asignada = '$dato' OR P.CURP = '$dato' and B.id_archivo IN (1,2);";
+		$results = $db_beneficiarios->query($db_beneficiarios->sql);
+		return $results->result_array();
 	}
 }
