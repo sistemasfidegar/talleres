@@ -368,7 +368,7 @@ $config['encryption_key'] = '';
 |
 */
 $config['sess_driver'] = 'database';
-$config['sess_cookie_name'] = 'registro_prepasi';
+$config['sess_cookie_name'] = 'talleres_prepasi';
 $config['sess_expiration'] = 1800;
 $config['sess_save_path'] = 'ci_sessions';
 $config['sess_match_ip'] = FALSE;
