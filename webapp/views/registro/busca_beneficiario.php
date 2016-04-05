@@ -66,8 +66,7 @@
 						</div>
 					</form>
 				</div>
-				<div class="modal-footer">
-					<center>
+				<div class="modal-footer" style="text-align: center;">
 						Para mayor informaci&oacute;n visita:<br/>
 						<a href="http://www.prepasi.df.gob.mx" target="_blank">www.prepasi.df.gob.mx</a><br/>
 						<a href="https://www.facebook.com/pprepasi" target="_blank">
@@ -89,7 +88,6 @@
                                 </span>
                         </a><br/>
 						Atenci&oacute;n telef&oacute;nica Prepa S&iacute; 1102 1750 (L a V de 9 a 18 hrs)
-					</center>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -145,7 +143,7 @@
 								          <td colspan="2"><input type="text" id="matricula_escuela" name="matricula_escuela" value="" placeholder="                    Ingresa matricula (unam)" style="width:80%; text-transform:uppercase;"/></td>
 								        </tr>
 								        <tr>
-									      <td colspan ="2""center">
+									      <td colspan ="2">
 								          	  <div class="box-footer" style="text-align: center;" >
 							     				<button style="width:50%;" id="guardar" name="guardar" type="button" class="btn">Consultar</button>
 							     		   	  </div>

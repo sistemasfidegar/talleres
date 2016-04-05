@@ -46,4 +46,46 @@ class Registro extends CI_Controller {
 			echo 'bad';
 		}
 	}
+	
+	function nuevo($matricula) {
+		$datos['title'] = 'Registro Taller';
+		$disponibilidad = $this->m_registro->getDisponibilidad();
+		
+		$this->load->view('layout/header', $datos, false);
+		$this->load->view('layout/aviso', false, false);
+		
+		if(!empty($disponibilidad)) {
+			$talleres = $this->m_registro->getTalleres();
+			
+			if(!empty($talleres)) {
+				$beneficiario = $this->m_registro->getDatos($matricula);
+				
+				if(!empty($beneficiario)) {
+					$datos['matricula'] = $matricula;
+					$datos['beneficiario'] = $beneficiario[0];
+					$datos['sedes'] = $disponibilidad;
+					$datos['talleres'] = $talleres;
+					$this->load->view('registro/nuevo', $datos, false);
+				} else {
+					//expediente con inconsistencias
+					$datos['nodisponile'] = 3;
+					$this->load->view('activacion/activacion', $datos, false);
+				}
+			} else {
+				//sin talleres disponibles
+				$datos['nodisponile'] = 2;
+				$this->load->view('activacion/activacion', $datos, false);
+			}
+		} else {
+			//sin sedes disponibles
+			$datos['nodisponile'] = 1;
+			$this->load->view('activacion/activacion', $datos, false);
+		}
+		
+		$this->load->view('layout/footer', false, false);
+	}
+	
+	function guardar() {
+		
+	}
 }
