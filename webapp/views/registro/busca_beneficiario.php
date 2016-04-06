@@ -1,11 +1,8 @@
 
 <script type="text/javascript">
         jQuery(document).ready(function(){
-
-
     		$("#guardar").click(function () {
-    			if($("#matricula_asignada").val() != ""  ) 
-    	        {
+    			if($("#matricula_asignada").val() != ""  ) {
     				$.blockUI({message: 'Procesando por favor espere...'});
     	        	jQuery.ajax({
     		            type: 'post',
@@ -13,11 +10,14 @@
     		            url: 'registro/getBeneficiario',
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
-        		            if(data != 'bad') {
-            		            irA('registro/nuevo/'+ data);
-        		            } else {
+        		            if(data == 'bad') {
         		            	$.unblockUI();
         		            	$('#myModalSinRegistro').modal('show'); //open modal
+        		            } else if(data == 'registro') {
+         		            	$.unblockUI();
+         		            	$('#myModalRegistro').modal('show'); //open modal
+         		            } else {
+         		            	irA('registro/nuevo/'+ data);
             		        }
     		            }
     		            
@@ -27,14 +27,17 @@
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: 'registro/ajax_beneficiario_unam/',
+    		            url: 'registro/getBeneficiarioUnam/',
     		            data: {matricula_escuela: $("#matricula_escuela").val()},
     		            success: function (data) {
-    		            	 if(data != 'bad') {
-             		            irA('registro/nuevo/'+ data);
-         		            } else {
+    		            	 if(data == 'bad') {
+    		            		$.unblockUI();
+          		            	$('#myModalSinRegistro').modal('show'); //open modal
+         		            } else if(data == 'registro') {
          		            	$.unblockUI();
-         		            	$('#myModalSinRegistro').modal('show'); //open modal
+         		            	$('#myModalRegistro').modal('show'); //open modal
+         		            } else {
+         		            	irA('registro/nuevo/'+ data);
              		        }
     		            }
     		        });
@@ -63,6 +66,47 @@
 	                        1. Verifica que el dato que proporcionaste para ingresar al sistema es correcto (CURP, PS o No. de cuenta), ya que puede ser un error al teclear.<br /><br />
 	                        
 	                        Si los datos proporcionados son correctos, comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs) para que puedan brindarte mayor informaci&oacute;n.<br /><br />  
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer" style="text-align: center;">
+						Para mayor informaci&oacute;n visita:<br/>
+						<a href="http://www.prepasi.df.gob.mx" target="_blank">www.prepasi.df.gob.mx</a><br/>
+						<a href="https://www.facebook.com/pprepasi" target="_blank">
+							<span class="fa-stack fa-lg">
+                            	<i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                        <a href="https://www.twitter.com/P_Prepa_Si" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                        </a>
+                        <a href="https://www.instagram.com/actividadesps/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                                </span>
+                        </a><br/>
+						Atenci&oacute;n telef&oacute;nica Prepa S&iacute; 1102 1750 (L a V de 9 a 18 hrs)
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalRegistro">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" align="center">Beneficiario Registrado</h4>
+				</div>
+				<div class="modal-body">
+					<form id="attributeForm" role="form">
+						<div class="form-group">
+							¡El beneficiario ya se registr&oacute;!  
 						</div>
 					</form>
 				</div>

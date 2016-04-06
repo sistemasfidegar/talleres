@@ -41,7 +41,32 @@ class Registro extends CI_Controller {
 		$aux = isset($aux[0]['matricula_asignada']) ? $aux[0]['matricula_asignada'] : null;
 	
 		if (!is_null($aux)) {
-			echo $aux;
+			$registro = $this->m_registro->checkRegistroTaller($aux);
+			
+			if(empty($registro)) {
+				echo $aux;
+			} else {
+				echo 'registro';
+			}
+		} else {
+			echo 'bad';
+		}
+	}
+	
+	function getBeneficiarioUnam(){
+		$matricula =  $this->input->post('matricula_escuela');
+		$aux = $this->m_registro->getMatriculaUnam($matricula);
+	
+		$aux = isset($aux[0]['matricula_asignada']) ? $aux[0]['matricula_asignada'] : null;
+	
+		if (!is_null($aux)) {
+			$registro = $this->m_registro->checkRegistroTaller($aux);
+			
+			if(empty($registro)) {
+				echo $aux;
+			} else {
+				echo 'registro';
+			}
 		} else {
 			echo 'bad';
 		}
@@ -86,6 +111,18 @@ class Registro extends CI_Controller {
 	}
 	
 	function guardar() {
+		//verificamos disponibilidad del plantel elegido
+		$disponibilidad = $this->m_registro->getDisponibilidadByPlantel($this->input->post('sede'));
 		
+		if(!empty($disponibilidad)) {
+			//tratamos de realizar la insercion de datos
+			if($this->m_registro->create($this->input->post(), $disponibilidad[0]['total_asistentes'])) {
+				echo 'ok';
+			} else {
+				echo 'bad';
+			}
+		} else {
+			echo 'nodisponible';
+		}
 	}
 }

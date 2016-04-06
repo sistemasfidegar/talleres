@@ -1,3 +1,4 @@
+<?php $direccion = ""; ?>
 <script type="text/javascript">
       function muestraAviso() {        	        			        	 
           bootbox.dialog({
@@ -61,8 +62,11 @@
       	$('#sede').change(function () {
           	if ($('#sede').val() != '-1') {
       			$('#talleres').show(); //muestro mediante id
+      			$('#datos').html('<label class="control-label" style="text-align: left; color:#e6007e;" for="direccion"><?= $direccion ?></label>');
+      			$('#direccion').show(); //muestro mediante id
           	} else {
           		$('#talleres').hide(); //oculto mediante id
+          		$('#direccion').hide(); //muestro mediante id
             }
 		});
 
@@ -91,6 +95,22 @@
   				                function(isConfirm){
   				                	if (isConfirm) {
   				                    	irA('registro');
+  				                    } 
+  				                });
+  				            } else if (data == 'nodisponible') {
+  				            	swal({
+  					            	title: 'Error',
+		                         	  text: 'La Sede seleccionada ya no se encuentra disponible',
+		                         	  type: 'error',
+		                         	  showCancelButton: false,
+		                         	  confirmButtonColor: '#C9302C',
+		                         	  confirmButtonText: 'Ok',
+		                         	  closeOnConfirm: true,   
+		                         	  closeOnCancel: true
+  				                },
+  				                function(isConfirm){
+  				                	if (isConfirm) {
+  				                    	irA('registro/nuevo'+ $('#matricula').val());
   				                    } 
   				                });
   				            } else {
@@ -133,7 +153,7 @@
                 <div id="datos_beneficiario" style="text-align:center; padding-top:10px;">
                 	<div style="text-align:center !important;"><label class="leyenda" style="color:#E6007E; padding-left:20px;">Bienvenid@</label></div>	
 		            <div style="text-align:justify;">
-				  		Para activar tu tarjeta sigue los siguientes pasos:<br/>
+				  		Para registrarte a los talleres sigue los siguientes pasos:<br/>
 				  		1. Verifica que los datos mostrados sean correctos, de lo contrario comun&iacute;cate al tel&eacute;fono 1102 1750 de L a V de 9:00 a 18:00 hrs para que puedan asesorarte.<br />
 				  		2. Selecciona la Sede a donde deseas recibir los talleres y da click en el bot&oacute;n "Continuar".<br/><br/>
 				  	</div>
@@ -164,16 +184,21 @@
       						<select class="form-control" style="text-align: left;" id="sede" name="sede">
   								<option value="-1" style="text-align: center;">Selecciona una sede...</option>
   								<?php foreach ($sedes as $value){ ?>
-			                        		<option value="<?= $value['id_plantel'] ?>"><?= $value['plantel'] ?></option>
-	                        	<?php }?>
+			                        <option value="<?= $value['id_plantel'] ?>"><?= $value['plantel'] ?></option>
+			                    <?php }?>
 							</select>
       					</div>
+  					</div>
+  					<div class="form-group" style="; display: none;" id="direccion">
+  						<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="direccion">Direcci&oacute;n: </label>
+  						<div class="col-sm-offset-1 col-sm-9" style="text-align: left;" id="datos">
+  						</div>
   					</div>
   					<div class="form-group" style="display:none;" id="talleres">
     					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="taller">Talleres: </label><br/><br/>
       					<ul class="list-group">
       						<?php foreach ($talleres as $value){ ?>
-			                        	<li class="list-group-item col-sm-offset-3 col-sm-6"><img src="resources/img/logo_fide_ps.jpg" class="pull-left thumbnail" alt="<?= $value['archivo'] ?>"></img>&nbsp;<?= $value['taller'] ?></li>
+			                        	<li class="list-group-item col-sm-6" style="text-align: left;"><img src="resources/img/" class="img-thumbnail pull-xs-left" alt="<?= $value['archivo'] ?>"></img>&nbsp;<?= $value['taller'] ?></li>
 	                        	<?php } ?>
       						
       					</ul>
