@@ -25,6 +25,7 @@ class M_registro extends MY_Model {
 	 *
 	 * @return cat_ciclo:inicio,fin Fecha de inicio y fecha fin del Taller Activo. Null en caso contrario.
 	 * 
+	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	function getTallerActivo() {
@@ -40,6 +41,7 @@ class M_registro extends MY_Model {
 	 * 
 	 * @return String:matricula_asignada   Matr&iacute;cula asignada. Null en caso contrario.
 	 * 
+	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	function getMatricula($dato) {
@@ -58,6 +60,7 @@ class M_registro extends MY_Model {
 	 * 
 	 * @return String:matricula_asignada   Matr&iacute;cula asignada. Null en caso contrario.
 	 * 
+	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	function getMatriculaUnam($dato){
@@ -73,6 +76,7 @@ class M_registro extends MY_Model {
 	 * 
 	 * @return List:id_plantel, plantel, direccion     Lista de identificadores de los planteles as&iacute; como su nombre y direcci&oacute;n de estos. Null en caso contrario.
 	 * 
+	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	function getDisponibilidad() {
@@ -96,6 +100,7 @@ class M_registro extends MY_Model {
 	 * 
 	 * @return List:Beneficiario    Listado de atributos del beneficiario. Null en caso contrario.
 	 * 
+	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	function getDatos($matricula) {
@@ -118,6 +123,7 @@ class M_registro extends MY_Model {
 	 * @return String:plantel        Nombre de la Sede encontrada. Null en caso contrario.
 	 * @return int:total_asistentes  N&uacute;mero de asistentes que se han registrado en la Sede.
 	 * 
+	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	function getDisponibilidadByPlantel($id_plantel) {
@@ -135,6 +141,7 @@ class M_registro extends MY_Model {
 	 * 
 	 * @return talleres:taller, archivo      Nombre y archivo (imagen) del taller. Null en caso contrario.
 	 * 
+	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	function getTalleres() {
@@ -153,6 +160,7 @@ class M_registro extends MY_Model {
 	 * 
 	 * @return boolean            True en caso de registro y actualizado exitoso. Null en caso contrario.  
 	 * 
+	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	function create($post, $asistentes) {
