@@ -192,4 +192,35 @@ class M_registro extends MY_Model {
 			return false;
 		}
 	}
+	/**
+	 * Obtiene los datos del beneficiatio registrado.
+	 *
+	 * @param  String:$matricula     Matricula asignada a buscar.
+	 *
+	 * @return List:Beneficiario    Listado de atributos del beneficiario. Null en caso contrario.
+	 *
+	 * @author cony jaramillo
+	 */
+	function getRegistro($matricula){
+		$this->sql = "SELECT matricula, plantel, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro
+		FROM registro_taller rt, sede s
+		WHERE rt.id_plantel = s.id_plantel
+		AND matricula='$matricula'";
+		$results = $this->db->query($this->sql);
+		return $results->result_array();
+	}
+	/**
+	 * Obtiene nombre  del beneficiatio registrado.
+	 *
+	 * @param  String:$matricula     Matricula asignada a buscar.
+	 *
+	 * @return List:Beneficiario    nombre del beneficiario. Null en caso contrario.
+	 *
+	 * @author cony jaramillo
+	 */
+	function getNombre($matricula){
+		$this->sql = "SELECT nombre, ap, am FROM beneficiarios 	WHERE matricula_asignada='$matricula'";
+		$results = $this->db_b->query($this->sql);
+		return $results->result_array();
+	}
 }
