@@ -11,14 +11,42 @@ class M_registro extends MY_Model {
 		$this->db_b = $this->load->database('beneficiarios', TRUE);
 	}
 	
+	/**
+	 * Verifica si un beneficiario ya se Registr&oacute; a un taller dentro del ciclo corriente.
+	 * 
+	 * @param String:$matricula    Matr&iacute;cula del Beneficiario a buscar.
+	 * 
+	 * @since  2016-04-06
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
 	function checkRegistroTaller($matricula) {
 		$this->sql = "SELECT matricula 
 				FROM registro_taller RT, cat_ciclo CC 
 				WHERE RT.matricula = '$matricula' 
+				AND RT.id_ciclo = CC.id_ciclo 
 				AND CC.activo is true;";
 		$results = $this->db->query($this->sql);
 		return $results->result_array();
 	}
+	
+	/**
+	 * Obtiene todas las Sedes disponibles para talleres dentro del ciclo corriente.
+	 * 
+	 * @since  2016-04-06
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	function getPlantelesActivos() {
+		$this->sql = "SELECT S.id_plantel, S.plantel
+				FROM sede S, talleres T, taller_plantel TP, cat_ciclo CC 
+				WHERE S.id_plantel = TP.id_plantel 
+				AND T.id_taller = TP.id_taller AND T.id_ciclo = CC.id_ciclo 
+				AND CC.activo is true AND T.activo is true AND S.activo is true 
+				GROUP BY S.plantel, S.capacidad, S.total_asistentes, S.id_plantel 
+				ORDER BY S.plantel ASC;";
+		$results = $this->db->query($this->sql);
+		return $results->result_array();
+	}
+	
 	
 	/**
 	 * M&eacute;todo que obtiene si alg&uacute;n Taller se encuentra Activo o no.
