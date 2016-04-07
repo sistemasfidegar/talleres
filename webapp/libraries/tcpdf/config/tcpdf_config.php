@@ -2,13 +2,13 @@
 //============================================================+
 // File name   : tcpdf_config.php
 // Begin       : 2004-06-11
-// Last Update : 2013-05-16
+// Last Update : 2014-12-11
 //
-// Description : Example of alternative configuration file for TCPDF.
+// Description : Configuration file for TCPDF.
 // Author      : Nicola Asuni - Tecnick.com LTD - www.tecnick.com - info@tecnick.com
 // License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
 // -------------------------------------------------------------------
-// Copyright (C) 2004-2013  Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2004-2014  Nicola Asuni - Tecnick.com LTD
 //
 // This file is part of TCPDF software library.
 //
@@ -29,17 +29,17 @@
 //============================================================+
 
 /**
- * Example of alternative configuration file for TCPDF.
+ * Configuration file for TCPDF.
  * @author Nicola Asuni
  * @package com.tecnick.tcpdf
  * @version 4.9.005
  * @since 2004-10-27
  */
 
-/**
- * Define the following constant to ignore the default configuration file.
- */
-define ('K_TCPDF_EXTERNAL_CONFIG', true);
+// IMPORTANT:
+// If you define the constant K_TCPDF_EXTERNAL_CONFIG, all the following settings will be ignored.
+// If you use the tcpdf_autoconfig.php, then you can overwrite some values here.
+
 
 /**
  * Installation path (/var/www/tcpdf/).
@@ -63,23 +63,23 @@ define ('K_TCPDF_EXTERNAL_CONFIG', true);
  * Default images directory.
  * By default it is automatically set but you can also set it as a fixed string to improve performances.
  */
-define ('K_PATH_IMAGES', dirname(__FILE__).'/../images/');
+//define ('K_PATH_IMAGES', '');
 
 /**
  * Deafult image logo used be the default Header() method.
  * Please set here your own logo or an empty string to disable it.
  */
-define ('PDF_HEADER_LOGO', '');
+define ('PDF_HEADER_LOGO', 'logo_gdf_cgdf.png');
 
 /**
  * Header logo image width in user units.
  */
-define ('PDF_HEADER_LOGO_WIDTH', 30);
+define ('PDF_HEADER_LOGO_WIDTH', 60);
 
 /**
  * Cache directory for temporary files (full path).
  */
-define ('K_PATH_CACHE', sys_get_temp_dir().'/');
+//define ('K_PATH_CACHE', '/tmp/');
 
 /**
  * Generic name for a blank image.
@@ -99,7 +99,7 @@ define ('PDF_PAGE_ORIENTATION', 'P');
 /**
  * Document creator.
  */
-define ('PDF_CREATOR', 'TCPDF');
+define ('PDF_CREATOR', '0');
 
 /**
  * Document author.
@@ -109,12 +109,12 @@ define ('PDF_AUTHOR', 'TCPDF');
 /**
  * Header title.
  */
-define ('PDF_HEADER_TITLE', 'TCPDF Example');
+define ('PDF_HEADER_TITLE', '');
 
 /**
  * Header description string.
  */
-define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
+define ('PDF_HEADER_STRING', "");
 
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].
@@ -124,7 +124,7 @@ define ('PDF_UNIT', 'mm');
 /**
  * Header margin.
  */
-define ('PDF_MARGIN_HEADER', 5);
+define ('PDF_MARGIN_HEADER', 10);
 
 /**
  * Footer margin.
@@ -210,12 +210,17 @@ define('K_THAI_TOPCHARS', true);
  * If true allows to call TCPDF methods using HTML syntax
  * IMPORTANT: For security reason, disable this feature if you are printing user HTML content.
  */
-define('K_TCPDF_CALLS_IN_HTML', true);
+define('K_TCPDF_CALLS_IN_HTML', false);
 
 /**
  * If true and PHP version is greater than 5, then the Error() method throw new exception instead of terminating the execution.
  */
 define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
+
+/**
+ * Default timezone for datetime functions
+ */
+define('K_TIMEZONE', 'UTC');
 
 //============================================================+
 // END OF FILE

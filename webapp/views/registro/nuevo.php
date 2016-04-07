@@ -94,7 +94,7 @@
   				                },
   				                function(isConfirm){
   				                	if (isConfirm) {
-  				                    	irA('registro');
+  				                    	irA('registro/pdf/'+$('#matricula').val());
   				                    } 
   				                });
   				            } else if (data == 'nodisponible') {

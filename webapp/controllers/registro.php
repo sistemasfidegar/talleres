@@ -93,18 +93,18 @@ class Registro extends CI_Controller {
 					$this->load->view('registro/nuevo', $datos, false);
 				} else {
 					//expediente con inconsistencias
-					$datos['nodisponile'] = 3;
-					$this->load->view('activacion/activacion', $datos, false);
+					$datos['disponile'] = 3;
+					$this->load->view('registro/nuevo', $datos, false);
 				}
 			} else {
 				//sin talleres disponibles
-				$datos['nodisponile'] = 2;
-				$this->load->view('activacion/activacion', $datos, false);
+				$datos['disponile'] = 2;
+				$this->load->view('registro/nuevo', $datos, false);
 			}
 		} else {
 			//sin sedes disponibles
-			$datos['nodisponile'] = 1;
-			$this->load->view('activacion/activacion', $datos, false);
+			$datos['disponile'] = 1;
+			$this->load->view('registro/nuevo', $datos, false);
 		}
 		
 		$this->load->view('layout/footer', false, false);
@@ -124,5 +124,221 @@ class Registro extends CI_Controller {
 		} else {
 			echo 'nodisponible';
 		}
+	}
+	function pdf($matricula){
+		
+		$this->load->library('Pdf');
+    	$pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
+    	$pdf->SetCreator(PDF_CREATOR);
+    	$pdf->SetAuthor('Cony Jaramillo');
+    	$pdf->SetTitle('Combrobante');
+    	$pdf->SetSubject('Registro Coordinadores y Promotores');
+    	$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+    	ob_start();
+    	
+    	 
+    	// datos por defecto de cabecera, se pueden modificar en el archivo tcpdf_config_alt.php de libraries/config
+    	$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING, array(0, 64, 255), array(0, 1, 0));
+    	$pdf->setFooterData($tc = array(0, 64, 0), $lc = array(0, 64, 128));
+    	 
+    	// datos por defecto de cabecera, se pueden modificar en el archivo tcpdf_config.php de libraries/config
+    	$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    	$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+    
+    	// se pueden modificar en el archivo tcpdf_config.php de libraries/config
+    	$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+    
+    	// se pueden modificar en el archivo tcpdf_config.php de libraries/config
+    	$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+    	$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+    	//$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+    
+    	// se pueden modificar en el archivo tcpdf_config.php de libraries/config
+    	$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+    
+    	//relación utilizada para ajustar la conversión de los píxeles
+    	$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+    
+    
+    	// ---------------------------------------------------------
+    	// establecer el modo de fuente por defecto
+    	$pdf->setFontSubsetting(true);
+    
+    	// Establecer el tipo de letra
+    
+    	$pdf->SetFont('helvetica', '', 14, '', true);
+    
+    	// Añadir una página
+    	// Este método tiene varias opciones, consulta la documentación para más información.
+    	$pdf->AddPage();
+    
+    	//fijar efecto de sombra en el texto
+    	$pdf->setTextShadow(array('enabled' => true, 'depth_w' => 0.2, 'depth_h' => 0.2, 'color' => array(255, 255, 255), 'opacity' => 1, 'blend_mode' => 'Normal'));
+    	
+    	//$matricula=$this->input->post('matricula');
+    	$registro=$this->m_registro->getRegistro($matricula);
+    	if(!empty($registro)) {
+    		$datos['matricula']=$registro[0]['matricula'];
+    		$datos['plantel']=$registro[0]['plantel'];
+    		$datos['direccion']=$registro[0]['direccion'];
+    		$datos['fecha']=$registro[0]['fecha_registro'];
+    	}
+    	$nombre=$this->m_registro->getNombre($matricula);
+    	if(!empty($nombre)) {
+    		$datos['nombre']=$nombre[0]['nombre'];
+    		$datos['paterno']=$nombre[0]['ap'];
+    		$datos['materno']=$nombre[0]['am'];
+    			
+    	}
+    	$talleres = $this->m_registro->getTalleres();
+    	if(!empty($talleres)) {
+    		$datos['taller']=$talleres;
+    			
+    	}
+    	
+    	
+    	//preparamos y maquetamos el contenido a crear
+    	$html ="";
+    	$html .= "<style type=text/css>";
+    	$html .=" h1 {
+					  
+					    width: 100%;
+					    font-weight: bold;
+					    font-size: 13;
+					    line-height: 2;
+					    text-align: center;
+					    color: #E6007E;
+					}
+    			h2{
+    					text-align: justify;
+    					font-weight: bold;
+						font-size: 9;
+						line-height: 1.5;
+    					color:  #070005;
+    				}
+    			h3{
+    				line-height: 3;
+    				text-align: center;
+    				font-weight: normal;
+    				font-size: 9;
+    				}
+					h4{
+    					text-align: center;
+    					font-weight: bold;
+						font-size: 10;
+						line-height: 1;
+    					color: #070005;
+				}
+    			
+    			h5{
+    					text-align: justify;
+    					font-weight: bold;
+						font-size: 10;
+						line-height: 4;
+    					color:  #070005;
+				}
+    			p {
+    			 	line-height: 1.5;
+    				color: #5E5D5D;
+    				font-weight: bold;
+					text-align: letf;
+    				font-size: 9;
+				}
+			";
+    	
+    	$html .= "</style>";
+    	
+    	$html .='<h1>'.$datos['nombre'].' '.$datos['paterno'].' '.$datos['materno'].'</h1>';//$datos['nombre'].' '.$datos['paterno'].' '.$datos['materno'].
+    	
+    	//$html .="<p><h5></h5></p>";
+    	
+    	$html .='<table border="0">
+	    			<tr>
+	    				<td><h2>FECHA DE REGISTRO</h2></td>
+	    				<td colspan="2"><p>'.fecha_con_letra($datos['fecha']).'</p></td>
+	    			</tr>
+	    			<tr>
+	    				<td><h2>SEDE</h2></td>
+	    				<td colspan="2"><p>'.$datos['plantel'].'</p></td>
+	    			</tr>
+	    			<tr>
+	    				<td><h2>DIRECCIÓN</h2></td>
+	    				<td colspan="2"><p>'.$datos['direccion'].'</p></td>
+	    			</tr>
+    			</table>';
+    	
+    	$html .="";
+    	
+    	// Imprimimos el texto con writeHTMLCell()
+    	//$pdf->writeHTML($html, true, 0, true, 0);
+    	$pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+    	
+    	$style1 = array('padding'=>'auto' );
+    	$style2 = array('width' => 0.3, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0));
+    	$pdf->Line(15, 83, 195, 83, $style2);
+    	    	
+    	$tipos=array('C128A');
+    	$pdf->SetFont('helvetica', '', 9, '', true);
+    	$pdf->Cell(170,34,$matricula,0,0,'C');
+    	$pdf->write1DBarcode($matricula, 'C128A', 75,65,52,11, 0.4, $style1, 'N');
+    	
+    	# Imagenes del Encabezado
+    	
+		
+		
+    	$html1 =" <style type=text/css>
+    			p{
+    				text-align: left;
+    				font-weight: bold;
+					font-size: 9;
+					line-height: 1.5;
+    				color:  #070005;
+    			}
+    			h1 {
+					 width: 100%;
+					 font-weight: bold;
+					 font-size: 13;
+					 line-height: 2;
+					 text-align: center;
+					 color: #E6007E;
+					}
+    			</style>";
+    	
+    	$html1 .='<h1>TALLERES</h1><br><br>';
+    	$html1 .='<table border="0" width="100%">';
+    	
+    	
+    	foreach ($datos['taller'] as $value)////width="100%" height="100%"
+    	{
+    		
+    		$html1 .='
+	    			<tr>
+    				<td width="10%">&nbsp;</td>
+	    				<td width="5%"><img src="resources/img/pink-happy-face.png" alt="test alt attribute"  border="0" /></td>
+    					<td width="3%">&nbsp;</td> 
+	    				<td width="50%"><p>'.$value['taller'].'</p></td>
+	    				<td width="3%">&nbsp;</td>
+	    				<td width="20%"><p>'.$value['fecha_inicio'].'</p></td>
+	    			</tr>
+	    			<tr><td >&nbsp;</td></tr>	    			
+    			';    		
+    	}
+    	
+    	$html1 .='</table>';
+    	//$pdf->writeHTML($html1, true, 0, true, 0);
+    	$pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '95', $html1, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+    	
+    	
+    	// ---------------------------------------------------------
+    	// Cerrar el documento PDF y preparamos la salida
+    	// Este método tiene varias opciones, consulte la documentación para más información.
+    	$nombre_archivo = utf8_decode("Registro.pdf");
+    	
+    
+    	$pdf->Output($nombre_archivo, 'I');
+    	
+    	ob_end_flush();
+		
+		 
 	}
 }
