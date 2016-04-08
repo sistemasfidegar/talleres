@@ -279,8 +279,8 @@ class Registro extends CI_Controller {
     	    	
     	$tipos=array('C128A');
     	$pdf->SetFont('helvetica', '', 9, '', true);
-    	$pdf->Cell(170,34,$matricula,0,0,'C');
-    	$pdf->write1DBarcode($matricula, 'C128A', 75,65,52,11, 0.4, $style1, 'N');
+    	$pdf->Cell(170,40,$matricula,0,0,'C');
+    	$pdf->write1DBarcode($matricula, 'C128A', 75,63,52,11, 0.4, $style1, 'N');
     	
     	# Imagenes del Encabezado
     	
