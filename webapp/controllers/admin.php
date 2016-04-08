@@ -11,8 +11,7 @@ class Admin extends CI_Controller {
 	
 	public function index() {
 		if ($this->m_admin->login()) {
-			$crudAuth = $this->session->userdata('CRUD_AUTH');
-			header("Location: " . base_url('admin/dashboard'));
+			header("Location: " . base_url('asistencia'));
 		} else {
 			$datos['title'] = 'Inicio de Sesi&oacute;n';
 			$this->load->view('layout/header', $datos, false);
@@ -110,6 +109,22 @@ class Admin extends CI_Controller {
 		}
 		
 		header("Location: " . base_url('admin'));
+	}
+	
+	public function profile() {
+		if($this->session->userdata('CRUD_AUTH')) {
+			$usuario = $this->session->userdata('CRUD_AUTH');
+			$datos['title'] = 'Perfil';
+			$datos['sedes'] = $this->m_registro->getPlantelesActivos();
+			$datos['plantel'] = $this->m_registro->getPlantelById($usuario['id_plantel']);
+			$this->load->view('layout/header', $datos, false);
+			$this->load->view('admin/nav', false, false);
+			$this->load->view('layout/aviso', false, false);
+			$this->load->view('admin/edit', $datos, false);
+			$this->load->view('layout/footer', false, false);
+		} else {
+			header("Location: " . base_url('admin'));
+		}
 	}
 	
 	public function excel() {

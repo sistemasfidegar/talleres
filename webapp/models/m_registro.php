@@ -12,6 +12,22 @@ class M_registro extends MY_Model {
 	}
 	
 	/**
+	 * Obtiene los datos del ciclo corriente activo.
+	 * 
+	 * @return List:cat_ciclo  Datos del ciclo activo. Null en caso contrario.
+	 * 
+	 * @since  2016-04-08
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	function getCicloActivo(){
+		$this->sql = "SELECT * 
+				FROM cat_ciclo CC 
+				WHERE CC.activo is true;";
+		$results = $this->db->query($this->sql);
+		return $results->result_array();
+	}
+	
+	/**
 	 * Verifica si un beneficiario ya se registr&oacute; a alg&uacute;n Taller dentro del ciclo corriente.
 	 * 
 	 * @param  String:$matricula
@@ -51,6 +67,16 @@ class M_registro extends MY_Model {
 				ORDER BY S.plantel ASC;";
 		$results = $this->db->query($this->sql);
 		return $results->result_array();
+	}
+	
+	function getPlantelById($id_plantel) {
+		$this->db->select('*');
+		$this->db->from('sede');
+		$this->db->where('id_plantel', $id_plantel);
+		$query = $this->db->get();
+		$plantelInstance = $query->row_array();
+		$query->free_result();
+		return $plantelInstance;
 	}
 	
 	/**
@@ -197,12 +223,15 @@ class M_registro extends MY_Model {
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	function create($post, $asistentes) {
+		//obtenemos el ciclo activo
+		$ciclo = $this->getCicloActivo();
 		//controlamos la transaccion
 		$this->db->trans_begin();
 		$dataRegistroTaller = array(
 				'matricula' => $post['matricula'],
 				'id_plantel' => $post['sede'],
-				'fecha_registro' => date('Y-m-d H:i:s')
+				'fecha_registro' => date('Y-m-d H:i:s'),
+				'id_ciclo' => $ciclo[0]['id_ciclo']
 		);
 		
 		$this->db->insert('registro_taller', $dataRegistroTaller);

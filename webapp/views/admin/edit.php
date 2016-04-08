@@ -1,5 +1,5 @@
 <?php 
-	$CI				= &get_instance();
+	$CI			= &get_instance();
 	$CRUD_AUTH  = $CI->session->userdata('CRUD_AUTH');
 ?>
 
@@ -149,72 +149,58 @@
 <div class="register-container container">
 	<div class="row">                
 		<div class="register">
-			<form id="attributeForm" method="POST" action="<?= base_url() ?>admin/create" class="form-horizontal" role="form" autocomplete="off">
+			<form id="attributeForm" class="form-horizontal" role="form" autocomplete="off">
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
                  	<a href="http://www.prepasi.df.gob.mx/">	<img  src="resources/formulario/img/logo_gdf_fidegar.png" style="padding-top:10px;" align="top" />&nbsp;</a>
                  </div>
                  <div style="text-align: center;">
-				  		Introduce la siguiente informaci&oacute;n para <strong>Agregar un Usuario</strong>:<br/><br/>
+				  		<strong>Perfil</strong>:<br/><br/>
 				  </div>
                  <div class="form-group">
 				    <label class="control-label col-sm-offset-1 col-sm-2" style="text-align: left;" for="nombre">Nombre:</label>
 				    <div class="col-sm-9">
-				      <input class="form-control" id="nombre" name="nombre" type="text" placeholder="Introduzca su nombre" autofocus />
+				      <input class="form-control" id="paterno" name="paterno" type="text" readonly value="<?= isset($CRUD_AUTH['nombre']) ? $CRUD_AUTH['nombre'] : "" ?>"/>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-offset-1 col-sm-2" style="text-align: left;" for="paterno">Apellido Paterno:</label>
 				    <div class="col-sm-9">
-				      <input class="form-control" id="paterno" name="paterno" type="text" placeholder="Introduzca su apellido paterno" />
+				      <input class="form-control" id="paterno" name="paterno" type="text" readonly value="<?= isset($CRUD_AUTH['apellido_paterno']) ? $CRUD_AUTH['apellido_paterno'] : "" ?>"/>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-offset-1 col-sm-2" style="text-align: left;" for="materno">Apellido Materno:</label>
 				    <div class="col-sm-9">
-				      <input class="form-control" id="materno" name="materno" type="text" placeholder="Introduzca su apellido materno" />
+				      <input class="form-control" id="materno" name="materno" type="text" readonly value="<?= isset($CRUD_AUTH['apellido_materno']) ? $CRUD_AUTH['apellido_materno'] : "" ?>"/>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-offset-1 col-sm-2" style="text-align: left;" for="email">Correo electr&oacute;nico:</label>
 				    <div class="col-sm-9">
-				      <input class="form-control" id="email" name="email" type="email" placeholder="Introduzca su correo electr&oacute;nico" />
+				      <input class="form-control" id="email" name="email" type="email" readonly value="<?= isset($CRUD_AUTH['email']) ? $CRUD_AUTH['email'] : "" ?>"/>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-offset-1 col-sm-2" style="text-align: left;" for="usuario">Usuario:</label>
 				    <div class="col-sm-9">
-				      <input class="form-control" id="usuario" name="usuario" type="text" placeholder="Introduzca su usuario" />
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label class="control-label col-sm-offset-1 col-sm-2" style="text-align: left;" for="password">Contrase&ntilde;a:</label>
-				    <div class="col-sm-9">
-				      <input class="form-control" id="password" name="password" type="password" placeholder="Introduzca su contrase&ntilde;a" />
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label class="control-label col-sm-offset-1 col-sm-2" style="text-align: left;" for="password2">Confirmar Contrase&ntilde;a:</label>
-				    <div class="col-sm-9">
-				      <input class="form-control" id="password2" name="password2" type="password" placeholder="Confirme su contrase&ntilde;a" />
+				      <input class="form-control" id="usuario" name="usuario" type="text" readonly value="<?= isset($CRUD_AUTH['usuario']) ? $CRUD_AUTH['usuario'] : "" ?>"/>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="control-label col-sm-offset-1 col-sm-2" style="text-align: left;" for="sede">Sede:</label>
 				    <div class="col-sm-9">
-				      <select class="form-control" style="text-align: left;" id="sede" name="sede">
-  							<option value="-1">Selecciona una sede...</option>
-  							<?php foreach ($sedes as $value){ ?>
-			                	<option value="<?= $value['id_plantel'] ?>"><?= $value['plantel'] ?></option>
-			                <?php }?>
-					  </select>
+				      <input class="form-control" id="plantel[<?= isset($CRUD_AUTH['id_plantel']) ? $CRUD_AUTH['id_plantel'] : "" ?>]" name="plantel" type="text" readonly value="<?= isset($plantel['plantel']) ? $plantel['plantel'] : "" ?>"/>
 				    </div>
 				  </div>
 				  <div style="text-align:right; color:#E60380 !important; cursor:pointer; width:96%;"> 
 			        	<i><a href="javascript:muestraAviso();">Consultar nuestro aviso de privacidad</a></i>
 		          </div>
 				  <div class="form-group"> 
-    				<div class="col-sm-offset-4 col-sm-4">
-						<button id="guardar" type="button" class="btn btn-primary">Guardar</button>
+    				<div class="col-sm-offset-3 col-sm-3">
+						<button id="modificar" type="button" class="btn btn-primary">Modificar</button>
+    				</div>
+    				<div class="col-sm-3">
+						<button id="modificarpass" type="button" class="btn btn-primary">Modificar Contrase&ntilde;a</button>
     				</div>
   				</div>
 			</form>

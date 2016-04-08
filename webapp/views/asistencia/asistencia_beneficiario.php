@@ -4,13 +4,12 @@
 
 
     		$("#guardar").click(function () {
-    			if($("#matricula_asignada").val() != ""  ) 
-    	        {
+    			if($("#matricula_asignada").val() != ""  ) {
     				$.blockUI({message: 'Procesando por favor espere...'});
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: 'asistencia/registroAsistencia',
+    		            url: '<?= base_url('asistencia/registroAsistencia') ?>',
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
         		            if(data == 'registrado') {
@@ -22,42 +21,28 @@
         		            	$.unblockUI();
         		            	$('#myModalSinRegistro').modal('show'); //open modal
             		        }
-        		            else{
+        		            else if(data == 'sintaller') {
+        		            	$.unblockUI();
+        		            	$('#myModalSinTaller').modal('show'); //open modal
+        		            	$("#matricula_asignada").val('');
+        		            } else {
         		            	$.unblockUI();
         		            	$('#myModalRegistro').modal('show'); //open modal
         		            	$('#mensaje').html('Asistencia '+data+' Completo');
         		            	$("#matricula_asignada").val('');
         		            }
-            		            
-    		            }
-    		            
-    		        });
-    	        } /*else if($("#matricula_escuela").val()!= "" ){
-    				$.blockUI({message: 'Procesando por favor espere...'});
-    	        	jQuery.ajax({
-    		            type: 'post',
-    		            dataType: 'html',
-    		            url: 'asistencia/ajax_beneficiario_unam/',
-    		            data: {matricula_escuela: $("#matricula_escuela").val()},
-    		            success: function (data) {
-    		            	 if(data != 'bad') {
-             		            irA('asistencia/nuevo/'+ data);
-         		            } else {
-         		            	$.unblockUI();
-         		            	$('#myModalSinRegistro').modal('show'); //open modal
-             		        }
     		            }
     		        });
-    			}*/
+    	        } 
     		});
         });//ready
+        
         function irA(uri) {
             window.location.href =  uri;
-            
         }	
 </script>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinRegistro">
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinRegistro">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -67,9 +52,9 @@
 				<div class="modal-body">
 					<form id="attributeForm" role="form">
 						<div class="form-group">
-							Lo sentimos no se encontró tu registro a los talleres Prepa Sí
+							Lo sentimos no se encontr&oacute; tu registro a los talleres Prepa S&iacute;
 							<br/>
-							<br/>1. Verifica  que tu matrícula esté escrita correctamente 
+							<br/>1. Verifica  que tu matr&iacute;cula est&eacute; escrita correctamente 
 							<br/><center><img src="resources/img/pink-sad-face.png" alt="codesi" width="50%" class="img-rounded"></center>
 							
 						</div>
@@ -79,12 +64,13 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-<div class="modal fade" tabindex="-1" role="dialog" id="myModalRegistro">
+	
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalRegistro">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">Bienvenido</h4>
+					<h4 class="modal-title" align="center">Bienvenid@</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeForm" role="form">
@@ -98,12 +84,13 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->	
+	
 	<div class="modal fade" tabindex="-1" role="dialog" id="myModalRegistrado">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">¡El beneficiario ya se registró!</h4>
+					<h4 class="modal-title" align="center">¡El beneficiario ya se registr&oacute;!</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeForm" role="form">
@@ -112,31 +99,28 @@
 						</div>
 					</form>
 				</div>
-		<!--  	<div class="modal-footer">
-					<center>
-						Para mayor informaci&oacute;n visita:<br/>
-						<a href="http://www.prepasi.df.gob.mx" target="_blank">www.prepasi.df.gob.mx</a><br/>
-						<a href="https://www.facebook.com/pprepasi" target="_blank">
-							<span class="fa-stack fa-lg">
-                            	<i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                        <a href="https://www.twitter.com/P_Prepa_Si" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                        </a>
-                        <a href="https://www.instagram.com/actividadesps/" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-                                </span>
-                        </a><br/>
-						Atenci&oacute;n telef&oacute;nica Prepa S&iacute; 1102 1750 (L a V de 9 a 18 hrs)
-					</center>
-				</div>-->
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->	
+	
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinTaller">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" align="center">Sin Talleres</h4>
+				</div>
+				<div class="modal-body">
+					<form id="attributeForm" role="form">
+						<div class="form-group">
+							<div class="form-group">
+							Lo sentimos, no se encontraron talleres disponibles para el d&iacute;a de hoy
+							<br/>
+						</div>
+						</div>
+					</form>
+				</div>
+		
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->	

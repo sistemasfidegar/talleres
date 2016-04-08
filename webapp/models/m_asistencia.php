@@ -39,8 +39,8 @@ class M_asistencia extends MY_Model {
 		$results = $this->db->query($this->sql);
 		return $results->result_array();
 	}
-	function insertaAsistencia($idtaller, $matricula){
-			$this->sql="INSERT INTO asistencia(id_taller,matricula) VALUES($idtaller,'$matricula') RETURNING matricula";
+	function insertaAsistencia($idtaller, $matricula, $usuario){
+			$this->sql = "INSERT INTO asistencia(id_taller, matricula, id_usuario) VALUES($idtaller, '$matricula', $usuario) RETURNING matricula";
 			$results = $this->db->query($this->sql);
 			return $results;
 	}

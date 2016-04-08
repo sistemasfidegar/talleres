@@ -13,7 +13,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?= base_url() ?>">Bienvenid@ <?= isset($CRUD_AUTH['usuario']) ? $CRUD_AUTH['usuario'] : ""  ?></a>
+                <a class="navbar-brand" href="<?= base_url('asistencia') ?>">Bienvenid@ <?= isset($CRUD_AUTH['usuario']) ? $CRUD_AUTH['usuario'] : ""  ?></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -32,10 +32,10 @@
 					</li>
 					<?php } ?>
                     <li>
-                        <a href="<?= base_url() ?>admin/logout">Cerrar Sesi&oacute;n</a>
+                        <a href="<?= base_url('admin/logout') ?>">Cerrar Sesi&oacute;n</a>
                     </li>
                     <li>
-                        <a href="<?= base_url() ?>admin/profile">Perfil</a>
+                        <a href="<?= base_url('admin/profile') ?>">Perfil</a>
                     </li>
                     <?php } ?>
                 </ul>
