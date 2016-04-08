@@ -20,14 +20,14 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <?php if($CRUD_AUTH) { ?>
-                    <?php if($CRUD_AUTH['perfil'] == 'Administrador') { ?>
+                    <?php if($CRUD_AUTH['perfil'] == 'Administrador' || $CRUD_AUTH['perfil'] == 'Programador') { ?>
                     <li class="dropdown">
   						<a type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     						Usuarios <span class="caret"></span>
   						</a>
   						<ul class="dropdown-menu">
     						<li><a href="<?= base_url() ?>admin/nuevo">Nuevo Usuario</a></li>
-    						<li><a href="<?= base_url() ?>admin/list">Listar usuarios</a></li>
+    						<li><a href="<?= base_url() ?>admin/listar">Listar usuarios</a></li>
   						</ul>
 					</li>
 					<?php } ?>

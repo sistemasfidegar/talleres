@@ -27,7 +27,7 @@
 		        	materno: {required : true},
 		        	email: {required : true, estructuraemail: true},
 		        	usuario: {required : true},
-		        	password: {required : true},
+		        	password: {required : true, minlength: 8},
 		        	password2: {required : true, passwordigual: true},
 		        	sede: {required : true, selectNone: true}
 		        },
@@ -37,7 +37,7 @@
 		        	materno: {required: "Campo obligatorio"},
 		        	email: {required: "Campo obligatorio", estructuraemail: "Introduce un email v\xc1lido"},
 		        	usuario: {required: "Campo obligatorio"},
-		        	password: {required: "Campo obligatorio"},
+		        	password: {required: "Campo obligatorio", minlength: "Introduce al menos 8 caract\xe9res"},
 		        	password2: {required : "Campo obligatorio", passwordigual: "La confirmaci\xf3n de contrase\xf1a no coincide"},
 		        	sede: {required: "Campo obligatorio", selectNone: "Debe seleccionar una opci\xf3n"}
 		        },
