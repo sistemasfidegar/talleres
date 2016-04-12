@@ -72,6 +72,24 @@ class Registro extends CI_Controller {
 		}
 	}
 	
+	function getBeneficiarioUnamReimpreion(){
+		$matricula =  $this->input->post('matricula_escuela');
+		$aux = $this->m_registro->getMatriculaUnam($matricula);
+	
+		$aux = isset($aux[0]['matricula_asignada']) ? $aux[0]['matricula_asignada'] : null;
+	
+		if (!is_null($aux)) {
+			$registro = $this->m_registro->checkRegistroTaller($aux);
+				
+			if(empty($registro)) {
+				echo 'bad';
+			} else {
+				echo $aux;
+			}
+		} else {
+			echo 'bad';
+		}
+	}
 	function nuevo($matricula) {
 		$datos['title'] = 'Registro Taller';
 		$disponibilidad = $this->m_registro->getDisponibilidad();
