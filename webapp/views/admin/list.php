@@ -318,7 +318,7 @@
 	<div class="text-right">
 		<form action="<?= base_url('admin/excel') ?>" method="post" target="_blank" id="FormularioExportacion">
 			<div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-                 	<a href="http://www.prepasi.df.gob.mx/">	<img  src="resources/formulario/img/pleca_logos.png" style="padding-top:10px;" align="top" />&nbsp;</a>
+                 	<a href="http://www.prepasi.df.gob.mx/">	<img  src="../resources/formulario/img/pleca_logos.png" style="padding-top:10px;" align="top" />&nbsp;</a>
             </div>
             <div style="text-align: center;">
 				  		<strong>Listado de Usuarios:</strong><br/><br/>
