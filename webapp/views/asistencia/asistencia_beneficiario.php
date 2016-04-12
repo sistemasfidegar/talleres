@@ -165,7 +165,7 @@
 							         		<td colspan="2">&nbsp;</td>
 								        </tr>
 								        <tr>
-								          <td colspan="2"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="                 Ingresa tu matricula PS o CURP" style="width:80%; text-transform:uppercase;"/></td>
+								          <td colspan="2"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="                 Ingresa tu matricula PS o CURP" style="width:80%; text-transform:uppercase;" autofocus/></td>
 							        	</tr>
 								         <tr>
 								          <td colspan="2">&nbsp;</td>

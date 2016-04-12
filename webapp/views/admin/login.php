@@ -2,6 +2,13 @@
 	$CI = & get_instance(); 
 	$crudAuth = $CI->input->post('crudAuth');
 ?>
+<script type="text/javascript">
+	function cifrar(){
+		var input_pass = document.getElementById("crudAuth[password]");
+		input_pass.value = sha1(input_pass.value);
+	}
+</script>
+	
 <div class="register-container container">
 	<div class="row">                
 			<div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
@@ -39,7 +46,7 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<input type="submit" class="btn btn-primary btn-block" value="Iniciar Sesi&oacute;n">
+											<input type="submit" class="btn btn-primary btn-block" value="Iniciar Sesi&oacute;n" onclick="cifrar()">
 										</div>
 									</div>
 								</div>

@@ -4,6 +4,13 @@
 ?>
 
 <script type="text/javascript">
+	function cifrar(){
+		var input_pass = document.getElementById("password");
+		input_pass.value = sha1(input_pass.value);
+		var input_pass2 = document.getElementById("password2");
+		input_pass2.value = sha1(input_pass2.value);
+	}
+
       function muestraAviso() {        	        			        	 
           bootbox.dialog({
               title: '<span style=" font-weight:bold; font-size:29px; ">Aviso de Privacidad</span>',
@@ -22,22 +29,22 @@
       $(document).ready(function() {
       	var rules_form = {
 		        rules: {
-		        	nombre: {required : true},
-		        	paterno: {required : true},
-		        	materno: {required : true},
-		        	email: {required : true, estructuraemail: true},
-		        	usuario: {required : true},
-		        	password: {required : true, minlength: 8},
+		        	nombre: {required : true, maxlength: 50},
+		        	paterno: {required : true, maxlength: 50},
+		        	materno: {required : true, maxlength: 50},
+		        	email: {required : true, estructuraemail: true, maxlength: 80},
+		        	usuario: {required : true, maxlength: 20},
+		        	password: {required : true, minlength: 8, maxlength: 255},
 		        	password2: {required : true, passwordigual: true},
 		        	sede: {required : true, selectNone: true}
 		        },
 		        messages: {
-		        	nombre: {required: "Campo obligatorio"},
-		        	paterno: {required: "Campo obligatorio"},
-		        	materno: {required: "Campo obligatorio"},
-		        	email: {required: "Campo obligatorio", estructuraemail: "Introduce un email v\xc1lido"},
-		        	usuario: {required: "Campo obligatorio"},
-		        	password: {required: "Campo obligatorio", minlength: "Introduce al menos 8 caract\xe9res"},
+		        	nombre: {required: "Campo obligatorio", maxlength: "Introduce m\xc1ximo 50 caract\xe9res"},
+		        	paterno: {required: "Campo obligatorio", maxlength: "Introduce m\xc1ximo 50 caract\xe9res"},
+		        	materno: {required: "Campo obligatorio", maxlength: "Introduce m\xc1ximo 50 caract\xe9res"},
+		        	email: {required: "Campo obligatorio", estructuraemail: "Introduce un email v\xc1lido", maxlength: "Introduce m\xc1ximo 80 caract\xe9res"},
+		        	usuario: {required: "Campo obligatorio", maxlength: "Introduce m\xc1ximo 20 caract\xe9res"},
+		        	password: {required: "Campo obligatorio", minlength: "Introduce al menos 8 caract\xe9res", maxlength: "Introduce m\xc1ximo 255 caract\xe9res"},
 		        	password2: {required : "Campo obligatorio", passwordigual: "La confirmaci\xf3n de contrase\xf1a no coincide"},
 		        	sede: {required: "Campo obligatorio", selectNone: "Debe seleccionar una opci\xf3n"}
 		        },
@@ -214,7 +221,7 @@
 		          </div>
 				  <div class="form-group"> 
     				<div class="col-sm-offset-4 col-sm-4">
-						<button id="guardar" type="button" class="btn btn-primary">Guardar</button>
+						<button id="guardar" type="button" class="btn btn-primary" onclick="cifrar()">Guardar</button>
     				</div>
   				</div>
 			</form>

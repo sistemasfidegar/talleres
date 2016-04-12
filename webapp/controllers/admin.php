@@ -103,6 +103,27 @@ class Admin extends CI_Controller {
 		}
 	}
 	
+	public function editPass() {
+		if($this->session->userdata('CRUD_AUTH')) {
+			$actual = $this->input->post('actual');
+			$id_usuario = $this->input->post('usuarioId');
+			
+			if($this->m_admin->checkPass($actual, $id_usuario)) {
+				$password = $this->input->post('password');
+				
+				if ($this->m_admin->changePass($password, $id_usuario)) {
+					echo 'ok';
+				} else {
+					echo 'bad';
+				}
+			} else {
+				echo 'nocoincide';
+			}
+		} else {
+			header("Location: " . base_url('admin'));
+		}
+	}
+	
 	public function logout(){
 		if($this->session->userdata('CRUD_AUTH')) {
 			$this->session->sess_destroy();
@@ -116,7 +137,8 @@ class Admin extends CI_Controller {
 			$usuario = $this->session->userdata('CRUD_AUTH');
 			$datos['title'] = 'Perfil';
 			$datos['sedes'] = $this->m_registro->getPlantelesActivos();
-			$datos['plantel'] = $this->m_registro->getPlantelById($usuario['id_plantel']);
+			$datos['usuario'] = $this->m_admin->getUsuarioById($usuario['id_usuario']);
+			$datos['plantel'] = $this->m_registro->getPlantelById($datos['usuario']['id_plantel']);
 			$this->load->view('layout/header', $datos, false);
 			$this->load->view('admin/nav', false, false);
 			$this->load->view('layout/aviso', false, false);

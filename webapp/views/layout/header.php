@@ -34,6 +34,7 @@
         <script type="text/javascript" src="resources/formulario/js/jquery-ui.js"></script>
         <script type="text/javascript" src="resources/formulario/js/jquery-validate.js"></script>
         <script type="text/javascript" src="resources/formulario/numeric/jquery-numeric.js"></script>
+        <script type="text/javascript" src="resources/js/sha1.js"></script>
         <!--<script type="text/javascript" src="resources/formulario/qtip/jquery.qtip.js"></script>
           -->
 		<script type="text/javascript" src="resources/bootstrap-3.3.6/js/bootstrap.js"></script>

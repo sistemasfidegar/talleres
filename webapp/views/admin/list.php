@@ -17,17 +17,17 @@
 		jQuery(document).ready(function(){
 			var rules_form = {
 			        rules: {
-			        	nombre: {required : true},
-			        	paterno: {required : true},
-			        	materno: {required : true},
-			        	email: {required : true, estructuraemail: true},
+			        	nombre: {required : true, maxlength: 50},
+			        	paterno: {required : true, maxlength: 50},
+			        	materno: {required : true, maxlength: 50},
+			        	email: {required : true, estructuraemail: true, maxlength: 80},
 			        	sede: {required : true, selectNone: true}
 			        },
 			        messages: {
-			        	nombre: {required: "Campo obligatorio"},
-			        	paterno: {required: "Campo obligatorio"},
-			        	materno: {required: "Campo obligatorio"},
-			        	email: {required: "Campo obligatorio", estructuraemail: "Introduce un email v\xc1lido"},
+			        	nombre: {required: "Campo obligatorio", maxlength: "Introduce m\xc1ximo 50 caract\xe9res"},
+			        	paterno: {required: "Campo obligatorio", maxlength: "Introduce m\xc1ximo 50 caract\xe9res"},
+			        	materno: {required: "Campo obligatorio", maxlength: "Introduce m\xc1ximo 50 caract\xe9res"},
+			        	email: {required: "Campo obligatorio", estructuraemail: "Introduce un email v\xc1lido", maxlength: "Introduce m\xc1ximo 80 caract\xe9res"},
 			        	sede: {required: "Campo obligatorio", selectNone: "Debe seleccionar una opci\xf3n"}
 			        },
 			        ignore: ":not(:visible)",

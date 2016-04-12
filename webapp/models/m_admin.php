@@ -31,7 +31,7 @@ class M_admin extends MY_Model {
 			$this->db->select('*');
 			$this->db->from('usuario');
 			$this->db->where('usuario', $this->security->xss_clean($crudAuth['name']));
-			$this->db->where('password', sha1($this->security->xss_clean($crudAuth['password'])));
+			$this->db->where('password', $this->security->xss_clean($crudAuth['password']));
 			$query = $this->db->get();
 			$usuarioInstance = $query->row_array();
 			$query->free_result();
@@ -64,7 +64,7 @@ class M_admin extends MY_Model {
 				'apellido_materno' => $post['materno'],
 				'email' => $post['email'],
 				'usuario' => $this->security->xss_clean($post['usuario']),
-				'password' => sha1($this->security->xss_clean($post['password'])),
+				'password' => $this->security->xss_clean($post['password']),
 				'id_plantel' => $post['sede'],
 				'perfil' => 'Capturista'
 		);
@@ -94,6 +94,87 @@ class M_admin extends MY_Model {
 		return $results->result_array();
 	}
 	
+	/**
+	 * Obtiene todos los datos de un usuario de acuerdo a su identificador.
+	 * 
+	 * @param  int:$id_usuario  Identificador del usuario a buscar.
+	 * 
+	 * @return List:usuario    Lista de los datos del usuario encontrado. Null en caso contrario.
+	 * 
+	 * @since  2016-04-11
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	public function getUsuarioById($id_usuario) {
+		$this->db->select('*');
+		$this->db->from('usuario');
+		$this->db->where('id_usuario', $this->security->xss_clean($id_usuario));
+		$query = $this->db->get();
+		$usuarioInstance = $query->row_array();
+		$query->free_result();
+		
+		return $usuarioInstance;
+	}
+	
+	/**
+	 * Verifica si la contrase&ntilde;a ingresada perteneciente a un usuario en espec&iacute;fico es la correcta.
+	 * 
+	 * @param String:$actual     Contrase&nacute;a actual registrada en la Base de Datos.
+	 * @param int:$id_usuario    Identificador del usuario a buscar.$this
+	 * 
+	 * @return boolean           True en caso exitoso. False en caso contrario.
+	 * 
+	 * @since  2016-04-11
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	public function checkPass($actual, $id_usuario) {
+		$this->db->select('usuario');
+		$this->db->from('usuario');
+		$this->db->where('id_usuario', $this->security->xss_clean($id_usuario));
+		$this->db->where('password', $this->security->xss_clean($actual));
+		$query = $this->db->get();
+		$usuarioInstance = $query->row_array();
+		$query->free_result();
+		
+		if (!empty($usuarioInstance)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Actualiza la contrase&ntilde;a de un usuario en espec&iacute;fico.
+	 * 
+	 * @param String:$password      Nueva contrase&nacute;a.
+	 * @param int:$id_usuario       Identificador del usuario a actualizar su contrase&ntilde;a.
+	 * 
+	 * @return boolean              True en caso de actualizado exitoso. False en caso contrario.
+	 * 
+	 * @since  2016-04-11
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	public function changePass($password, $id_usuario) {
+		$data = array(
+				'password' => $this->security->xss_clean($password),
+		);
+		
+		$this->db->where('id_usuario', $this->security->xss_clean($id_usuario));
+		
+		if($this->db->update('usuario', $data)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Se encarga de construir una Tabla en HTML con todos los usuarios existentes en la Base de Datos con el perfil 'Capturista'
+	 * 
+	 * @return html         Listado de todos los usuarios. Null en caso contrario.
+	 * 
+	 * @since  2016-04-08
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
 	public function builtUsuarios() {
 		$html = '';
 		$usuarioInstance = $this->getUsuarios();
@@ -130,6 +211,16 @@ class M_admin extends MY_Model {
 		return $html;
 	}
 	
+	/**
+	 * Elimina a un usuario en espec&iacute;fico de la base de datos.
+	 * 
+	 * @param int:$post['usuarioId']    Identificador del usuario a eliminar.
+	 * 
+	 * @return boolean                  True en caso de eliminado exitoso. False en caso contrario.
+	 * 
+	 * @since  2016-04-08
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
 	public function delete($post) {
 		$this->db->where('id_usuario', $post['usuarioId']);
 		
@@ -140,6 +231,16 @@ class M_admin extends MY_Model {
 		}
 	}
 	
+	/**
+	 * Edita la informaci&oacute;n personal de un usuario en espec&iacute;fico.
+	 * 
+	 * @param  List:$post      Atributos del usuario a editar ('nombre', 'apellido paterno', 'apellido materno', 'email' y 'sede').
+	 * 
+	 * @return boolean         True en caso de editado exitoso. False en caso contrario
+	 * 
+	 * @since  2016-04-08
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
 	public function edit($post) {
 		$data = array(
 				'nombre' => $post['nombre'],
