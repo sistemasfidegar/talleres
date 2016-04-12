@@ -74,7 +74,7 @@ define ('PDF_HEADER_LOGO', 'pleca_logos.png');
 /**
  * Header logo image width in user units.
  */
-define ('PDF_HEADER_LOGO_WIDTH', 60);
+define ('PDF_HEADER_LOGO_WIDTH', 105);
 
 /**
  * Cache directory for temporary files (full path).

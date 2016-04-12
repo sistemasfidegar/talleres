@@ -1,54 +1,52 @@
 
 <script type="text/javascript">
         jQuery(document).ready(function(){
-    		$("#guardar").click(function () {
-    			var busqueda =$('input:radio[name=busqueda]:checked').val();
+            
+        	$("#reimpresión").click(function () {
+        		if($("#matricula_asignada").val() != ""  ) {
+    				$.blockUI({message: 'Procesando por favor espere...'});
+    	        	jQuery.ajax({
+    		            type: 'post',
+    		            dataType: 'html',
+    		            url: 'registro/getBeneficiario',
+    		            data: {matricula: $("#matricula_asignada").val()},
+    		            success: function (data) {
+        		            if(data == 'bad') {
+        		            	$.unblockUI();
+        		            	$('#myModalSinRegistro').modal('show'); //open modal
+        		            } 
+         		            else
+	         		        {
+         		            	irA('registro/pdf/'+ $("#matricula_asignada").val());
+            		        }
+    		            }
+    		            
+    		        });
+    	        } else if($("#matricula_escuela").val()!= "" ){
+    				$.blockUI({message: 'Procesando por favor espere...'});
+    	        	jQuery.ajax({
+    		            type: 'post',
+    		            dataType: 'html',
+    		            url: 'registro/getBeneficiarioUnamReimpreion/',
+    		            data: {matricula_escuela: $("#matricula_escuela").val()},
+    		            success: function (data) {
+    		            	if(data == 'bad') {
+        		            	$.unblockUI();
+        		            	$('#myModalSinRegistro').modal('show'); //open modal
+        		            } 
+         		            else
+	         		        {
+         		            	irA('registro/pdf/'+ data);
+            		        }
+    		            }
+    		        });
+    			}
+        	});
 
-    			if(busqueda =='reimpresion')
-        		{
-    				if($("#matricula_asignada").val() != ""  ) {
-	    				$.blockUI({message: 'Procesando por favor espere...'});
-	    	        	jQuery.ajax({
-	    		            type: 'post',
-	    		            dataType: 'html',
-	    		            url: 'registro/getBeneficiario',
-	    		            data: {matricula: $("#matricula_asignada").val()},
-	    		            success: function (data) {
-	        		            if(data == 'bad') {
-	        		            	$.unblockUI();
-	        		            	$('#myModalSinRegistro').modal('show'); //open modal
-	        		            } 
-	         		            else
-		         		        {
-	         		            	irA('registro/pdf/'+ $("#matricula_asignada").val());
-	            		        }
-	    		            }
-	    		            
-	    		        });
-	    	        } else if($("#matricula_escuela").val()!= "" ){
-	    				$.blockUI({message: 'Procesando por favor espere...'});
-	    	        	jQuery.ajax({
-	    		            type: 'post',
-	    		            dataType: 'html',
-	    		            url: 'registro/getBeneficiarioUnamReimpreion/',
-	    		            data: {matricula_escuela: $("#matricula_escuela").val()},
-	    		            success: function (data) {
-	    		            	if(data == 'bad') {
-	        		            	$.unblockUI();
-	        		            	$('#myModalSinRegistro').modal('show'); //open modal
-	        		            } 
-	         		            else
-		         		        {
-	         		            	irA('registro/pdf/'+ data);
-	            		        }
-	    		            }
-	    		        });
-	    			}
-            		
-        		}
-    			else if(busqueda =='inscripcion')
-        		{
-	    			if($("#matricula_asignada").val() != ""  ) {
+            
+    		$("#registro").click(function () {
+
+        		if($("#matricula_asignada").val() != ""  ) {
 	    				$.blockUI({message: 'Procesando por favor espere...'});
 	    	        	jQuery.ajax({
 	    		            type: 'post',
@@ -88,8 +86,6 @@
 	    		            }
 	    		        });
 	    			}
-    			}
-    			
     		});
         });//ready
         function irA(uri) {
@@ -214,47 +210,44 @@
 					<?php } ?>				
 				<?php } else { ?>
                  <br>
-                 	<div style="text-align:CENTER !important;"><label class="leyenda" style="color:#E6007E; padding-left:20px; font-size: 180%;"> REGISTRO TALLER </label></div>
+                 	<div style="text-align:CENTER !important;"><label  style="color:#E6007E;  font-size: 180%;"> REGISTRO TALLER </label></div>
 						<table width="620" border="0" align="center" cellpadding="0" cellspacing="0">
 							 <tr>
 							   	<td bgcolor="">
 							    	<table width="95%" border="0" align="center" cellpadding="0" cellspacing="5">
 							    	    <tr>
-							        		<td colspan="6" align="center" class="">Elige un método de búsqueda:</td>
+							        		<td colspan="3" align="center" class="">Elige un método de búsqueda:</td>
 							          	</tr>      
 							        	 <tr>
-							         		<td colspan="6">&nbsp;</td>
+							         		<td colspan="3">&nbsp;</td>
 								        </tr>
 								        <tr>
-								          <td colspan="6"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="                 Ingresa tu matricula PS o CURP" style="width:80%; text-transform:uppercase;"/></td>
+								          <td colspan="3"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="                 Ingresa tu matricula PS o CURP" style="width:87%; text-transform:uppercase;"/></td>
 							        	</tr>
 								         <tr>
-								          <td colspan="6">&nbsp;</td>
+								          <td colspan="3">&nbsp;</td>
 								        </tr>
 								        <tr>
-								          <td colspan="6"><input type="text" id="matricula_escuela" name="matricula_escuela" value="" placeholder="                    Ingresa matricula (unam)" style="width:80%; text-transform:uppercase;"/></td>
+								          <td colspan="3"><input type="text" id="matricula_escuela" name="matricula_escuela" value="" placeholder="                    Ingresa matricula (unam)" style="width:87%; text-transform:uppercase;"/></td>
 								        </tr>
 								        <tr>
-			                               <td width="30%" align="center" style="font-size: 80%;">Inscripcion </td>
-			                               <td width="10%" align=""><input type="radio" id="busqueda" name="busqueda"  value="inscripcion" checked="checked"></td> 
-			                               <td width="10%">&nbsp;</td>
-			                               <td width="30%" align="center" style="font-size: 80%;">Reimpresión</td>
-			                               <td width="10%" align="left">	<input type="radio" id="busqueda" name="busqueda"  value="reimpresion"></td>
-			                               <td width="10%">&nbsp;</td>
-			                            </tr>
+							         		<td colspan="3">&nbsp;</td>
+								        </tr>
 								        <tr>
-									      <td colspan ="6">
+									      <td width="50%">
 								          	  <div class="box-footer" style="text-align: center;" >
-							     				<button style="width:50%;" id="guardar" name="guardar" type="button" class="btn">Consultar</button>
+							     				<button style="width:70%; height:40%;" id="registro" name="registro" type="button" class="btn">Registro</button>
+							     		   	  </div>
+							        	  </td>
+							        	  <td width="50%">
+								          	  <div class="box-footer" style="text-align: center;" >
+							     				<button style="width:70%; height:40%;" id="reimpresión" name="reimpresión" type="button" class="btn">Reimpresión</button>
 							     		   	  </div>
 							        	  </td>
 								        </tr>
-								        <tr>
-								          <td>&nbsp;</td>
-							         	  <td>&nbsp;</td>
-							        	</tr>
+								       
 							        	<tr>
-							        	<td>&nbsp;</td>
+							        	<td colspan="3">&nbsp;</td>
 									  	<td><div style="width:; display:inline-block;" id="letrero"> </div></td>
 									    <td>&nbsp;</td>
 							        	</tr>
