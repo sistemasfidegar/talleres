@@ -12,7 +12,7 @@
 <div class="register-container container">
 	<div class="row">                
 			<div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-            	<a href="http://www.prepasi.df.gob.mx/"><img  src="resources/formulario/img/logo_gdf_fidegar.png" style="padding-top:10px;" align="top" />&nbsp;</a>
+            	<a href="http://www.prepasi.df.gob.mx/"><img  src="resources/formulario/img/pleca_logos.png" style="padding-top:10px;" align="top" />&nbsp;</a>
             </div>
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
 				<div class="panel panel-default">

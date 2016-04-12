@@ -145,9 +145,9 @@
 <div class="register-container container">
 	<div class="row">                
     	<div class="register">
-        	<form role="form" class="form-horizontal" id="registro" name="registro" action="<?= base_url() ?>registro/guardar" method="post">
+        	<form role="form" class="form-horizontal" id="registro" name="registro" action="<?= base_url('registro/guardar') ?>" method="post">
         		<div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-                	<img src="resources/formulario/img/logo_gdf_fidegar.png" style="padding-top:10px;" align="top" />&nbsp;                        	
+                	<img src="resources/formulario/img/pleca_logos.png" style="padding-top:10px;" align="top" />&nbsp;                        	
                 </div>
                 <?php if(isset($matricula)) { ?>
                 <div id="datos_beneficiario" style="text-align:center; padding-top:10px;">
