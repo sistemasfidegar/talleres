@@ -204,7 +204,7 @@ class M_registro extends MY_Model {
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	function getTalleres() {
-		$this->sql = "SELECT T.taller, T.archivo, T.fecha_inicio
+		$this->sql = "SELECT T.taller, T.archivo, to_char(T.fecha_inicio, 'DD-MM-YYYY') as fecha_inicio
 				FROM talleres T, cat_ciclo CC 
 				WHERE T.id_ciclo = CC.id_ciclo AND CC.activo is true AND T.activo is true;";	
 		$results = $this->db->query($this->sql);
