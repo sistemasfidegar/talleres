@@ -126,7 +126,7 @@
   				                },
   				                function(isConfirm){
   				                	if (isConfirm) {
-  				                    	irA('admin/nuevo');
+  				                    	irA('Admin/nuevo');
   				                    } 
   				                });
   				            } else {
@@ -156,9 +156,9 @@
 <div class="register-container container">
 	<div class="row">                
 		<div class="register">
-			<form id="attributeForm" method="POST" action="<?= base_url() ?>admin/create" class="form-horizontal" role="form" autocomplete="off">
+			<form id="attributeForm" method="POST" action="<?= base_url() ?>Admin/create" class="form-horizontal" role="form" autocomplete="off">
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-                 	<a href="http://www.prepasi.df.gob.mx/">	<img  src="../resources/formulario/img/pleca_logos.png" style="padding-top:10px;" align="top" />&nbsp;</a>
+                 	<a href="<?= base_url('Asistencia') ?>">	<img  src="resources/formulario/img/pleca_logos.png" style="padding-left:180px; padding-top:10px;" align="top" />&nbsp;</a>
                  </div>
                  <div style="text-align: center;">
 				  		Introduce la siguiente informaci&oacute;n para <strong>Agregar un Usuario</strong>:<br/><br/>

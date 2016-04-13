@@ -55,7 +55,7 @@
 							Lo sentimos no se encontr&oacute; tu registro a los talleres Prepa S&iacute;
 							<br/>
 							<br/>1. Verifica  que tu matr&iacute;cula est&eacute; escrita correctamente 
-							<br/><center><img src="../resources/img/pink-sad-face.png" alt="codesi" width="50%" class="img-rounded"></center>
+							<br/><center><img src="resources/img/pink-sad-face.png" alt="codesi" width="50%" class="img-rounded"></center>
 							
 						</div>
 					</form>
@@ -76,7 +76,7 @@
 					<form id="attributeForm" role="form">
 						<div class="form-group">
 							 <label for="mensaje" class="control-label"><div id="mensaje"></div></label><br/><br/>
-							 <br/><center><img src="../resources/img/ok.png" alt="codesi" width="50%" class="img-rounded"></center>
+							 <br/><center><img src="resources/img/ok.png" alt="codesi" width="50%" class="img-rounded"></center>
 						</div>
 					</form>
 				</div>
@@ -95,7 +95,7 @@
 				<div class="modal-body">
 					<form id="attributeForm" role="form">
 						<div class="form-group">
-							 <br/><center><img src="../resources/img/pink-happy-face.png" alt="codesi" width="50%" class="img-rounded"></center>
+							 <br/><center><img src="resources/img/pink-happy-face.png" alt="codesi" width="50%" class="img-rounded"></center>
 						</div>
 					</form>
 				</div>
@@ -129,7 +129,7 @@
 		<div class="register">
 			<form role="form" id="buscar_beneficiario" name="buscar_beneficiario" action="" method="post" autocomplete="off">
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-                 	<a href="http://www.prepasi.df.gob.mx/">	<img  src="../resources/formulario/img/pleca_logos.png" style="padding-top:10px;" align="top" />&nbsp;</a>
+                 	<img  src="resources/formulario/img/pleca_logos.png" style="padding-left:180px; padding-top:10px;" align="top" />&nbsp;
                  </div>
                  <?php	if (isset($disponible)){ 
                  			if($disponible == 1) { ?>
@@ -144,7 +144,7 @@
 			            <tr>
 				            <td>
 					            <div style="text-align:rigth; padding-left:20px;  min-height:73px;" class="span4">
-		                			<a href="http://www.prepasi.df.gob.mx/" class="btn">Terminar</a>                                         	
+		                			<a href="<?= base_url() ?>" class="btn">Terminar</a>                                         	
 		                		</div>
 		                	</td>
 	                	</tr>

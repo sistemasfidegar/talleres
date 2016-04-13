@@ -26,8 +26,8 @@
     						Usuarios <span class="caret"></span>
   						</a>
   						<ul class="dropdown-menu">
-    						<li><a href="<?= base_url() ?>admin/nuevo">Nuevo Usuario</a></li>
-    						<li><a href="<?= base_url() ?>admin/listar">Listar usuarios</a></li>
+    						<li><a href="<?= base_url('admin/nuevo') ?>">Nuevo Usuario</a></li>
+    						<li><a href="<?= base_url('admin/listar') ?>">Listar usuarios</a></li>
   						</ul>
 					</li>
 					<?php } ?>

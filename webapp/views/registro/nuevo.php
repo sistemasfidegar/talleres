@@ -147,7 +147,7 @@
     	<div class="register">
         	<form role="form" class="form-horizontal" id="registro" name="registro" action="<?= base_url('registro/guardar') ?>" method="post">
         		<div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-                	<img src="resources/formulario/img/pleca_logos.png" style="padding-top:10px;" align="top" />&nbsp;                        	
+                	<img src="resources/formulario/img/pleca_logos.png" style="padding-left:180px; padding-top:10px;" align="top" />&nbsp;                        	
                 </div>
                 <?php if(isset($matricula)) { ?>
                 <div id="datos_beneficiario" style="text-align:center; padding-top:10px;">
@@ -198,7 +198,7 @@
     					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="taller">Talleres: </label><br/><br/>
       					<ul class="list-group">
       						<?php foreach ($talleres as $value){ ?>
-			                        	<li class="list-group-item col-sm-6" style="text-align: left;"><img src="resources/img/" class="img-thumbnail pull-xs-left" alt="<?= $value['archivo'] ?>"></img>&nbsp;<?= $value['taller'] ?></li>
+			                        	<li class="list-group-item col-sm-6" style="text-align: left;"><img src="" class="img-thumbnail pull-xs-left" alt="<?= $value['archivo'] ?>"></img>&nbsp;<?= $value['taller'] ?></li>
 	                        	<?php } ?>
       						
       					</ul>
@@ -225,7 +225,7 @@
 			            		<tr>
 				            		<td>
 					            		<div style="text-align:rigth; padding-left:20px;  min-height:73px;" class="span4">
-		                					<a href="http://www.prepasi.df.gob.mx/" class="btn">Terminar</a>                                         	
+		                					<a href="<?= base_url() ?>" class="btn">Terminar</a>                                         	
 		                				</div>
 		                			</td>
 	                			</tr>
@@ -243,7 +243,7 @@
 					            		<tr>
 						            		<td>
 							            		<div style="text-align:rigth; padding-left:20px;  min-height:73px;" class="span4">
-				                					<a href="http://www.prepasi.df.gob.mx/" class="btn">Terminar</a>                                         	
+				                					<a href="<?= base_url() ?>" class="btn">Terminar</a>                                         	
 				                				</div>
 				                			</td>
 			                			</tr>
@@ -275,7 +275,7 @@
 									            		<tr>
 										            		<td>
 											            		<div style="text-align:rigth; padding-left:20px;  min-height:73px;" class="span4">
-								                					<a href="http://www.prepasi.df.gob.mx/" class="btn">Terminar</a>                                         	
+								                					<a href="<?= base_url() ?>" class="btn">Terminar</a>                                         	
 								                				</div>
 								                			</td>
 							                			</tr>
