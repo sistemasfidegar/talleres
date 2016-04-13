@@ -12,10 +12,10 @@
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
     		            	$.unblockUI();
-        		            if(data == 'bad') {
+        		            if(data != 'registro') {
         		            	$('#myModalSinRegistro').modal('show'); //open modal
         		            } else {
-         		            	irAPdf('registro/pdf/'+ $("#matricula_asignada").val());
+        		            	irAPdf('registro/pdf/'+ $("#matricula_asignada").val());
          		            	$("#matricula_asignada").val("");
             		        }
     		            }
@@ -27,7 +27,7 @@
     		            type: 'post',
     		            dataType: 'html',
     		            url: 'registro/getBeneficiarioUnamReimpreion/',
-    		            data: {matricula_escuela: },
+    		            data: {matricula_escuela: $("#matricula_escuela").val()},
     		            success: function (data) {
     		            	$.unblockUI();
     		            	if(data == 'bad') {
