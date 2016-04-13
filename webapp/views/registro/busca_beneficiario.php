@@ -11,13 +11,12 @@
     		            url: 'registro/getBeneficiario',
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
+    		            	$.unblockUI();
         		            if(data == 'bad') {
-        		            	$.unblockUI();
         		            	$('#myModalSinRegistro').modal('show'); //open modal
-        		            } 
-         		            else
-	         		        {
-         		            	irA('registro/pdf/'+ $("#matricula_asignada").val());
+        		            } else {
+         		            	irAPdf('registro/pdf/'+ $("#matricula_asignada").val());
+         		            	$("#matricula_asignada").val("");
             		        }
     		            }
     		            
@@ -28,15 +27,14 @@
     		            type: 'post',
     		            dataType: 'html',
     		            url: 'registro/getBeneficiarioUnamReimpreion/',
-    		            data: {matricula_escuela: $("#matricula_escuela").val()},
+    		            data: {matricula_escuela: },
     		            success: function (data) {
+    		            	$.unblockUI();
     		            	if(data == 'bad') {
-        		            	$.unblockUI();
         		            	$('#myModalSinRegistro').modal('show'); //open modal
-        		            } 
-         		            else
-	         		        {
-         		            	irA('registro/pdf/'+ data);
+        		            } else {
+        		            	irAPdf('registro/pdf/'+ $("#matricula_escuela").val());
+        		            	$("#matricula_escuela").val("");
             		        }
     		            }
     		        });
@@ -45,7 +43,6 @@
 
             
     		$("#registro").click(function () {
-
         		if($("#matricula_asignada").val() != ""  ) {
 	    				$.blockUI({message: 'Procesando por favor espere...'});
 	    	        	jQuery.ajax({
@@ -54,11 +51,10 @@
 	    		            url: 'registro/getBeneficiario',
 	    		            data: {matricula: $("#matricula_asignada").val()},
 	    		            success: function (data) {
+	    		            	$.unblockUI();
 	        		            if(data == 'bad') {
-	        		            	$.unblockUI();
 	        		            	$('#myModalSinRegistro').modal('show'); //open modal
 	        		            } else if(data == 'registro') {
-	         		            	$.unblockUI();
 	         		            	$('#myModalRegistro').modal('show'); //open modal
 	         		            } else {
 	         		            	irA('registro/nuevo/'+ data);
@@ -74,11 +70,10 @@
 	    		            url: 'registro/getBeneficiarioUnam/',
 	    		            data: {matricula_escuela: $("#matricula_escuela").val()},
 	    		            success: function (data) {
+	    		            	$.unblockUI();
 	    		            	 if(data == 'bad') {
-	    		            		$.unblockUI();
 	          		            	$('#myModalSinRegistro').modal('show'); //open modal
 	         		            } else if(data == 'registro') {
-	         		            	$.unblockUI();
 	         		            	$('#myModalRegistro').modal('show'); //open modal
 	         		            } else {
 	         		            	irA('registro/nuevo/'+ data);
@@ -89,8 +84,12 @@
     		});
         });//ready
         function irA(uri) {
-            window.location.href =  uri;
+            window.location.href =  '<?= base_url() ?>' + uri;
             
+        }	
+        
+        function irAPdf(uri) {
+            window.open('<?= base_url() ?>' + uri, '_blank');
         }	
 </script>
 

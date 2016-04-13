@@ -94,7 +94,8 @@
   				                },
   				                function(isConfirm){
   				                	if (isConfirm) {
-  				                    	irA('registro/pdf/'+$('#matricula').val());
+  				                		irAPdf('registro/pdf/'+ $("#matricula").val());
+  		        		            	$("#matricula").val("");
   				                    } 
   				                });
   				            } else if (data == 'nodisponible') {
@@ -138,8 +139,12 @@
       }); //fin ready
   		 
   		function irA(uri) {
-	        window.location.href = '<?= base_url(); ?>' + uri;  
+	        window.location.href = '<?= base_url() ?>' + uri;  
 	    }  
+
+  		function irAPdf(uri) {
+            window.open('<?= base_url() ?>' + uri, '_blank');
+        }	
 </script>
 
 <div class="register-container container">

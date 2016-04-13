@@ -158,7 +158,7 @@
 		<div class="register">
 			<form id="attributeForm" method="POST" action="<?= base_url() ?>Admin/create" class="form-horizontal" role="form" autocomplete="off">
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-                 	<a href="<?= base_url('Asistencia') ?>">	<img  src="resources/formulario/img/pleca_logos.png" style="padding-left:180px; padding-top:10px;" align="top" />&nbsp;</a>
+                 	<a href="<?= base_url('Asistencia') ?>">	<img  src="resources/formulario/img/pleca_logos.png" class="img-responsive center-block" style="padding-top:10px;" align="top" />&nbsp;</a>
                  </div>
                  <div style="text-align: center;">
 				  		Introduce la siguiente informaci&oacute;n para <strong>Agregar un Usuario</strong>:<br/><br/>
