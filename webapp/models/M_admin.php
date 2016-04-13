@@ -119,7 +119,7 @@ class M_admin extends MY_Model {
 	 * Verifica si la contrase&ntilde;a ingresada perteneciente a un usuario en espec&iacute;fico es la correcta.
 	 * 
 	 * @param String:$actual     Contrase&nacute;a actual registrada en la Base de Datos.
-	 * @param int:$id_usuario    Identificador del usuario a buscar.$this
+	 * @param int:$id_usuario    Identificador del usuario a buscar.
 	 * 
 	 * @return boolean           True en caso exitoso. False en caso contrario.
 	 * 

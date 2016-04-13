@@ -149,7 +149,7 @@ class Registro extends CI_Controller {
     	$pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
     	$pdf->SetCreator(PDF_CREATOR);
     	$pdf->SetAuthor('Cony Jaramillo');
-    	$pdf->SetTitle('Combrobante');
+    	$pdf->SetTitle('Comprobante');
     	$pdf->SetSubject('Registro Coordinadores y Promotores');
     	$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
     	ob_start();
