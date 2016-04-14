@@ -352,8 +352,8 @@ class Registro extends CI_Controller {
     	$pdf->AddPage();
     	$html3 ='<h1>Como llegar:</h1>
 				'.$datos['ruta'].'	
-		    	 <div style="text-align:center">IMAGES<br />
-				 <img src="images/'.$datos['imagen'].'" alt="test alt attribute" width="100" height="100" border="0" /><img src="images/tcpdf_box.svg" alt="test alt attribute" width="100" height="100" border="0" /><img src="images/logo_example.jpg" alt="test alt attribute" width="100" height="100" border="0" />
+		    	 
+				 <img src="images/'.$datos['imagen'].'" alt="test alt attribute" width="100" height="100" border="0" />
 				 </div>';
 				    	
 		// output the HTML content
