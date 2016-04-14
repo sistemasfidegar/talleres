@@ -1,5 +1,9 @@
 <?php $direccion = ""; ?>
 <script type="text/javascript">
+		var direcciones = new Array();
+		var mapas = new Array();
+		var rutas = new Array();
+	
       function muestraAviso() {        	        			        	 
           bootbox.dialog({
               title: '<span style=" font-weight:bold; font-size:29px; ">Aviso de Privacidad</span>',
@@ -61,12 +65,16 @@
 
       	$('#sede').change(function () {
           	if ($('#sede').val() != '-1') {
-      			$('#talleres').show(); //muestro mediante id
-      			$('#datos').html('<label class="control-label" style="text-align: left; color:#e6007e;" for="direccion"><?= $direccion ?></label>');
+      			$('#datos').html('<label class="control-label" style="text-align: left;" for="direccion">'+ direcciones[$('#sede').val()] +'</label>');
+      			$('#maps').html('<iframe src="'+ mapas[$('#sede').val()] +'" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>');
+      			$('#transporte').html('<label class="control-label" style="text-align: left;" for="ruta">'+ rutas[$('#sede').val()] +'</label>');
       			$('#direccion').show(); //muestro mediante id
+      			$('#maps').show(); //muestro mediante id
+      			$('#ruta').show(); //muestro mediante id
           	} else {
-          		$('#talleres').hide(); //oculto mediante id
           		$('#direccion').hide(); //muestro mediante id
+          		$('#maps').hide(); //muestro mediante id
+          		$('#ruta').hide(); //muestro mediante id
             }
 		});
 
@@ -95,7 +103,7 @@
   				                function(isConfirm){
   				                	if (isConfirm) {
   				                		irAPdf('registro/pdf/'+ $("#matricula").val());
-  		        		            	$("#matricula").val("");
+  				                		irA('');
   				                    } 
   				                });
   				            } else if (data == 'nodisponible') {
@@ -190,6 +198,11 @@
   								<option value="-1" style="text-align: center;">Selecciona una sede...</option>
   								<?php foreach ($sedes as $value){ ?>
 			                        <option value="<?= $value['id_plantel'] ?>"><?= $value['plantel'] ?></option>
+			                        <script type="text/javascript">
+			                        	direcciones[<?= $value['id_plantel'] ?>] = '<?= $value['direccion'] ?>';
+			                        	mapas[<?= $value['id_plantel'] ?>] = '<?= $value['url'] ?>';
+			                        	rutas[<?= $value['id_plantel'] ?>] = '<?= $value['ruta_transporte'] ?>';
+			                        </script>
 			                    <?php }?>
 							</select>
       					</div>
@@ -199,14 +212,13 @@
   						<div class="col-sm-offset-1 col-sm-9" style="text-align: left;" id="datos">
   						</div>
   					</div>
-  					<div class="form-group" style="display:none;" id="talleres">
-    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="taller">Talleres: </label><br/><br/>
-      					<ul class="list-group">
-      						<?php foreach ($talleres as $value){ ?>
-			                        	<li class="list-group-item col-sm-6" style="text-align: left;"><img src="" class="img-thumbnail pull-xs-left" alt="<?= $value['archivo'] ?>"></img>&nbsp;<?= $value['taller'] ?></li>
-	                        	<?php } ?>
-      						
-      					</ul>
+  					<div class="form-group" style="display:none;" id="maps">
+    					
+  					</div>
+  					<div class="form-group" style="; display: none;" id="ruta">
+  						<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="ruta">Ruta Transporte: </label>
+  						<div class="col-sm-offset-1 col-sm-9" style="text-align: left;" id="transporte">
+  						</div>
   					</div>
   					<div style="text-align:right; color:#E60380 !important; cursor:pointer; width:96%;"> 
 			        	<i><a href="javascript:muestraAviso();">Consultar nuestro aviso de privacidad</a></i>

@@ -149,13 +149,13 @@ class M_registro extends MY_Model {
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	function getDisponibilidad() {
-		$this->sql = "SELECT S.id_plantel, S.plantel, S.direccion 
+		$this->sql = "SELECT S.id_plantel, S.plantel, S.direccion, S.url, S.ruta_transporte 
 				FROM sede S, talleres T, taller_plantel TP, cat_ciclo CC 
 				WHERE S.id_plantel = TP.id_plantel 
 				AND T.id_taller = TP.id_taller 
 				AND T.id_ciclo = CC.id_ciclo 
 				AND CC.activo is true AND T.activo is true AND S.activo is true
-				GROUP BY S.plantel, S.capacidad, S.total_asistentes, S.id_plantel, S.direccion
+				GROUP BY S.plantel, S.capacidad, S.total_asistentes, S.id_plantel, S.direccion, S.url, S.ruta_transporte 
 				HAVING (S.capacidad - S.total_asistentes) > 0 
 				ORDER BY S.plantel ASC;";
 		$results = $this->db->query($this->sql);
