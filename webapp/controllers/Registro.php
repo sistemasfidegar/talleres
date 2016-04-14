@@ -200,6 +200,8 @@ class Registro extends CI_Controller {
     		$datos['plantel']=$registro[0]['plantel'];
     		$datos['direccion']=$registro[0]['direccion'];
     		$datos['fecha']=$registro[0]['fecha_registro'];
+    		$datos['ruta']=$registro[0]['ruta'];
+    		$datos['imagen']=$registro[0]['imagen'];
     	}
     	$nombre=$this->m_registro->getNombre($matricula);
     	if(!empty($nombre)) {
@@ -214,7 +216,7 @@ class Registro extends CI_Controller {
     			
     	}
     	
-    	
+    	$pdf->AddPage();
     	//preparamos y maquetamos el contenido a crear
     	$html ="";
     	$html .= "<style type=text/css>";
@@ -345,11 +347,21 @@ class Registro extends CI_Controller {
     	$html1 .='</table>';
     	//$pdf->writeHTML($html1, true, 0, true, 0);
     	$pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '95', $html1, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+    	$pdf->lastPage();
     	
-    	
-    	// ---------------------------------------------------------
-    	// Cerrar el documento PDF y preparamos la salida
-    	// Este método tiene varias opciones, consulte la documentación para más información.
+    	$pdf->AddPage();
+    	$html3 ='<h1>Como llegar:</h1>
+				'.$datos['ruta'].'	
+		    	 <div style="text-align:center">IMAGES<br />
+				 <img src="images/'.$datos['imagen'].'" alt="test alt attribute" width="100" height="100" border="0" /><img src="images/tcpdf_box.svg" alt="test alt attribute" width="100" height="100" border="0" /><img src="images/logo_example.jpg" alt="test alt attribute" width="100" height="100" border="0" />
+				 </div>';
+				    	
+		// output the HTML content
+		$pdf->writeHTML($html3, true, false, true, false, '');
+		    	
+		    	
+    	$pdf->lastPage();
+    	 
     	$nombre_archivo = utf8_decode("Registro.pdf");
     	
     

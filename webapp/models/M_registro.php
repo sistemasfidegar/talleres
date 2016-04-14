@@ -275,7 +275,7 @@ class M_registro extends MY_Model {
 	 * @author cony jaramillo
 	 */
 	function getRegistro($matricula){
-		$this->sql = "SELECT matricula, plantel, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro
+		$this->sql = "SELECT matricula, plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro
 		FROM registro_taller rt, sede s
 		WHERE rt.id_plantel = s.id_plantel
 		AND matricula='$matricula'";
