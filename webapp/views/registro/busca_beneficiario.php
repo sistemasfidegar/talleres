@@ -12,10 +12,10 @@
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
     		            	$.unblockUI();
-        		            if(data != 'registro') {
+        		            if(data == 'bad') {
         		            	$('#myModalSinRegistro').modal('show'); //open modal
         		            } else {
-        		            	irAPdf('registro/pdf/'+ $("#matricula_asignada").val());
+         		            	irAPdf('registro/pdf/'+ $("#matricula_asignada").val());
          		            	$("#matricula_asignada").val("");
             		        }
     		            }
@@ -67,7 +67,7 @@
 	    	        	jQuery.ajax({
 	    		            type: 'post',
 	    		            dataType: 'html',
-	    		            url: 'registro/getBeneficiarioUnam/',
+	    		            url: 'registro/getBeneficiarioUnam',
 	    		            data: {matricula_escuela: $("#matricula_escuela").val()},
 	    		            success: function (data) {
 	    		            	$.unblockUI();

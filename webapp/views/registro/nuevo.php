@@ -111,7 +111,7 @@
   				                },
   				                function(isConfirm){
   				                	if (isConfirm) {
-  				                    	irA('registro/nuevo'+ $('#matricula').val());
+  				                    	irA('registro/nuevo/'+ $('#matricula').val());
   				                    } 
   				                });
   				            } else {
@@ -127,7 +127,7 @@
   				                },
   				                function(isConfirm){
   				                	if (isConfirm) {
-  				                    	irA('registro/nuevo'+ $('#matricula').val());
+  				                    	irA('registro/nuevo/'+ $('#matricula').val());
   				                    } 
   				                });
   				            }
