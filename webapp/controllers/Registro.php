@@ -350,10 +350,10 @@ class Registro extends CI_Controller {
     	$pdf->lastPage();
     	
     	$pdf->AddPage();
-    	$html3 ='<h1>Como llegar:</h1>
+    	$html3 ='<h1>Cómo llegar:</h1>
 				'.$datos['ruta'].'	
 		    	 
-				 <img src="images/'.$datos['imagen'].'" alt="test alt attribute" width="100" height="100" border="0" />
+				 <img src="'. base_url() .'/resources/img/'.$datos['imagen'].'" alt="test alt attribute" width="100" height="100" border="0" />
 				 </div>';
 				    	
 		// output the HTML content

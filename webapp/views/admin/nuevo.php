@@ -129,6 +129,17 @@
   				                    	irA('admin/nuevo');
   				                    } 
   				                });
+  				            } else if (data == 'usuario') {
+  				            	swal({
+  					            	title: 'Error',
+		                         	  text: 'Nombre de Usuario no disponile!!! Favor de escoger otro',
+		                         	  type: 'error',
+		                         	  showCancelButton: false,
+		                         	  confirmButtonColor: '#C9302C',
+		                         	  confirmButtonText: 'Ok',
+		                         	  closeOnConfirm: true,   
+		                         	  closeOnCancel: true
+  				                });
   				            } else {
   					            swal({
   					            	title: 'Error',

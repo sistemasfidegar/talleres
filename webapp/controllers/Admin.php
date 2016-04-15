@@ -34,13 +34,17 @@ class Admin extends CI_Controller {
 	
 	public function nuevo() {
 		if($this->session->userdata('CRUD_AUTH')) {
-			$datos['title'] = 'Agregar Usuario';
-			$this->load->view('layout/header', $datos, false);
-			$this->load->view('admin/nav', false, false);
-			$this->load->view('layout/aviso', false, false);
-			$datos['sedes'] = $this->m_registro->getPlantelesActivos();
-			$this->load->view('admin/nuevo', $datos, false);
-			$this->load->view('layout/footer', false, false);
+			if($this->session->userdata('CRUD_AUTH')['perfil'] == 'Programador' || $this->session->userdata('CRUD_AUTH')['perfil'] == 'Administrador') {
+				$datos['title'] = 'Agregar Usuario';
+				$this->load->view('layout/header', $datos, false);
+				$this->load->view('admin/nav', false, false);
+				$this->load->view('layout/aviso', false, false);
+				$datos['sedes'] = $this->m_registro->getPlantelesActivos();
+				$this->load->view('admin/nuevo', $datos, false);
+				$this->load->view('layout/footer', false, false);
+			} else {
+				header("Location: " . base_url('asistencia'));
+			}
 		} else {
 			header("Location: " . base_url('admin'));
 		}
@@ -48,14 +52,18 @@ class Admin extends CI_Controller {
 	
 	public function listar() {
 		if($this->session->userdata('CRUD_AUTH')) {
-			$datos['title'] = 'Listar Usuarios';
-			$datos['usuarios'] = $this->m_admin->builtUsuarios();
-			$datos['sedes'] = $this->m_registro->getPlantelesActivos();
-			$this->load->view('layout/header', $datos, false);
-			$this->load->view('admin/nav', false, false);
-			$this->load->view('layout/aviso', false, false);
-			$this->load->view('admin/list', $datos, false);
-			$this->load->view('layout/footer', false, false);
+			if($this->session->userdata('CRUD_AUTH')['perfil'] == 'Programador' || $this->session->userdata('CRUD_AUTH')['perfil'] == 'Administrador') {
+				$datos['title'] = 'Listar Usuarios';
+				$datos['usuarios'] = $this->m_admin->builtUsuarios();
+				$datos['sedes'] = $this->m_registro->getPlantelesActivos();
+				$this->load->view('layout/header', $datos, false);
+				$this->load->view('admin/nav', false, false);
+				$this->load->view('layout/aviso', false, false);
+				$this->load->view('admin/list', $datos, false);
+				$this->load->view('layout/footer', false, false);
+			} else {
+				header("Location: " . base_url('asistencia'));
+			}
 		} else {
 			header("Location: " . base_url('admin'));
 		}
@@ -63,10 +71,21 @@ class Admin extends CI_Controller {
 	
 	public function create() {
 		if($this->session->userdata('CRUD_AUTH')) {
-			if($this->m_admin->save($this->input->post())) {
-				echo 'ok';
+			if($this->session->userdata('CRUD_AUTH')['perfil'] == 'Programador' || $this->session->userdata('CRUD_AUTH')['perfil'] == 'Administrador') {
+				//verificamos el nombre de usuario
+				$usuarioInstance = $this->m_admin->checkUser($this->input->post('usuario'));
+				
+				if(empty($usuarioInstance)) {
+					if($this->m_admin->save($this->input->post())) {
+						echo 'ok';
+					} else {
+						echo 'bad';
+					}
+				} else {
+					echo 'usuario';
+				}
 			} else {
-				echo 'bad';
+				header("Location: " . base_url('asistencia'));
 			}
 		} else {
 			header("Location: " . base_url('admin'));
@@ -75,16 +94,20 @@ class Admin extends CI_Controller {
 	
 	public function delete() {
 		if($this->session->userdata('CRUD_AUTH')) {
-			$post = $this->input->post();
-		
-			if(!empty($post["usuarioId"]) && is_numeric($post["usuarioId"])) {
-				if ($this->m_admin->delete($post)) {
-					echo 'ok';
+			if($this->session->userdata('CRUD_AUTH')['perfil'] == 'Programador' || $this->session->userdata('CRUD_AUTH')['perfil'] == 'Administrador') {
+				$post = $this->input->post();
+			
+				if(!empty($post["usuarioId"]) && is_numeric($post["usuarioId"])) {
+					if ($this->m_admin->delete($post)) {
+						echo 'ok';
+					} else {
+						echo 'bad';
+					}
 				} else {
 					echo 'bad';
 				}
 			} else {
-				echo 'bad';
+				header("Location: " . base_url('asistencia'));
 			}
 		} else {
 			header("Location: " . base_url('admin'));
@@ -150,11 +173,19 @@ class Admin extends CI_Controller {
 	}
 	
 	public function excel() {
-		header("Content-type: application/vnd.ms-excel");
-		header("Content-Disposition: attachment; filename=usuarios" . date("YmdHis") . ".xls");
-		header("Pragma: no-cache");
-		header("Expires: 0");
-	
-		echo utf8_decode($_POST['datos_a_enviar']);
+		if($this->session->userdata('CRUD_AUTH')) {
+			if($this->session->userdata('CRUD_AUTH')['perfil'] == 'Programador' || $this->session->userdata('CRUD_AUTH')['perfil'] == 'Administrador') {
+				header("Content-type: application/vnd.ms-excel");
+				header("Content-Disposition: attachment; filename=usuarios" . date("YmdHis") . ".xls");
+				header("Pragma: no-cache");
+				header("Expires: 0");
+			
+				echo utf8_decode($_POST['datos_a_enviar']);
+			} else {
+				header("Location: " . base_url('asistencia'));
+			}
+		} else {
+			header("Location: " . base_url('admin'));
+		}
 	}
 }

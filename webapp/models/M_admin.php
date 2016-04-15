@@ -57,20 +57,24 @@ class M_admin extends MY_Model {
 	 * @since  2016-04-06
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	public function save($post) {
-		$data = array(
-				'nombre' => $post['nombre'],
-				'apellido_paterno' => $post['paterno'],
-				'apellido_materno' => $post['materno'],
-				'email' => $post['email'],
-				'usuario' => $this->security->xss_clean($post['usuario']),
-				'password' => $this->security->xss_clean($post['password']),
-				'id_plantel' => $post['sede'],
-				'perfil' => 'Capturista'
-		);
-		
-		if($this->db->insert('usuario', $data)) {
-			return true;
+	public function save($post = "") {
+		if(!empty($post)) {
+			$data = array(
+					'nombre' => $post['nombre'],
+					'apellido_paterno' => $post['paterno'],
+					'apellido_materno' => $post['materno'],
+					'email' => $post['email'],
+					'usuario' => $this->security->xss_clean($post['usuario']),
+					'password' => $this->security->xss_clean($post['password']),
+					'id_plantel' => $post['sede'],
+					'perfil' => 'Capturista'
+			);
+			
+			if($this->db->insert('usuario', $data)) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
@@ -104,13 +108,41 @@ class M_admin extends MY_Model {
 	 * @since  2016-04-11
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	public function getUsuarioById($id_usuario) {
-		$this->db->select('*');
-		$this->db->from('usuario');
-		$this->db->where('id_usuario', $this->security->xss_clean($id_usuario));
-		$query = $this->db->get();
-		$usuarioInstance = $query->row_array();
-		$query->free_result();
+	public function getUsuarioById($id_usuario = "") {
+		$usuarioInstance = "";
+		
+		if(!empty($id_usuario)) {
+			$this->db->select('*');
+			$this->db->from('usuario');
+			$this->db->where('id_usuario', $this->security->xss_clean($id_usuario));
+			$query = $this->db->get();
+			$usuarioInstance = $query->row_array();
+			$query->free_result();
+		}
+		
+		return $usuarioInstance;
+	}
+	
+	/**
+	 * Verifica si el usuario a crear en la Base de Datos existe o no
+	 * 
+	 * @param unknown $usuario
+	 * @return unknown
+	 * 
+	 * @since  2016-04-14
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	public function checkUser($usuario = "") {
+		$usuarioInstance = "";
+		
+		if(!empty($usuario)) {
+			$this->db->select('*');
+			$this->db->from('usuario');
+			$this->db->where('usuario', $this->security->xss_clean($usuario));
+			$query = $this->db->get();
+			$usuarioInstance = $query->row_array();
+			$query->free_result();
+		}
 		
 		return $usuarioInstance;
 	}
@@ -126,17 +158,21 @@ class M_admin extends MY_Model {
 	 * @since  2016-04-11
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	public function checkPass($actual, $id_usuario) {
-		$this->db->select('usuario');
-		$this->db->from('usuario');
-		$this->db->where('id_usuario', $this->security->xss_clean($id_usuario));
-		$this->db->where('password', $this->security->xss_clean($actual));
-		$query = $this->db->get();
-		$usuarioInstance = $query->row_array();
-		$query->free_result();
-		
-		if (!empty($usuarioInstance)) {
-			return true;
+	public function checkPass($actual = "", $id_usuario = "") {
+		if(!empty($actual) || !empty($id_usuario)) {
+			$this->db->select('usuario');
+			$this->db->from('usuario');
+			$this->db->where('id_usuario', $this->security->xss_clean($id_usuario));
+			$this->db->where('password', $this->security->xss_clean($actual));
+			$query = $this->db->get();
+			$usuarioInstance = $query->row_array();
+			$query->free_result();
+			
+			if (!empty($usuarioInstance)) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
@@ -153,15 +189,19 @@ class M_admin extends MY_Model {
 	 * @since  2016-04-11
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	public function changePass($password, $id_usuario) {
-		$data = array(
-				'password' => $this->security->xss_clean($password),
-		);
-		
-		$this->db->where('id_usuario', $this->security->xss_clean($id_usuario));
-		
-		if($this->db->update('usuario', $data)) {
-			return true;
+	public function changePass($password = "", $id_usuario = "") {
+		if(!empty($password) || !empty($id_usuario)) {
+			$data = array(
+					'password' => $this->security->xss_clean($password),
+			);
+			
+			$this->db->where('id_usuario', $this->security->xss_clean($id_usuario));
+			
+			if($this->db->update('usuario', $data)) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
@@ -221,11 +261,15 @@ class M_admin extends MY_Model {
 	 * @since  2016-04-08
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	public function delete($post) {
-		$this->db->where('id_usuario', $post['usuarioId']);
-		
-		if($this->db->delete('usuario')) {
-			return true;
+	public function delete($post = "") {
+		if(!empty($post)) {
+			$this->db->where('id_usuario', $post['usuarioId']);
+			
+			if($this->db->delete('usuario')) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
@@ -241,19 +285,23 @@ class M_admin extends MY_Model {
 	 * @since  2016-04-08
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	public function edit($post) {
-		$data = array(
-				'nombre' => $post['nombre'],
-				'apellido_paterno' => $post['paterno'],
-				'apellido_materno' => $post['materno'],
-				'email' => $post['email'],
-				'id_plantel' => $post['sede'],
-		);
-		
-		$this->db->where('id_usuario', $post['usuarioId']);
-		
-		if($this->db->update('usuario', $data)) {
-			return true;
+	public function edit($post = "") {
+		if(!empty($post)) {
+			$data = array(
+					'nombre' => $post['nombre'],
+					'apellido_paterno' => $post['paterno'],
+					'apellido_materno' => $post['materno'],
+					'email' => $post['email'],
+					'id_plantel' => $post['sede'],
+			);
+			
+			$this->db->where('id_usuario', $post['usuarioId']);
+			
+			if($this->db->update('usuario', $data)) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
