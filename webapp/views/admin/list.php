@@ -338,7 +338,4 @@
         			echo $usuarios;
         	}?>
         </div>
-        <div style="text-align:right; color:#E60380 !important; cursor:pointer; width:96%;"> 
-			<i><a href="javascript:muestraAviso();">Consultar nuestro aviso de privacidad</a></i>
-		</div>
 </div>

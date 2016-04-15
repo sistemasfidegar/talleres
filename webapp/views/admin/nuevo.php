@@ -227,9 +227,6 @@
 					  </select>
 				    </div>
 				  </div>
-				  <div style="text-align:right; color:#E60380 !important; cursor:pointer; width:96%;"> 
-			        	<i><a href="javascript:muestraAviso();">Consultar nuestro aviso de privacidad</a></i>
-		          </div>
 				  <div class="form-group"> 
     				<div class="col-sm-offset-4 col-sm-4">
 						<button id="guardar" type="button" class="btn btn-primary" onclick="cifrar()">Guardar</button>

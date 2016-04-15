@@ -393,9 +393,6 @@
 				      <input class="form-control" id="plantel" data-idplantel="<?= isset($usuario['id_plantel']) ? $usuario['id_plantel'] : "" ?>" name="plantel" type="text" readonly value="<?= isset($plantel['plantel']) ? $plantel['plantel'] : "" ?>"/>
 				    </div>
 				  </div>
-				  <div style="text-align:right; color:#E60380 !important; cursor:pointer; width:96%;"> 
-			        	<i><a href="javascript:muestraAviso();">Consultar nuestro aviso de privacidad</a></i>
-		          </div>
 				  <div class="form-group"> 
     				<div class="col-sm-offset-3 col-sm-3">
 						<button id="modificar" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Modificar Perfil</button>

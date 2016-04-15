@@ -11,10 +11,11 @@
     		            url: 'registro/getBeneficiario',
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
-    		            	$.unblockUI();
         		            if(data == 'bad') {
+        		            	$.unblockUI();
         		            	$('#myModalSinRegistro').modal('show'); //open modal
         		            } else {
+        		            	$.unblockUI();
          		            	irAPdf('registro/pdf/'+ $("#matricula_asignada").val());
          		            	$("#matricula_asignada").val("");
             		        }
@@ -29,10 +30,11 @@
     		            url: 'registro/getBeneficiarioUnamReimpreion/',
     		            data: {matricula_escuela: $("#matricula_escuela").val()},
     		            success: function (data) {
-    		            	$.unblockUI();
     		            	if(data == 'bad') {
+    		            		$.unblockUI();
         		            	$('#myModalSinRegistro').modal('show'); //open modal
         		            } else {
+        		            	$.unblockUI();
         		            	irAPdf('registro/pdf/'+ $("#matricula_escuela").val());
         		            	$("#matricula_escuela").val("");
             		        }
@@ -51,10 +53,11 @@
 	    		            url: 'registro/getBeneficiario',
 	    		            data: {matricula: $("#matricula_asignada").val()},
 	    		            success: function (data) {
-	    		            	$.unblockUI();
 	        		            if(data == 'bad') {
+	        		            	$.unblockUI();
 	        		            	$('#myModalSinRegistro').modal('show'); //open modal
 	        		            } else if(data == 'registro') {
+	        		            	$.unblockUI();
 	         		            	$('#myModalRegistro').modal('show'); //open modal
 	         		            } else {
 	         		            	irA('registro/nuevo/'+ data);
@@ -70,10 +73,11 @@
 	    		            url: 'registro/getBeneficiarioUnam',
 	    		            data: {matricula_escuela: $("#matricula_escuela").val()},
 	    		            success: function (data) {
-	    		            	$.unblockUI();
 	    		            	 if(data == 'bad') {
+	    		            		 $.unblockUI();
 	          		            	$('#myModalSinRegistro').modal('show'); //open modal
 	         		            } else if(data == 'registro') {
+	         		            	$.unblockUI();
 	         		            	$('#myModalRegistro').modal('show'); //open modal
 	         		            } else {
 	         		            	irA('registro/nuevo/'+ data);

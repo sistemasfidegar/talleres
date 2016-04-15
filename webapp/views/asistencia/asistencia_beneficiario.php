@@ -12,9 +12,9 @@
     		            url: '<?= base_url('asistencia/registroAsistencia') ?>',
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
-        		            if(data == 'registrado') {
+        		            if(data == 'error') {
         		            	$.unblockUI();
-        		            	$('#myModalRegistrado').modal('show'); //open modal
+        		            	$('#myModalError').modal('show'); //open modal
         		            	$("#matricula_asignada").val('');
             		        }
         		            else  if(data == 'bad'){
@@ -85,17 +85,17 @@
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->	
 	
-	<div class="modal fade" tabindex="-1" role="dialog" id="myModalRegistrado">
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalError">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">¡El beneficiario ya se registr&oacute;!</h4>
+					<h4 class="modal-title" align="center">¡Ocurri&oacute; un error! Favor de intentarlo de nuevo</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeForm" role="form">
 						<div class="form-group">
-							 <br/><center><img src="resources/img/pink-happy-face.png" alt="codesi" width="50%" class="img-rounded"></center>
+							 <br/><center><img src="resources/img/pink-sad-face.png" alt="codesi" width="50%" class="img-rounded"></center>
 						</div>
 					</form>
 				</div>

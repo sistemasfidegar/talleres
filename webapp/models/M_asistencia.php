@@ -3,11 +3,8 @@ if (! defined ( 'BASEPATH' ))
 	exit ( 'no se permite el acceso directo al script' );
 
 class M_asistencia extends MY_Model {
-	protected $db_b;
-	
 	function __construct() {
 		parent::__construct ();
-		$this->db_b = $this->load->database('beneficiarios', TRUE);
 	}
 	
 	/**
@@ -24,24 +21,51 @@ class M_asistencia extends MY_Model {
 	/**
 	 * @param unknown $dato
 	 */
-	function getMatricula($dato) {
-		$this->sql = "SELECT matricula	FROM registro_taller WHERE  matricula = '$dato';";
-		$results = $this->db->query($this->sql);
-		return $results->result_array();
+	function getMatricula($dato = "") {
+		$results = "";
+		
+		if(!empty($dato)) {
+			$this->sql = "SELECT matricula	FROM registro_taller WHERE  matricula = '$dato';";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
 	}
-	function getTaller($hoy){
-		$this->sql="select * from talleres WHERE fecha_inicio='$hoy' and activo is true";
-		$results = $this->db->query($this->sql);
-		return $results->result_array();
+	
+	function getTaller($hoy = ""){
+		$results = "";
+		
+		if(!empty($hoy)) {
+			$this->sql="select * from talleres WHERE fecha_inicio='$hoy' and activo is true";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
 	}
-	function registroDuplicado($idtaller, $matricula){
-		$this->sql="SELECT matricula from asistencia WHERE id_taller=$idtaller and matricula='$matricula'";
-		$results = $this->db->query($this->sql);
-		return $results->result_array();
+	
+	function registroDuplicado($idtaller = "", $matricula = ""){
+		$results = "";
+		
+		if(!empty($idtaller) || !empty($matricula)) {
+			$this->sql="SELECT matricula from asistencia WHERE id_taller=$idtaller and matricula='$matricula'";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
 	}
-	function insertaAsistencia($idtaller, $matricula, $usuario){
+	
+	function insertaAsistencia($idtaller = "", $matricula = "", $usuario = ""){
+		$results = "";
+		
+		if(!empty($idtaller) || !empty($matricula) || !empty($usuario)) {
 			$this->sql = "INSERT INTO asistencia(id_taller, matricula, id_usuario) VALUES($idtaller, '$matricula', $usuario) RETURNING matricula";
 			$results = $this->db->query($this->sql);
 			return $results;
+		}
+		
+		return $results;
 	}
 }

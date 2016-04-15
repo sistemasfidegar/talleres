@@ -212,17 +212,14 @@
   						<div class="col-sm-offset-1 col-sm-9" style="text-align: left;" id="datos">
   						</div>
   					</div>
-  					<div class="form-group" style="display:none;" id="maps">
-    					
-  					</div>
   					<div class="form-group" style="; display: none;" id="ruta">
-  						<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="ruta">Ruta Transporte: </label>
+  						<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="ruta">C&oacute;mo llegar: </label>
   						<div class="col-sm-offset-1 col-sm-9" style="text-align: left;" id="transporte">
   						</div>
   					</div>
-  					<div style="text-align:right; color:#E60380 !important; cursor:pointer; width:96%;"> 
-			        	<i><a href="javascript:muestraAviso();">Consultar nuestro aviso de privacidad</a></i>
-		            </div>
+  					<div class="form-group" style="display:none;" id="maps">
+    					
+  					</div>
 		            <div class="form-group"> 
     					<div class="col-sm-offset-5 col-sm-2">
 							<button id="guardar" type="button" value="Continuar" class="btn btn-primary">Continuar</button>

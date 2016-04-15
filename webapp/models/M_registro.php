@@ -37,14 +37,20 @@ class M_registro extends MY_Model {
 	 * @since  2016-04-07
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	function checkRegistroTaller($matricula) {
-		$this->sql = "SELECT matricula 
-				FROM registro_taller RT, cat_ciclo CC 
-				WHERE RT.matricula = '$matricula' 
-				AND RT.id_ciclo = CC.id_ciclo 
-				AND CC.activo is true;";
-		$results = $this->db->query($this->sql);
-		return $results->result_array();
+	function checkRegistroTaller($matricula = "") {
+		$results = "";
+		
+		if(!empty($matricula)) {
+			$this->sql = "SELECT matricula 
+					FROM registro_taller RT, cat_ciclo CC 
+					WHERE RT.matricula = '$matricula' 
+					AND RT.id_ciclo = CC.id_ciclo 
+					AND CC.activo is true;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
 	}
 	
 	/**
@@ -79,14 +85,20 @@ class M_registro extends MY_Model {
 	 * @since  2016-04-12
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	function getPlantelById($id_plantel) {
-		$this->db->select('*');
-		$this->db->from('sede');
-		$this->db->where('id_plantel', $id_plantel);
-		$query = $this->db->get();
-		$plantelInstance = $query->row_array();
-		$query->free_result();
-		return $plantelInstance;
+	function getPlantelById($id_plantel = "") {
+		$results = "";
+		
+		if(!empty($id_plantel)) {
+			$this->db->select('*');
+			$this->db->from('sede');
+			$this->db->where('id_plantel', $id_plantel);
+			$query = $this->db->get();
+			$plantelInstance = $query->row_array();
+			$query->free_result();
+			return $plantelInstance;
+		}
+		
+		return $results;
 	}
 	
 	/**
@@ -113,13 +125,19 @@ class M_registro extends MY_Model {
 	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	function getMatricula($dato) {
-		$this->sql = "SELECT B.matricula_asignada
-		FROM beneficiarios B
-		INNER JOIN b_personal P on B.matricula_asignada = P.matricula_asignada
-		WHERE  P.matricula_asignada = '$dato' OR P.CURP = '$dato' AND B.id_archivo in (1, 2, 3);";
-		$results = $this->db_b->query($this->sql);
-		return $results->result_array();
+	function getMatricula($dato = "") {
+		$results = "";
+		
+		if(!empty($dato)) {
+			$this->sql = "SELECT B.matricula_asignada
+			FROM beneficiarios B
+			INNER JOIN b_personal P on B.matricula_asignada = P.matricula_asignada
+			WHERE  P.matricula_asignada = '$dato' OR P.CURP = '$dato' AND B.id_archivo in (1, 2, 3);";
+			$results = $this->db_b->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
 	}
 	
 	/**
@@ -132,12 +150,18 @@ class M_registro extends MY_Model {
 	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	function getMatriculaUnam($dato){
-		$this->sql = "SELECT matricula_asignada 
-		FROM  b_escolar 
-		WHERE matricula_escuela = '$dato' AND id_archivo in (1, 2, 3) AND id_institucion in (1, 2);";
-		$results = $this->db_b->query($this->sql);
-		return $results->result_array();
+	function getMatriculaUnam($dato = ""){
+		$results = "";
+		
+		if(!empty($dato)) {
+			$this->sql = "SELECT matricula_asignada 
+			FROM  b_escolar 
+			WHERE matricula_escuela = '$dato' AND id_archivo in (1, 2, 3) AND id_institucion in (1, 2);";
+			$results = $this->db_b->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
 	}
 	
 	/**
@@ -172,16 +196,22 @@ class M_registro extends MY_Model {
 	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	function getDatos($matricula) {
-		$this->sql = "SELECT B.nombre, B.ap, B.am, B.matricula_asignada, P.curp, PL.plantel, I.institucion
-		FROM beneficiarios B, b_escolar E, b_personal P, cat_institucion I, cat_plantel PL
-		WHERE B.matricula_asignada = E.matricula_asignada
-		AND B.matricula_asignada = P.matricula_asignada
-		AND E.id_institucion = I.id_institucion
-		AND E.id_plantel = PL.id_plantel
-		AND B.matricula_asignada = '$matricula';";
-		$results = $this->db_b->query($this->sql);
-		return $results->result_array();
+	function getDatos($matricula = "") {
+		$results = "";
+		
+		if(!empty($matricula)) {
+			$this->sql = "SELECT B.nombre, B.ap, B.am, B.matricula_asignada, P.curp, PL.plantel, I.institucion 
+			FROM beneficiarios B, b_escolar E, b_personal P, cat_institucion I, cat_plantel PL
+			WHERE B.matricula_asignada = E.matricula_asignada
+			AND B.matricula_asignada = P.matricula_asignada
+			AND E.id_institucion = I.id_institucion
+			AND E.id_plantel = PL.id_plantel
+			AND B.matricula_asignada = '$matricula';";
+			$results = $this->db_b->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
 	}
 	
 	/**
@@ -195,14 +225,20 @@ class M_registro extends MY_Model {
 	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	function getDisponibilidadByPlantel($id_plantel) {
-		$this->sql = "SELECT plantel, total_asistentes 
-				FROM sede 
-				WHERE id_plantel = $id_plantel 
-				GROUP BY plantel, capacidad, total_asistentes  
-				HAVING (capacidad - total_asistentes) > 0;";
-		$results = $this->db->query($this->sql);
-		return $results->result_array();
+	function getDisponibilidadByPlantel($id_plantel = "") {
+		$results = "";
+		
+		if(!empty($id_plantel)) {
+			$this->sql = "SELECT plantel, total_asistentes 
+					FROM sede 
+					WHERE id_plantel = $id_plantel 
+					GROUP BY plantel, capacidad, total_asistentes  
+					HAVING (capacidad - total_asistentes) > 0;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
 	}
 	
 	/**
@@ -233,38 +269,43 @@ class M_registro extends MY_Model {
 	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	function create($post, $asistentes) {
-		//obtenemos el ciclo activo
-		$ciclo = $this->getCicloActivo();
-		//controlamos la transaccion
-		$this->db->trans_begin();
-		$dataRegistroTaller = array(
-				'matricula' => $post['matricula'],
-				'id_plantel' => $post['sede'],
-				'fecha_registro' => date('Y-m-d H:i:s'),
-				'id_ciclo' => $ciclo[0]['id_ciclo']
-		);
-		
-		$this->db->insert('registro_taller', $dataRegistroTaller);
-		
-		//actualizamos la lista de asistencia
-		$dataSede = array(
-				'total_asistentes' => ($asistentes + 1),
-		);
+	function create($post = "", $asistentes = "") {
+		if(!empty($post) || !empty($asistentes)) {
+			//obtenemos el ciclo activo
+			$ciclo = $this->getCicloActivo();
+			//controlamos la transaccion
+			$this->db->trans_begin();
+			$dataRegistroTaller = array(
+					'matricula' => $post['matricula'],
+					'id_plantel' => $post['sede'],
+					'fecha_registro' => date('Y-m-d H:i:s'),
+					'id_ciclo' => $ciclo[0]['id_ciclo']
+			);
 			
-		$this->db->where('id_plantel', $post['sede']);
-		$this->db->update('sede', $dataSede);
-		
-		if($this->db->trans_status() === TRUE){
-			//se realiza el insert y update
-			$this->db->trans_commit();
-			return true;
+			$this->db->insert('registro_taller', $dataRegistroTaller);
+			
+			//actualizamos la lista de asistencia
+			$dataSede = array(
+					'total_asistentes' => ($asistentes + 1),
+			);
+				
+			$this->db->where('id_plantel', $post['sede']);
+			$this->db->update('sede', $dataSede);
+			
+			if($this->db->trans_status() === TRUE){
+				//se realiza el insert y update
+				$this->db->trans_commit();
+				return true;
+			} else {
+				//ocurre error y abortamos el proceso
+				$this->db->trans_rollback();
+				return false;
+			}
 		} else {
-			//ocurre error y abortamos el proceso
-			$this->db->trans_rollback();
 			return false;
 		}
 	}
+	
 	/**
 	 * Obtiene los datos del beneficiatio registrado.
 	 *
@@ -274,14 +315,21 @@ class M_registro extends MY_Model {
 	 *
 	 * @author cony jaramillo
 	 */
-	function getRegistro($matricula){
-		$this->sql = "SELECT matricula, plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro
-		FROM registro_taller rt, sede s
-		WHERE rt.id_plantel = s.id_plantel
-		AND matricula='$matricula'";
-		$results = $this->db->query($this->sql);
-		return $results->result_array();
+	function getRegistro($matricula = ""){
+		$results = "";
+		
+		if(!empty($matricula)) {
+			$this->sql = "SELECT matricula, plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro
+			FROM registro_taller rt, sede s
+			WHERE rt.id_plantel = s.id_plantel
+			AND matricula='$matricula'";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
 	}
+	
 	/**
 	 * Obtiene nombre  del beneficiatio registrado.
 	 *
@@ -291,9 +339,15 @@ class M_registro extends MY_Model {
 	 *
 	 * @author cony jaramillo
 	 */
-	function getNombre($matricula){
-		$this->sql = "SELECT nombre, ap, am FROM beneficiarios 	WHERE matricula_asignada='$matricula'";
-		$results = $this->db_b->query($this->sql);
-		return $results->result_array();
+	function getNombre($matricula = ""){
+		$results = "";
+		
+		if(!empty($matricula)) {
+			$this->sql = "SELECT nombre, ap, am FROM beneficiarios 	WHERE matricula_asignada='$matricula'";
+			$results = $this->db_b->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
 	}
 }

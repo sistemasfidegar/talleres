@@ -52,16 +52,15 @@ class Asistencia extends CI_Controller {
 			if (!is_null($aux)) {
 				$taller = $this->m_asistencia->getTaller(fecha_actual());
 				$idtaller = isset($taller[0]['id_taller']) ? $taller[0]['id_taller'] : null;
+				$nombreTaller = isset($taller[0]['taller']) ? $taller[0]['taller'] : "";
 				
 				if (!is_null($idtaller)) {
-					$registro = $this->m_asistencia->registroDuplicado($idtaller, $aux);
-					$registro = isset($registro[0]['matricula']) ? $registro[0]['matricula'] : null;
+					$asistencia = $this->m_asistencia->insertaAsistencia($idtaller, $aux, $usuario['id_usuario']);
 					
-					if (!is_null($registro)){
-						echo 'registrado';
+					if (!is_null($asistencia)) {
+						echo $nombreTaller;
 					} else {
-						$asistencia = $this->m_asistencia->insertaAsistencia($idtaller, $aux, $usuario['id_usuario']);
-						echo $taller[0]['taller'];
+						echo 'error';
 					}
 				} else {
 					echo 'sintaller';
