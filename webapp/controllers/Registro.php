@@ -53,6 +53,25 @@ class Registro extends CI_Controller {
 		}
 	}
 	
+	function getBeneficiarioReimpresion(){
+		$matricula =  $this->input->post('matricula_escuela');
+		$aux = $this->m_registro->getMatricula($matricula);
+	
+		$aux = isset($aux[0]['matricula_asignada']) ? $aux[0]['matricula_asignada'] : null;
+	
+		if (!is_null($aux)) {
+			$registro = $this->m_registro->checkRegistroTaller($aux);
+	
+			if(empty($registro)) {
+				echo 'bad';
+			} else {
+				echo $aux;
+			}
+		} else {
+			echo 'bad';
+		}
+	}
+	
 	function getBeneficiarioUnam(){
 		$matricula =  $this->input->post('matricula_escuela');
 		$aux = $this->m_registro->getMatriculaUnam($matricula);
@@ -72,7 +91,7 @@ class Registro extends CI_Controller {
 		}
 	}
 	
-	function getBeneficiarioUnamReimpreion(){
+	function getBeneficiarioUnamReimpresion(){
 		$matricula =  $this->input->post('matricula_escuela');
 		$aux = $this->m_registro->getMatriculaUnam($matricula);
 	
@@ -90,6 +109,7 @@ class Registro extends CI_Controller {
 			echo 'bad';
 		}
 	}
+	
 	function nuevo($matricula) {
 		$datos['title'] = 'Registro Taller';
 		$disponibilidad = $this->m_registro->getDisponibilidad();

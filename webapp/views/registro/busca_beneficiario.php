@@ -8,7 +8,7 @@
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: 'registro/getBeneficiario',
+    		            url: 'registro/getBeneficiarioReimpresion/',
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
         		            if(data == 'bad') {
@@ -27,7 +27,7 @@
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: 'registro/getBeneficiarioUnamReimpreion/',
+    		            url: 'registro/getBeneficiarioUnamReimpresion/',
     		            data: {matricula_escuela: $("#matricula_escuela").val()},
     		            success: function (data) {
     		            	if(data == 'bad') {
@@ -50,7 +50,7 @@
 	    	        	jQuery.ajax({
 	    		            type: 'post',
 	    		            dataType: 'html',
-	    		            url: 'registro/getBeneficiario',
+	    		            url: 'registro/getBeneficiario/',
 	    		            data: {matricula: $("#matricula_asignada").val()},
 	    		            success: function (data) {
 	        		            if(data == 'bad') {
@@ -70,7 +70,7 @@
 	    	        	jQuery.ajax({
 	    		            type: 'post',
 	    		            dataType: 'html',
-	    		            url: 'registro/getBeneficiarioUnam',
+	    		            url: 'registro/getBeneficiarioUnam/',
 	    		            data: {matricula_escuela: $("#matricula_escuela").val()},
 	    		            success: function (data) {
 	    		            	 if(data == 'bad') {
