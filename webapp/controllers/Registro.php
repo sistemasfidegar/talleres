@@ -188,8 +188,8 @@ class Registro extends CI_Controller {
     
     	// Añadir una página
     	// Este método tiene varias opciones, consulta la documentación para más información.
+    	
     	$pdf->AddPage();
-    
     	//fijar efecto de sombra en el texto
     	$pdf->setTextShadow(array('enabled' => true, 'depth_w' => 0.2, 'depth_h' => 0.2, 'color' => array(255, 255, 255), 'opacity' => 1, 'blend_mode' => 'Normal'));
     	
@@ -216,7 +216,7 @@ class Registro extends CI_Controller {
     			
     	}
     	
-    	$pdf->AddPage();
+    	
     	//preparamos y maquetamos el contenido a crear
     	$html ="";
     	$html .= "<style type=text/css>";
@@ -350,10 +350,13 @@ class Registro extends CI_Controller {
     	$pdf->lastPage();
     	
     	$pdf->AddPage();
-    	$html3 ='<h1>Cómo llegar:</h1>
+    	$html3 ='
+    			<br/>
+    			<h1>Cómo llegar:</h1>
+    			<br/>
 				'.$datos['ruta'].'	
-		    	 
-				 <img src="'. base_url() .'/resources/img/'.$datos['imagen'].'" alt="test alt attribute" width="100" height="100" border="0" />
+		    	 <br/><br/><br/>
+				 <img src="'. base_url() .'/resources/img/'.$datos['imagen'].'" alt="test alt attribute"  border="0" />
 				 </div>';
 				    	
 		// output the HTML content
