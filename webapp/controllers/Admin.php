@@ -38,7 +38,6 @@ class Admin extends CI_Controller {
 				$datos['title'] = 'Agregar Usuario';
 				$this->load->view('layout/header', $datos, false);
 				$this->load->view('admin/nav', false, false);
-				$this->load->view('layout/aviso', false, false);
 				$datos['sedes'] = $this->m_registro->getPlantelesActivos();
 				$this->load->view('admin/nuevo', $datos, false);
 				$this->load->view('layout/footer', false, false);
@@ -58,7 +57,6 @@ class Admin extends CI_Controller {
 				$datos['sedes'] = $this->m_registro->getPlantelesActivos();
 				$this->load->view('layout/header', $datos, false);
 				$this->load->view('admin/nav', false, false);
-				$this->load->view('layout/aviso', false, false);
 				$this->load->view('admin/list', $datos, false);
 				$this->load->view('layout/footer', false, false);
 			} else {
@@ -164,7 +162,6 @@ class Admin extends CI_Controller {
 			$datos['plantel'] = $this->m_registro->getPlantelById($datos['usuario']['id_plantel']);
 			$this->load->view('layout/header', $datos, false);
 			$this->load->view('admin/nav', false, false);
-			$this->load->view('layout/aviso', false, false);
 			$this->load->view('admin/edit', $datos, false);
 			$this->load->view('layout/footer', false, false);
 		} else {

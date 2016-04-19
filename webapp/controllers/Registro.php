@@ -132,7 +132,6 @@ class Registro extends CI_Controller {
 			$disponibilidad = $this->m_registro->getDisponibilidad();
 			
 			$this->load->view('layout/header', $datos, false);
-			$this->load->view('layout/aviso', false, false);
 			
 			if(!empty($disponibilidad)) {
 				$talleres = $this->m_registro->getTalleres();
