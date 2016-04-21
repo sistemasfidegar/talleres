@@ -253,7 +253,7 @@ class M_registro extends MY_Model {
 		$this->sql = "SELECT T.taller, T.archivo, to_char(T.fecha_inicio, 'DD-MM-YYYY') as fecha_inicio
 				FROM talleres T, cat_ciclo CC 
 				WHERE T.id_ciclo = CC.id_ciclo AND CC.activo is true AND T.activo is true 
-				ORDER BY T.fecha_inicio ASC;";	
+				ORDER BY T.id_taller ASC;";	
 		$results = $this->db->query($this->sql);
 		return $results->result_array();
 	}

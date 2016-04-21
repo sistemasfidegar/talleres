@@ -13,7 +13,7 @@ class M_asistencia extends MY_Model {
 	 * @return cat_ciclo:inicio,fin Fecha de inicio y fecha fin del Taller Activo. Null en caso contrario.
 	 */
 	function getCicloActivo() {
-		$this->sql = "SELECT  id_ciclo, to_char(fecha_inicio, 'DD-MM-YYYY') as inicio, to_char(fecha_fin, 'DD-MM-YYYY') as fin FROM cat_ciclo WHERE activo is true;;";
+		$this->sql = "SELECT  id_ciclo, to_char(fecha_inicio, 'DD-MM-YYYY') as inicio, to_char(fecha_fin, 'DD-MM-YYYY') as fin FROM cat_ciclo WHERE activo is true;";
 		$results = $this->db->query($this->sql);
 		return $results->result_array ();
 	}
@@ -37,7 +37,7 @@ class M_asistencia extends MY_Model {
 		$results = "";
 		
 		if(!empty($hoy)) {
-			$this->sql="select * from talleres WHERE fecha_inicio='$hoy' and activo is true";
+			$this->sql="select * from talleres WHERE fecha_inicio='$hoy' and activo is true;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
