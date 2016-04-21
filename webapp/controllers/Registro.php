@@ -59,7 +59,7 @@ class Registro extends CI_Controller {
 	
 	function getBeneficiarioReimpresion(){
 		if(!empty($this->input->post())){
-			$matricula =  $this->input->post('matricula_escuela');
+			$matricula =  $this->input->post('matricula');
 			$aux = $this->m_registro->getMatricula($matricula);
 		
 			$aux = isset($aux[0]['matricula_asignada']) ? $aux[0]['matricula_asignada'] : null;
@@ -68,7 +68,7 @@ class Registro extends CI_Controller {
 				$registro = $this->m_registro->checkRegistroTaller($aux);
 		
 				if(empty($registro)) {
-					echo 'bad';
+					echo 'sinregistro';
 				} else {
 					echo $aux;
 				}
