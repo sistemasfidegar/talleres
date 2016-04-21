@@ -68,7 +68,7 @@ class Registro extends CI_Controller {
 				$registro = $this->m_registro->checkRegistroTaller($aux);
 		
 				if(empty($registro)) {
-					echo 'sinregistro';
+					echo 'bad';
 				} else {
 					echo $aux;
 				}
