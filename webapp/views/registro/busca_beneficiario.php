@@ -13,7 +13,7 @@
     		            success: function (data) {
         		            if(data == 'bad') {
         		            	$.unblockUI();
-        		            	$('#myModalSinRegistro').modal('show'); //open modal
+        		            	$('#myModalSinRegistroReimpresion').modal('show'); //open modal
         		            } else {
         		            	$.unblockUI();
          		            	irAPdf('registro/pdf/'+ $("#matricula_asignada").val());
@@ -32,7 +32,7 @@
     		            success: function (data) {
     		            	if(data == 'bad') {
     		            		$.unblockUI();
-        		            	$('#myModalSinRegistro').modal('show'); //open modal
+        		            	$('#myModalSinRegistroReimpresion').modal('show'); //open modal
         		            } else {
         		            	$.unblockUI();
         		            	irAPdf('registro/pdf/'+ $("#matricula_escuela").val());
@@ -102,17 +102,14 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">Beneficiario Inexistente</h4>
+					<h4 class="modal-title" align="center">Datos No Registrados</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeForm" role="form">
 						<div class="form-group">
-							Recuerda que para registarte a los talleres &uacute;nicamente lo puedes llevar a cabo si realizaste con anterioridad tu registro electr&oacute;nico, si entregaste tus documentos y
-	                        si estos fueron aceptados. <br /><br />
+							Los datos proporcionados (CURP, PS &oacute; No. de cuenta) no se encontraron en nuestra Base de Datos, recuerda que para poder registrarte es necesario ser un Beneficiario Activo del Programa "Prepa S&iacute;". <br /><br />
 	                        
-	                        1. Verifica que el dato que proporcionaste para ingresar al sistema es correcto (CURP, PS o No. de cuenta), ya que puede ser un error al teclear.<br /><br />
-	                        
-	                        Si los datos proporcionados son correctos, comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs) para que puedan brindarte mayor informaci&oacute;n.<br /><br />  
+	                        Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br /><br />  
 						</div>
 					</form>
 				</div>
@@ -144,41 +141,37 @@
 	</div><!-- /.modal -->
 	
 	<div class="modal fade" tabindex="-1" role="dialog" id="myModalRegistro">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog modal-md">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">Beneficiario Registrado</h4>
+					<h4 class="modal-title" align="center">Beneficiario Previamente Registrado</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeForm" role="form">
 						<div class="form-group">
-							¡El beneficiario ya se registr&oacute;!  
+							Los datos proporcionados corresponden a un Beneficiario Previamente Registrado.<br /><br />
+							Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br /><br />
 						</div>
 					</form>
 				</div>
-				<div class="modal-footer" style="text-align: center;">
-						Para mayor informaci&oacute;n visita:<br/>
-						<a href="http://www.prepasi.df.gob.mx" target="_blank">www.prepasi.df.gob.mx</a><br/>
-						<a href="https://www.facebook.com/pprepasi" target="_blank">
-							<span class="fa-stack fa-lg">
-                            	<i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                        <a href="https://www.twitter.com/P_Prepa_Si" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                        </a>
-                        <a href="https://www.instagram.com/actividadesps/" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-                                </span>
-                        </a><br/>
-						Atenci&oacute;n telef&oacute;nica Prepa S&iacute; 1102 1750 (L a V de 9 a 18 hrs)
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinRegistroReimpresion">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" align="center">Datos No Registrados</h4>
+				</div>
+				<div class="modal-body">
+					<form id="attributeForm" role="form">
+						<div class="form-group">
+							No se encontraron los datos proporcionados (CURP, PS &oacute; No. de cuenta), por favor reg&iacute;strate primero. <br /><br />
+						</div>
+					</form>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -213,25 +206,22 @@
 					<?php } ?>				
 				<?php } else { ?>
                  <br>
-                 	<div style="text-align:CENTER !important;"><label  style="color:#E6007E;  font-size: 180%;"> REGISTRO TALLER </label></div>
+                 	<div style="text-align:CENTER !important;"><label  style="color:#4C4C4C;  font-size: 180%;">REGISTRO AL CICLO DE CONFERENCIAS "PREP&Aacute;RATE"</label></div>
 						<table width="620" border="0" align="center" cellpadding="0" cellspacing="0">
 							 <tr>
 							   	<td bgcolor="">
 							    	<table width="95%" border="0" align="center" cellpadding="0" cellspacing="5">
-							    	    <tr>
-							        		<td colspan="3" align="center" class="">Elige un método de búsqueda:</td>
-							          	</tr>      
 							        	 <tr>
 							         		<td colspan="3">&nbsp;</td>
 								        </tr>
 								        <tr>
-								          <td colspan="3"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="                 Ingresa tu matricula PS o CURP" style="width:87%; text-transform:uppercase;"/></td>
+								          <td colspan="3"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="                          Ingresa tu matr&iacute;cula PS o CURP" style="width:87%; text-transform:uppercase;"/></td>
 							        	</tr>
 								         <tr>
 								          <td colspan="3">&nbsp;</td>
 								        </tr>
 								        <tr>
-								          <td colspan="3"><input type="text" id="matricula_escuela" name="matricula_escuela" value="" placeholder="                    Ingresa matricula (unam)" style="width:87%; text-transform:uppercase;"/></td>
+								          <td colspan="3"><input type="text" id="matricula_escuela" name="matricula_escuela" value="" placeholder="                          Ingresa matr&iacute;cula (unam)" style="width:87%; text-transform:uppercase;"/></td>
 								        </tr>
 								        <tr>
 							         		<td colspan="3">&nbsp;</td>
@@ -239,12 +229,12 @@
 								        <tr>
 									      <td width="50%">
 								          	  <div class="box-footer" style="text-align: center;" >
-							     				<button style="width:70%; height:40%;" id="registro" name="registro" type="button" class="btn">Registro</button>
+							     				<button style="width:70%; height:40%;" id="registro" name="registro" type="button" class="btn">Iniciar Registro</button>
 							     		   	  </div>
 							        	  </td>
 							        	  <td width="50%">
 								          	  <div class="box-footer" style="text-align: center;" >
-							     				<button style="width:70%; height:40%;" id="reimpresión" name="reimpresión" type="button" class="btn">Reimpresión</button>
+							     				<button style="width:70%; height:40%;" id="reimpresión" name="reimpresión" type="button" class="btn">Obtener Comprobante</button>
 							     		   	  </div>
 							        	  </td>
 								        </tr>

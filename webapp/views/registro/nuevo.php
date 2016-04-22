@@ -4,21 +4,6 @@
 		var mapas = new Array();
 		var rutas = new Array();
 	
-      function muestraAviso() {        	        			        	 
-          bootbox.dialog({
-              title: '<span style=" font-weight:bold; font-size:29px; ">Aviso de Privacidad</span>',
-    		  message: $("#aviso").html(),
-    		  buttons: {
-        		  success: {
-    			  	label: "Cerrar",
-    			 	className: "btn-info",
-    			 	callback: function () {
-        			 	}
-			 		}
-			 	}
-    	     });    			                     
-        }
-
       $(document).ready(function() {
       	var rules_form = {
 		        rules: {
@@ -91,12 +76,12 @@
   	  				    	$.unblockUI();
   				            if(data == 'ok') {
   				             	swal({
-  				             		title: 'Listo',
-		                          	  text: '¡Registro exitoso!',
+  				             		title: 'Registro exitoso:',
+		                          	  text: 'Has quedado registrado al Ciclo de Conferencias "PREP\xc1RATE", no olvides imprimir tu Comprobante.',
 		                          	  type: "success",
 		                          	  showCancelButton: false,
-		                          	  confirmButtonColor: '#34AF00',
-		                          	  confirmButtonText: 'Ok',
+		                          	  confirmButtonColor: '#4C4C4C',
+		                          	  confirmButtonText: 'Imprimir Comprobante',
 		                          	  closeOnConfirm: true,
 		                          	  closeOnCancel: true
   				                },
@@ -164,35 +149,38 @@
                 </div>
                 <?php if(isset($matricula)) { ?>
                 <div id="datos_beneficiario" style="text-align:center; padding-top:10px;">
-                	<div style="text-align:center !important;"><label class="leyenda" style="color:#E6007E; padding-left:20px;">Bienvenid@</label></div>	
+                	<div style="text-align:center !important;"><label class="leyenda" style="color:#4C4C4C; padding-left:20px; font-size: 180%;">Bienvenid@</label></div>	
 		            <div style="text-align:justify;">
-				  		Para registrarte a los talleres sigue los siguientes pasos:<br/>
-				  		1. Verifica que los datos mostrados sean correctos, de lo contrario comun&iacute;cate al tel&eacute;fono 1102 1750 de L a V de 9:00 a 18:00 hrs para que puedan asesorarte.<br />
-				  		2. Selecciona la Sede a donde deseas recibir los talleres y da click en el bot&oacute;n "Continuar".<br/><br/>
+				  		Para registrarte al Ciclo de Conferencias es necesario que realices lo siguiente:<br/>
+				  		<ol>
+				  			<li>Verifica que los datos mostrados sean correctos, de lo contrario comun&iacute;cate al tel&eacute;fono 1102 1750 de L a V de 9:00 a 18:00 hrs para que puedan asesorarte.</li>
+				  			<li>Selecciona la Sede donde deseas asistir a las Conferencias.</li>
+				  			<li>Da click en el bot&oacute;n "Continuar con el Registro".</li>
+				  		</ol>
 				  	</div>
 				  	<div class="form-group">
-    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="beneficiario">Beneficiari@: </label>
+    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="beneficiario">Beneficiari@: </label>
       					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;" for="beneficiario"><?=  (isset($beneficiario['nombre']) ? $beneficiario['nombre'] : ' ') . ' ' .  (isset($beneficiario['ap']) ?  $beneficiario['ap'] : ' ') . ' ' . (isset($beneficiario['am']) ? $beneficiario['am'] : ' ') ?></label>
   					</div>
   					<div class="form-group">
-    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="institucion">Instituci&oacute;n: </label>
+    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="institucion">Instituci&oacute;n: </label>
       					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;" for="institucion"><?=  isset($beneficiario['institucion']) ? $beneficiario['institucion'] : ' ' ?></label>
   					</div>
   					<div class="form-group">
-    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="plantel">Plantel: </label>
+    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="plantel">Plantel: </label>
       					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;" for="plantel"><?=  isset($beneficiario['plantel']) ? $beneficiario['plantel'] : ' ' ?></label>
   					</div>
   					<div class="form-group">
-    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="matricula">Matr&iacute;cula: </label>
+    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="matricula">Matr&iacute;cula: </label>
       					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;" for="matricula"><?=  isset($beneficiario['matricula_asignada']) ? $beneficiario['matricula_asignada'] : ' ' ?></label>
       					<input type="hidden" id="matricula" name="matricula" value="<?=  isset($beneficiario['matricula_asignada']) ? $beneficiario['matricula_asignada'] : ' ' ?>">
   					</div>
   					<div class="form-group">
-    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="curp">CURP: </label>
+    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="curp">CURP: </label>
       					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;" for="curp"><?=  isset($beneficiario['curp']) ? $beneficiario['curp'] : ' ' ?></label>
   					</div>
   					<div class="form-group">
-    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="sede">Sede: </label>
+    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="sede">Sede: </label>
     					<div class="col-sm-offset-1 col-sm-7" style="text-align: left;">
       						<select class="form-control" style="text-align: left;" id="sede" name="sede">
   								<option value="-1" style="text-align: center;">Selecciona una sede...</option>
@@ -208,12 +196,12 @@
       					</div>
   					</div>
   					<div class="form-group" style="; display: none;" id="direccion">
-  						<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="direccion">Direcci&oacute;n: </label>
+  						<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="direccion">Direcci&oacute;n: </label>
   						<div class="col-sm-offset-1 col-sm-9" style="text-align: left;" id="datos">
   						</div>
   					</div>
   					<div class="form-group" style="; display: none;" id="ruta">
-  						<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#e6007e;" for="ruta">C&oacute;mo llegar: </label>
+  						<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="ruta">C&oacute;mo llegar: </label>
   						<div class="col-sm-offset-1 col-sm-9" style="text-align: left;" id="transporte">
   						</div>
   					</div>
@@ -222,7 +210,7 @@
   					</div>
 		            <div class="form-group"> 
     					<div class="col-sm-offset-5 col-sm-2">
-							<button id="guardar" type="button" value="Continuar" class="btn btn-primary">Continuar</button>
+							<button id="guardar" type="button" class="btn btn-primary" style="width:200px;">Continuar con el Registro</button>
     					</div>
   					</div>
                 </div>

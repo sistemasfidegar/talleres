@@ -124,9 +124,9 @@ a:hover { text-decoration: none; }
     font-style: italic;
 }
 
-.register form input:-moz-placeholder { color: #aaa; }
-.register form input:-ms-input-placeholder { color: #aaa; }
-.register form input::-webkit-input-placeholder { color: #aaa; }
+.register form input:-moz-placeholder { color: #aaa; text-align: center;}
+.register form input:-ms-input-placeholder { color: #aaa; text-align: center;}
+.register form input::-webkit-input-placeholder { color: #aaa; text-align: center;}
 
 .register form button {
     cursor: pointer;
@@ -134,7 +134,7 @@ a:hover { text-decoration: none; }
     height: 42px;
     margin-top: 25px;
     padding: 0;
-    background: #E6007E;
+    background: #4C4C4C;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
