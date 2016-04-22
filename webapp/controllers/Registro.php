@@ -423,6 +423,7 @@ class Registro extends CI_Controller {
 					 <img src="'. base_url() .'/resources/img/'.$datos['imagen'].'" alt="test alt attribute"  border="0" />
 					 </div>';
 	    	//MODIFICAR ULTIMAS LEYENDAS
+	    	
 	    	$html3 .='<ul>
 						  <li>Telefono y horario de atención</li>
 						  <li>llevar identificación</li>
