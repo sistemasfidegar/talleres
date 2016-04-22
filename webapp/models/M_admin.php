@@ -109,7 +109,7 @@ class M_admin extends MY_Model {
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	public function getUsuarioById($id_usuario = "") {
-		$usuarioInstance = "";
+		$results = "";
 		
 		if(!empty($id_usuario)) {
 			$this->db->select('*');
@@ -118,9 +118,10 @@ class M_admin extends MY_Model {
 			$query = $this->db->get();
 			$usuarioInstance = $query->row_array();
 			$query->free_result();
+			return $usuarioInstance;
 		}
 		
-		return $usuarioInstance;
+		return $results;
 	}
 	
 	/**

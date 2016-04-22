@@ -159,7 +159,7 @@ class Admin extends CI_Controller {
 			$datos['title'] = 'Perfil';
 			$datos['sedes'] = $this->m_registro->getPlantelesActivos();
 			$datos['usuario'] = $this->m_admin->getUsuarioById($usuario['id_usuario']);
-			$datos['plantel'] = $this->m_registro->getPlantelById($datos['usuario']['id_plantel']);
+			$datos['plantel'] = $this->m_registro->getPlantelById($usuario['id_plantel']);
 			$this->load->view('layout/header', $datos, false);
 			$this->load->view('admin/nav', false, false);
 			$this->load->view('admin/edit', $datos, false);
