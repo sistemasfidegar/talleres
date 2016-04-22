@@ -153,7 +153,7 @@
 					<?php } ?>				
 				<?php } else { ?>
                  <br>
-                 	<div style="text-align:CENTER !important;"><label class="leyenda" style="color:#E6007E; padding-left:20px;"> ASISTENCIA TALLERES PREPA SÍ </label></div>
+                 	<div style="text-align:CENTER !important;"><label class="leyenda" style="color:#4C4C4C; padding-left:20px;"> ASISTENCIA TALLERES PREPA SÍ </label></div>
 						<table width="620" border="0" align="center" cellpadding="0" cellspacing="0">
 							 <tr>
 							   	<td bgcolor="">
