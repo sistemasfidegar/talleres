@@ -244,8 +244,10 @@ class Registro extends CI_Controller {
 	    	
 	    	if(!empty($registro)) {
 	    		$datos['matricula'] = $registro[0]['matricula'];
+	    		$datos['id_plantel'] = $registro[0]['id_plantel'];
 	    		$datos['plantel'] = $registro[0]['plantel'];
 	    		$datos['direccion'] = $registro[0]['direccion'];
+	    		$datos['espacio'] = $registro[0]['espacio'];
 	    		$datos['fecha'] = $registro[0]['fecha_registro'];
 	    		$datos['ruta'] = $registro[0]['ruta'];
 	    		$datos['imagen'] = $registro[0]['imagen'];
@@ -268,7 +270,7 @@ class Registro extends CI_Controller {
 	    		redirect(base_url());
 	    	}
 	    	
-	    	$talleres = $this->m_registro->getTalleres();
+	    	$talleres = $this->m_registro->getTallerByPlantel($datos['id_plantel']);
 	    	
 	    	if(!empty($talleres)) {
 	    		$datos['taller'] = $talleres;
@@ -288,7 +290,7 @@ class Registro extends CI_Controller {
 						    font-size: 13;
 						    line-height: 2;
 						    text-align: center;
-						    color: #E6007E;
+						    color: #4C4C4C;
 						}
 	    			h2{
 	    					text-align: justify;
@@ -340,7 +342,7 @@ class Registro extends CI_Controller {
 		    			</tr>
 		    			<tr>
 		    				<td><h2>SEDE</h2></td>
-		    				<td colspan="2"><p>'.$datos['plantel'].'</p></td>
+		    				<td colspan="2"><p>'.$datos['plantel'].'&nbsp;&nbsp;('.$datos['espacio'].')</p></td>
 		    			</tr>
 		    			<tr>
 		    				<td><h2>DIRECCIÓN</h2></td>
@@ -381,12 +383,13 @@ class Registro extends CI_Controller {
 						 font-size: 13;
 						 line-height: 2;
 						 text-align: center;
-						 color: #E6007E;
+						 color: #4C4C4C;
 						}
 	    			</style>";
 	    	
-	    	$html1 .='<h1>TALLERES</h1><br><br>';
-	    	$html1 .='<table border="0" width="100%">';
+	    	$html1 .='<h1>CICLO DE CONFERENCIAS "PREPÁRATE"</h1><br><br>';
+	    	$html1 .='<table border="0" width="100%">
+	    			 <tr><td >&nbsp;</td></tr>';
 	    	
 	    	
 	    	foreach ($datos['taller'] as $value)////width="100%" height="100%"
@@ -394,12 +397,12 @@ class Registro extends CI_Controller {
 	    		
 	    		$html1 .='
 		    			<tr>
-	    				<td width="10%">&nbsp;</td>
-		    				<td width="5%"><img src="resources/img/pink-happy-face.png" alt="test alt attribute"  border="0" /></td>
+		    				<td width="5%"></td>
 	    					<td width="3%">&nbsp;</td> 
 		    				<td width="50%"><p>'.$value['taller'].'</p></td>
 		    				<td width="3%">&nbsp;</td>
 		    				<td width="20%"><p>'.$value['fecha_inicio'].'</p></td>
+		    				<td width="20%"><p>9:30 am</p></td>
 		    			</tr>
 		    			<tr><td >&nbsp;</td></tr>	    			
 	    			';    		
@@ -419,7 +422,12 @@ class Registro extends CI_Controller {
 			    	 <br/><br/><br/>
 					 <img src="'. base_url() .'/resources/img/'.$datos['imagen'].'" alt="test alt attribute"  border="0" />
 					 </div>';
-					    	
+	    	
+	    	$html3 .='<ul>
+						  <li>Telefono y horario de atención</li>
+						  <li>llevar identificación</li>
+	    				  <li>No olvides llevar el presente documento cada vez que asistas a las conferencias</li>
+					 </ul>  ';
 			// output the HTML content
 			$pdf->writeHTML($html3, true, false, true, false, '');
 			    	

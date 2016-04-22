@@ -319,7 +319,7 @@ class M_registro extends MY_Model {
 		$results = "";
 		
 		if(!empty($matricula)) {
-			$this->sql = "SELECT matricula, plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro
+			$this->sql = "SELECT matricula, rt.id_plantel, plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro,s.espacio
 			FROM registro_taller rt, sede s
 			WHERE rt.id_plantel = s.id_plantel
 			AND matricula='$matricula'";
@@ -348,6 +348,22 @@ class M_registro extends MY_Model {
 			return $results->result_array();
 		}
 		
+		return $results;
+	}
+	
+	function getTallerByPlantel($sede = ""){
+		$results="";
+		
+		if(!empty($sede)){
+		$this->sql="SELECT TA.taller, to_char(TA.fecha_inicio, 'DD-MM-YYYY') as fecha_inicio
+				FROM talleres TA, cat_ciclo CC, taller_plantel TP, sede S 
+				WHERE TP.id_taller= TA.id_taller AND TP.id_plantel=S.id_plantel AND 
+				TA.id_ciclo = CC.id_ciclo AND CC.activo is true AND TA.activo is true
+				AND S.id_plantel=$sede 
+				ORDER BY TA.id_taller ASC;";
+		$results = $this->db->query($this->sql);
+		return $results->result_array();
+		}
 		return $results;
 	}
 }
