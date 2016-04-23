@@ -4,8 +4,6 @@
 	
 	$user_agent = $_SERVER['HTTP_USER_AGENT'];
 	
-	echo "Agente: ". $user_agent;
-	 
 	function getBrowser($user_agent){
 		if(strpos($user_agent, 'MSIE') !== FALSE)
 			return 'IE';
@@ -29,7 +27,6 @@
 	}
 	
 	$navegador =  getBrowser($user_agent);
-	echo "Navegador: ". $navegador;
 ?>
 <script type="text/javascript">
 	function cifrar(){
