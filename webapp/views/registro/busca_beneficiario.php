@@ -1,4 +1,29 @@
-
+ <?php 
+       $user_agent = $_SERVER['HTTP_USER_AGENT'];
+       
+       function getBrowser($user_agent){
+       	if(strpos($user_agent, 'MSIE') !== FALSE)
+       	return 'IE';
+       	elseif(strpos($user_agent, 'Trident') !== FALSE) //IE 11
+       	return 'IE';
+       	elseif(strpos($user_agent, 'Firefox') !== FALSE)
+       	return 'Mozilla Firefox';
+       	elseif(strpos($user_agent, 'Chrome') !== FALSE)
+       	return 'Google Chrome';
+       	elseif(strpos($user_agent, 'Opera Mini') !== FALSE)
+       	return "Opera Mini";
+       	elseif(strpos($user_agent, 'Opera') !== FALSE)
+       	return "Opera";
+       	elseif(strpos($user_agent, 'Safari') !== FALSE)
+       	return "Safari";
+       	else
+       		return 'OTROr';
+              
+       }
+       
+       $navegador =  getBrowser($user_agent);
+       ?>
+       
 <script type="text/javascript">
         jQuery(document).ready(function(){
             
@@ -210,7 +235,7 @@
 						<table width="620" border="0" align="center" cellpadding="0" cellspacing="0">
 							 <tr>
 							   	<td bgcolor="">
-							    	<table width="95%" border="0" align="center" cellpadding="0" cellspacing="5">
+							    	<table style="width:95%; text-align: center; <?php if($navegador=='IE'){ echo "display:none;"; }?>" border="0" cellpadding="0" cellspacing="5">
 							        	 <tr>
 							         		<td colspan="3">&nbsp;</td>
 								        </tr>
@@ -245,8 +270,20 @@
 									    <td>&nbsp;</td>
 							        	</tr>
 							      	</table>
+							      	<table style="width: 95%; <?php if($navegador!='IE'){ echo "display:none;";}?>" border="0" id="mensaje">
+                        	 			<tr>
+                                			<td align="center" colspan="2" style="font-size:19px;" >                                	
+                                    		<span style="color: #4C4C4C;">
+                                    			Para evitar contratiempos en el funcionamiento del sistema es necesario utilizarlo con alguno de los siguientes navegadores.<br /><br />
+                                    			<a href="https://download.mozilla.org/?product=firefox-stub&os=win&lang=es-MX" style="color:#E6007E;"><img src="resources/img/firefox.png" align="middle" title="Mozilla Firefox"/></a>&nbsp;&nbsp; 
+                                    			<a href="https://www.google.com.mx/chrome/browser/desktop/#" style="color:#E6007E;" target="_blank"><img src="resources/img/chrome.png" align="middle" title="Google Chrome"/></a> 
+                                    		</span>
+                                			</td>	
+                            			</tr>      
+                        			</table>
 							 </tr>
 						</table>
+						
 				<?php } ?>
 						
 				</form>
