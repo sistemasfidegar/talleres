@@ -3,6 +3,8 @@
 	$crudAuth = $CI->input->post('crudAuth');
 	
 	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+	
+	echo "Agente: ". $user_agent;
 	 
 	function getBrowser($user_agent){
 		if(strpos($user_agent, 'MSIE') !== FALSE)
@@ -11,6 +13,8 @@
 			return 'IE';
 			elseif(strpos($user_agent, 'Firefox') !== FALSE)
 			return 'Mozilla Firefox';
+			elseif(strpos($user_agent, 'Edge') !== FALSE)
+			return 'IE';
 			elseif(strpos($user_agent, 'Chrome') !== FALSE)
 			return 'Google Chrome';
 			elseif(strpos($user_agent, 'Opera Mini') !== FALSE)
@@ -25,6 +29,7 @@
 	}
 	
 	$navegador =  getBrowser($user_agent);
+	echo "Navegador: ". $navegador;
 ?>
 <script type="text/javascript">
 	function cifrar(){
@@ -78,6 +83,7 @@
 						</form>
 					</div>
                 </div>
+                
                 <table style="width: 95%; <?php if($navegador!='IE'){ echo "display:none;";}?>" border="0" id="mensaje">
                 	<tr>
                     	<td align="center" colspan="2" style="font-size:19px;" >                                	

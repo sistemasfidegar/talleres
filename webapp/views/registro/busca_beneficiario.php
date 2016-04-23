@@ -8,6 +8,8 @@
        	return 'IE';
        	elseif(strpos($user_agent, 'Firefox') !== FALSE)
        	return 'Mozilla Firefox';
+       	elseif(strpos($user_agent, 'Edge') !== FALSE)
+       	return 'IE';
        	elseif(strpos($user_agent, 'Chrome') !== FALSE)
        	return 'Google Chrome';
        	elseif(strpos($user_agent, 'Opera Mini') !== FALSE)
