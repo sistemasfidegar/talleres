@@ -350,7 +350,15 @@ class M_registro extends MY_Model {
 		
 		return $results;
 	}
-	
+	/**
+	 * Obtiene los talleres correspondientes al plantel.
+	 *
+	 * @param  int:sede identificador del plantel.
+	 *
+	 * @return List: nombre, fecha del talleres. Null en caso contrario.
+	 *
+	 * @author cony jaramillo
+	 */
 	function getTallerByPlantel($sede = ""){
 		$results="";
 		
@@ -363,6 +371,24 @@ class M_registro extends MY_Model {
 				ORDER BY TA.id_taller ASC;";
 		$results = $this->db->query($this->sql);
 		return $results->result_array();
+		}
+		return $results;
+	}
+	/**
+	 * Obtiene el número de pagos del beneficiario.
+	 *
+	 * @param  String:$matricula     Matricula asignada a buscar.
+	 *
+	 * @return List: nombre, fecha del talleres. Null en caso contrario.
+	 *
+	 * @author cony jaramillo
+	 */
+	function noPagos($matricula){
+		$results="";
+		if(!empty($matricula)){
+			$this->sql="select * from pagobeneficiarios where matricula_asignada='$matricula'";
+			$results = $this->db_b->query($this->sql);
+			return $results->result_array();
 		}
 		return $results;
 	}

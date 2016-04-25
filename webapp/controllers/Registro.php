@@ -41,13 +41,23 @@ class Registro extends CI_Controller {
 		
 			$aux = isset($aux[0]['matricula_asignada']) ? $aux[0]['matricula_asignada'] : null;
 		
+			
 			if (!is_null($aux)) {
-				$registro = $this->m_registro->checkRegistroTaller($aux);
 				
-				if(empty($registro)) {
-					echo $aux;
-				} else {
-					echo 'registro';
+				$noPagos=$this->m_registro->noPagos($aux);
+				$noPagos = isset($noPagos[0]['pago']) ? $noPagos[0]['pago'] : null;
+				if (!is_null($noPagos) && $noPagos <=26){
+					$registro = $this->m_registro->checkRegistroTaller($aux);
+					
+					if(empty($registro)) {
+						echo $aux;
+					} else {
+						echo 'registro';
+					}
+				}
+				else 
+				{
+					echo 'pagoMax';
 				}
 			} else {
 				echo 'bad';
@@ -412,7 +422,7 @@ class Registro extends CI_Controller {
 	    	//$pdf->writeHTML($html1, true, 0, true, 0);
 	    	$pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '95', $html1, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 	    	$pdf->lastPage();
-	    	
+	    	/*
 	    	$pdf->AddPage();
 	    	$html3 ='
 	    			<br/>
@@ -434,7 +444,7 @@ class Registro extends CI_Controller {
 			    	
 			    	
 	    	$pdf->lastPage();
-	    	 
+	    	 */
 	    	$nombre_archivo = utf8_decode("Registro.pdf");
 	    	
 	    

@@ -86,6 +86,9 @@
 	        		            } else if(data == 'registro') {
 	        		            	$.unblockUI();
 	         		            	$('#myModalRegistro').modal('show'); //open modal
+	         		            }else if(data=='pagoMax'){
+	         		            	$.unblockUI();
+	         		            	$('#myModalpagoMax').modal('show'); //open modal
 	         		            } else {
 	         		            	irA('registro/nuevo/'+ data);
 	            		        }
@@ -203,7 +206,48 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-
+<div class="modal fade" tabindex="-1" role="dialog" id="myModalpagoMax">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" align="center">!IMPORTANTE¡</h4>
+				</div>
+				<div class="modal-body">
+					<form id="attributeForm" role="form">
+						<div class="form-group">
+							Lo sentimos no cumples con los requisitos. <br /><br />
+	                        
+	                        Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br /><br />  
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer" style="text-align: center;">
+						Para mayor informaci&oacute;n visita:<br/>
+						<a href="http://www.prepasi.df.gob.mx" target="_blank">www.prepasi.df.gob.mx</a><br/>
+						<a href="https://www.facebook.com/pprepasi" target="_blank">
+							<span class="fa-stack fa-lg">
+                            	<i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                        <a href="https://www.twitter.com/P_Prepa_Si" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                        </a>
+                        <a href="https://www.instagram.com/actividadesps/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+                                </span>
+                        </a><br/>
+						Atenci&oacute;n telef&oacute;nica Prepa S&iacute; 1102 1750 (L a V de 9 a 18 hrs)
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 <div class="register-container container">
 	<div class="row">                
 		<div class="register">
