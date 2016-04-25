@@ -98,12 +98,20 @@ class Registro extends CI_Controller {
 			$aux = isset($aux[0]['matricula_asignada']) ? $aux[0]['matricula_asignada'] : null;
 		
 			if (!is_null($aux)) {
-				$registro = $this->m_registro->checkRegistroTaller($aux);
-				
-				if(empty($registro)) {
-					echo $aux;
-				} else {
-					echo 'registro';
+				$noPagos=$this->m_registro->noPagos($aux);
+				$noPagos = isset($noPagos[0]['pago']) ? $noPagos[0]['pago'] : null;
+				if (!is_null($noPagos) && $noPagos <=26){
+					$registro = $this->m_registro->checkRegistroTaller($aux);
+					
+					if(empty($registro)) {
+						echo $aux;
+					} else {
+						echo 'registro';
+					}
+				}
+				else
+				{
+					echo 'pagoMax';
 				}
 			} else {
 				echo 'bad';

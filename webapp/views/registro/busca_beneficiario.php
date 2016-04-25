@@ -109,6 +109,9 @@
 	         		            } else if(data == 'registro') {
 	         		            	$.unblockUI();
 	         		            	$('#myModalRegistro').modal('show'); //open modal
+	         		            }else if(data=='pagoMax'){
+	         		            	$.unblockUI();
+	         		            	$('#myModalpagoMax').modal('show'); //open modal
 	         		            } else {
 	         		            	irA('registro/nuevo/'+ data);
 	             		        }
