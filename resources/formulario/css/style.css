@@ -125,6 +125,7 @@ a:hover { text-decoration: none; }
 }
 
 .register form input:-moz-placeholder { color: #aaa; text-align: center;}
+/* firefox 19+ */ .register form input::-moz-placeholder { color: #aaa; text-align: center;}
 .register form input:-ms-input-placeholder { color: #aaa; text-align: center;}
 .register form input::-webkit-input-placeholder { color: #aaa; text-align: center;}
 

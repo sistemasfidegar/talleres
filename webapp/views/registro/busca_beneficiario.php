@@ -111,7 +111,7 @@
 	         		            	$('#myModalRegistro').modal('show'); //open modal
 	         		            }else if(data=='pagoMax'){
 	         		            	$.unblockUI();
-	         		            	$('#myModalpagoMax').modal('show'); //open modal
+	         		            	$('#myModalPagoMax').modal('show'); //open modal
 	         		            } else {
 	         		            	irA('registro/nuevo/'+ data);
 	             		        }
@@ -130,15 +130,15 @@
         }	
 </script>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinRegistro">
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinRegistro">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">Datos No Registrados</h4>
+					<h4 class="modal-title" style="text-align: center">Datos No Registrados</h4>
 				</div>
 				<div class="modal-body">
-					<form id="attributeForm" role="form">
+					<form id="attributeFormModalSinRegistro" role="form">
 						<div class="form-group">
 							Los datos proporcionados (CURP, PS &oacute; No. de cuenta) no se encontraron en nuestra Base de Datos, recuerda que para poder registrarte es necesario ser un Beneficiario Activo del Programa "Prepa S&iacute;". <br /><br />
 	                        
@@ -178,10 +178,10 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">Beneficiario Previamente Registrado</h4>
+					<h4 class="modal-title" style="text-align: center">Beneficiario Previamente Registrado</h4>
 				</div>
 				<div class="modal-body">
-					<form id="attributeForm" role="form">
+					<form id="attributeFormModalRegistro" role="form">
 						<div class="form-group">
 							Los datos proporcionados corresponden a un Beneficiario Previamente Registrado.<br /><br />
 							Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br /><br />
@@ -197,10 +197,10 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">Datos No Registrados</h4>
+					<h4 class="modal-title" style="text-align: center">Datos No Registrados</h4>
 				</div>
 				<div class="modal-body">
-					<form id="attributeForm" role="form">
+					<form id="attributeFormModalSinRegistroReimpresion" role="form">
 						<div class="form-group">
 							No se encontraron los datos proporcionados (CURP, PS &oacute; No. de cuenta), por favor reg&iacute;strate primero. <br /><br />
 						</div>
@@ -209,15 +209,16 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-<div class="modal fade" tabindex="-1" role="dialog" id="myModalpagoMax">
+	
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalPagoMax">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">!IMPORTANTE¡</h4>
+					<h4 class="modal-title" style="text-align: center">!IMPORTANTE¡</h4>
 				</div>
 				<div class="modal-body">
-					<form id="attributeForm" role="form">
+					<form id="attributeFormModalPagoMax" role="form">
 						<div class="form-group">
 							Lo sentimos no cumples con los requisitos. <br /><br />
 	                        
@@ -251,18 +252,19 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-<div class="register-container container">
+	
+	<div class="register-container container">
 	<div class="row">                
 		<div class="register">
-			<form role="form" id="buscar_beneficiario" name="buscar_beneficiario" action="" method="post" autocomplete="off">
+			<form role="form" id="buscar_beneficiario" name="buscar_beneficiario" method="post" autocomplete="off">
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-                 	<img  src="resources/formulario/img/pleca_logos.png" class="img-responsive center-block" style="padding-top:10px;" align="top" />&nbsp;
+                 	<img  src="resources/formulario/img/pleca_logos.png" alt="Logo" class="img-responsive center-block" style="padding-top:10px; vertical-align:top;" />&nbsp;
                  </div>
                  <?php	if (isset($disponible)){ 
                  			if($disponible == 1) { ?>
 				<div class="form-goup">
 					<br>
-					<table width="100%" border="0">		                        	
+					<table style="width: 100%; border-style: 0;">		                        	
 			        	<tr>
 			        		<td>NO HAY TALLERES POR IMPARTIR EN ESTE MOMENTO</td>		                        		
 			            </tr>
@@ -281,62 +283,49 @@
 				<?php } else { ?>
                  <br>
                  	<div style="text-align:CENTER !important;"><label  style="color:#4C4C4C;  font-size: 180%;">REGISTRO AL CICLO DE CONFERENCIAS "PREP&Aacute;RATE"</label></div>
-						<table width="620" border="0" align="center" cellpadding="0" cellspacing="0">
-							 <tr>
-							   	<td bgcolor="">
-							    	<table style="width:95%; text-align: center; <?php if($navegador=='IE'){ echo "display:none;"; }?>" border="0" cellpadding="0" cellspacing="5">
-							        	 <tr>
-							         		<td colspan="3">&nbsp;</td>
-								        </tr>
-								        <tr>
-								          <td colspan="3"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="                          Ingresa tu matr&iacute;cula PS o CURP" style="width:87%; text-transform:uppercase;"/></td>
-							        	</tr>
-								         <tr>
-								          <td colspan="3">&nbsp;</td>
-								        </tr>
-								        <tr>
-								          <td colspan="3"><input type="text" id="matricula_escuela" name="matricula_escuela" value="" placeholder="                          Ingresa matr&iacute;cula (unam)" style="width:87%; text-transform:uppercase;"/></td>
-								        </tr>
-								        <tr>
-							         		<td colspan="3">&nbsp;</td>
-								        </tr>
-								        <tr>
-									      <td width="50%">
-								          	  <div class="box-footer" style="text-align: center;" >
-							     				<button style="width:70%; height:40%;" id="registro" name="registro" type="button" class="btn">Iniciar Registro</button>
-							     		   	  </div>
-							        	  </td>
-							        	  <td width="50%">
-								          	  <div class="box-footer" style="text-align: center;" >
-							     				<button style="width:70%; height:40%;" id="reimpresión" name="reimpresión" type="button" class="btn">Obtener Comprobante</button>
-							     		   	  </div>
-							        	  </td>
-								        </tr>
-								       
-							        	<tr>
-							        	<td colspan="3">&nbsp;</td>
-									  	<td><div style="width:; display:inline-block;" id="letrero"> </div></td>
-									    <td>&nbsp;</td>
-							        	</tr>
-							      	</table>
-							      	<table style="width: 95%; <?php if($navegador!='IE'){ echo "display:none;";}?>" border="0" id="mensaje">
+				    	<table style="width:100%; text-align: center; float: center; border-style: 0; border-spacing: 5; <?php if($navegador=='IE'){ echo 'display:none;'; }?>">
+			    	 		<tbody>
+					        	<tr>
+					         		<td colspan="3" style="padding: 0;">&nbsp;</td>
+						        </tr>
+						        <tr style="text-align: center;">
+						          	<td colspan="3" style="padding: 0;"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="Ingresa tu matr&iacute;cula PS o CURP" style="width:50%; text-transform:uppercase;"/></td>
+					        	</tr>
+						        <tr>
+					            	<td colspan="3" style="padding: 0;">&nbsp;</td>
+						        </tr>
+						        <tr style="text-align: center;">
+						          	<td colspan="3" style="padding: 0;"><input type="text" id="matricula_escuela" name="matricula_escuela" value="" placeholder="Ingresa matr&iacute;cula (unam)" style="width:50%; text-transform:uppercase;"/></td>
+						        </tr>
+				         	</tbody>
+					         
+					        <tfoot>
+						        <tr>
+							      	<td style="width: 50%;">
+					     				<button style="width: 40%; height:40%; float: right;" id="registro" name="registro" type="button" class="btn">Iniciar Registro</button>
+					        	  	</td>
+					        	  	<td >&nbsp;</td>
+					        	  	<td style="width: 50%">
+					     				<button style="width: 40%; height:40%; float: left;" id="reimpresión" name="reimpresión" type="button" class="btn">Obtener Comprobante</button>
+					        	  	</td>
+						        	</tr>
+					        </tfoot>
+					        
+				      	</table>
+				      	
+				      	<table style="width: 100%; float: center; border-style: 0; <?php if($navegador!='IE'){ echo 'display:none;'; } ?>" id="mensaje">
                         	 			<tr>
-                                			<td align="center" colspan="2" style="font-size:19px;" >                                	
+                                			<td colspan="2" style="width: 50%; float: center; text-align:center; font-size:19px;" >                                	
                                     		<span style="color: #4C4C4C;">
                                     			Para evitar contratiempos en el funcionamiento del sistema es necesario utilizarlo con alguno de los siguientes navegadores.<br /><br />
-                                    			<a href="https://download.mozilla.org/?product=firefox-stub&os=win&lang=es-MX" style="color:#E6007E;"><img src="resources/img/firefox.png" align="middle" title="Mozilla Firefox"/></a>&nbsp;&nbsp; 
-                                    			<a href="https://www.google.com.mx/chrome/browser/desktop/#" style="color:#E6007E;" target="_blank"><img src="resources/img/chrome.png" align="middle" title="Google Chrome"/></a> 
+                                    			<a href="https://download.mozilla.org/?product=firefox-stub&os=win&lang=es-MX" style="color:#E6007E;"><img src="resources/img/firefox.png" style="vertical-align: middle;" title="Mozilla Firefox"/></a>&nbsp;&nbsp; 
+                                    			<a href="https://www.google.com.mx/chrome/browser/desktop/#" style="color:#E6007E;" target="_blank"><img src="resources/img/chrome.png" style="vertical-align: middle;" title="Google Chrome"/></a> 
                                     		</span>
                                 			</td>	
                             			</tr>      
                         			</table>
-							 </tr>
-						</table>
-						
 				<?php } ?>
-						
 				</form>
 			</div>
 		</div>
-	</div>
-		 							
+	</div> 							
