@@ -138,7 +138,7 @@
 					<h4 class="modal-title" style="text-align: center">Datos No Registrados</h4>
 				</div>
 				<div class="modal-body">
-					<form id="attributeFormModalSinRegistro" role="form">
+					<form id="attributeFormModalSinRegistro">
 						<div class="form-group">
 							Los datos proporcionados (CURP, PS &oacute; No. de cuenta) no se encontraron en nuestra Base de Datos, recuerda que para poder registrarte es necesario ser un Beneficiario Activo del Programa "Prepa S&iacute;". <br /><br />
 	                        
@@ -181,7 +181,7 @@
 					<h4 class="modal-title" style="text-align: center">Beneficiario Previamente Registrado</h4>
 				</div>
 				<div class="modal-body">
-					<form id="attributeFormModalRegistro" role="form">
+					<form id="attributeFormModalRegistro">
 						<div class="form-group">
 							Los datos proporcionados corresponden a un Beneficiario Previamente Registrado.<br /><br />
 							Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br /><br />
@@ -218,7 +218,7 @@
 					<h4 class="modal-title" style="text-align: center">!IMPORTANTE¡</h4>
 				</div>
 				<div class="modal-body">
-					<form id="attributeFormModalPagoMax" role="form">
+					<form id="attributeFormModalPagoMax">
 						<div class="form-group">
 							Lo sentimos no cumples con los requisitos. <br /><br />
 	                        
@@ -256,7 +256,7 @@
 	<div class="register-container container">
 	<div class="row">                
 		<div class="register">
-			<form role="form" id="buscar_beneficiario" name="buscar_beneficiario" method="post" autocomplete="off">
+			<form id="buscar_beneficiario" name="buscar_beneficiario" method="post" autocomplete="off">
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
                  	<img  src="resources/formulario/img/pleca_logos.png" alt="Logo" class="img-responsive center-block" style="padding-top:10px; vertical-align:top;" />&nbsp;
                  </div>
