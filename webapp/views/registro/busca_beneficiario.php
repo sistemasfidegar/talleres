@@ -283,7 +283,7 @@
 				<?php } else { ?>
                  <br>
                  	<div style="text-align:CENTER !important;"><label  style="color:#4C4C4C;  font-size: 180%;">REGISTRO AL CICLO DE CONFERENCIAS "PREP&Aacute;RATE"</label></div>
-				    	<table style="width:100%; text-align: center; float: center; border-style: 0; border-spacing: 5; <?php if($navegador=='IE'){ echo 'display:none;'; }?>">
+				    	<table style="width:100%; text-align: center; float: center; border-spacing: 5; <?php if($navegador=='IE'){ echo 'display:none;'; }?>">
 			    	 		<tbody>
 					        	<tr>
 					         		<td colspan="3" style="padding: 0;">&nbsp;</td>
@@ -308,22 +308,23 @@
 					        	  	<td style="width: 50%">
 					     				<button style="width: 40%; height:40%; float: left;" id="reimpresión" name="reimpresión" type="button" class="btn">Obtener Comprobante</button>
 					        	  	</td>
-						        	</tr>
+						        </tr>
 					        </tfoot>
-					        
 				      	</table>
 				      	
-				      	<table style="width: 100%; float: center; border-style: 0; <?php if($navegador!='IE'){ echo 'display:none;'; } ?>" id="mensaje">
-                        	 			<tr>
-                                			<td colspan="2" style="width: 50%; float: center; text-align:center; font-size:19px;" >                                	
-                                    		<span style="color: #4C4C4C;">
-                                    			Para evitar contratiempos en el funcionamiento del sistema es necesario utilizarlo con alguno de los siguientes navegadores.<br /><br />
-                                    			<a href="https://download.mozilla.org/?product=firefox-stub&os=win&lang=es-MX" style="color:#E6007E;"><img src="resources/img/firefox.png" style="vertical-align: middle;" title="Mozilla Firefox"/></a>&nbsp;&nbsp; 
-                                    			<a href="https://www.google.com.mx/chrome/browser/desktop/#" style="color:#E6007E;" target="_blank"><img src="resources/img/chrome.png" style="vertical-align: middle;" title="Google Chrome"/></a> 
-                                    		</span>
-                                			</td>	
-                            			</tr>      
-                        			</table>
+				      	<table style="width: 100%; float: center; <?php if($navegador!='IE'){ echo 'display:none;'; } ?>" id="mensaje">
+				      		<tbody>
+                        		<tr>
+                                	<td colspan="2" style="width: 50%; float: center; text-align:center; font-size:19px;" >                                	
+                                   		<span style="color: #4C4C4C;">
+                                    		Para evitar contratiempos en el funcionamiento del sistema es necesario utilizarlo con alguno de los siguientes navegadores.<br /><br />
+                                    		<a href="https://download.mozilla.org/?product=firefox-stub&os=win&lang=es-MX" style="color:#E6007E;"><img src="resources/img/firefox.png" style="vertical-align: middle;" alt="Mozilla Firefox" title="Mozilla Firefox"/></a>&nbsp;&nbsp; 
+                                    		<a href="https://www.google.com.mx/chrome/browser/desktop/#" style="color:#E6007E;" target="_blank"><img src="resources/img/chrome.png" style="vertical-align: middle;" alt="Google Chrome" title="Google Chrome"/></a> 
+                                    	</span>
+                                	</td>	
+                            	</tr>
+                            </tbody>      
+                        </table>
 				<?php } ?>
 				</form>
 			</div>
