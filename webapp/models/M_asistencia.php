@@ -42,11 +42,13 @@ class M_asistencia extends MY_Model {
 	 * @return 
 	 * @author Cony Jaramillo
 	 */
-	function getTaller($hoy = ""){
+	function getTaller($hoy = "", $matricula=""){
 		$results = "";
 		
 		if(!empty($hoy)) {
-			$this->sql="select * from talleres WHERE fecha_inicio='$hoy' and activo is true;";
+			$this->sql="select * from talleres t, taller_plantel tp  
+					WHERE t.id_taller=tp.id_taller  and fecha_inicio='$hoy'  
+					and tp.id_plantel=(SELECT id_plantel from registro_taller where matricula='$matricula')  and activo is true;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}

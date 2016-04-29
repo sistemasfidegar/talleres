@@ -52,7 +52,7 @@ class Asistencia extends CI_Controller {
 			$aux = isset($aux[0]['matricula']) ? $aux[0]['matricula'] : null;
 		
 			if (!is_null($aux)) {
-				$taller = $this->m_asistencia->getTaller(fecha_actual());
+				$taller = $this->m_asistencia->getTaller(fecha_actual(), $aux);
 				$idtaller = isset($taller[0]['id_taller']) ? $taller[0]['id_taller'] : null;
 				$nombreTaller = isset($taller[0]['taller']) ? $taller[0]['taller'] : "";
 				
