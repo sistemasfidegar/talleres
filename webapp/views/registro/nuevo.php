@@ -51,7 +51,7 @@
       	$('#sede').change(function () {
           	if ($('#sede').val() != '-1') {
       			$('#datos').html('<label class="control-label" style="text-align: left;" for="direccion">'+ direcciones[$('#sede').val()] +'</label>');
-      			$('#maps').html('<iframe src="'+ mapas[$('#sede').val()] +'" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>');
+      			$('#maps').html('<iframe src="'+ mapas[$('#sede').val()] +'" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>');
       			$('#transporte').html('<label class="control-label" style="text-align: left;" for="ruta">'+ rutas[$('#sede').val()] +'</label>');
       			$('#direccion').show(); //muestro mediante id
       			$('#maps').show(); //muestro mediante id
@@ -220,14 +220,14 @@
 								<br>
 								<table style="width: 100%;">		                        	
 			        			<tr>
-			        				<td>NO HAY SEDES DISPONIBLES EN ESTE MOMENTO</td>		                        		
+			        				<td>A&Uacute;N NO SE ENCUENTRA ACTIVO EL REGISTRO PARA EL CICLO DE CONFERENCIAS "PREP&Aacute;RATE"</td>		                        		
 			            		</tr>
 			            		<tr><td>&nbsp;&nbsp;</td></tr>
 			            		<tr><td>&nbsp;&nbsp;</td></tr>
 			            		<tr>
 				            		<td>
 					            		<div style="text-align:rigth; padding-left:20px;  min-height:73px;" class="span4">
-		                					<a href="<?= base_url() ?>" class="btn">Terminar</a>                                         	
+		                					<a href="<?= base_url() ?>" class="btn">Salir</a>                                         	
 		                				</div>
 		                			</td>
 	                			</tr>
@@ -238,14 +238,14 @@
 										<br>
 										<table style="width: 100%;">		                        	
 					        			<tr>
-					        				<td>NO HAY TALLERES DISPONIBLES EN ESTE MOMENTO</td>		                        		
+					        				<td>A&Uacute;N NO SE ENCUENTRA ACTIVO EL REGISTRO PARA EL CICLO DE CONFERENCIAS "PREP&Aacute;RATE"</td>		                        		
 					            		</tr>
 					            		<tr><td>&nbsp;&nbsp;</td></tr>
 					            		<tr><td>&nbsp;&nbsp;</td></tr>
 					            		<tr>
 						            		<td>
 							            		<div style="text-align:rigth; padding-left:20px;  min-height:73px;" class="span4">
-				                					<a href="<?= base_url() ?>" class="btn">Terminar</a>                                         	
+				                					<a href="<?= base_url() ?>" class="btn">Salir</a>                                         	
 				                				</div>
 				                			</td>
 			                			</tr>

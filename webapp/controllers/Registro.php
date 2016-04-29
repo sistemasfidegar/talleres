@@ -409,7 +409,7 @@ class Registro extends CI_Controller {
 	    	//$pdf->writeHTML($html1, true, 0, true, 0);
 	    	$pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '95', $html1, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 	    	$pdf->lastPage();
-	    	/*
+	    	
 	    	$pdf->AddPage();
 	    	$html3 ='
 	    			<br/>
@@ -421,17 +421,18 @@ class Registro extends CI_Controller {
 					 </div>';
 	    	//MODIFICAR ULTIMAS LEYENDAS
 	    	
-	    	$html3 .='<ul>
-						  <li>Telefono y horario de atención</li>
-						  <li>llevar identificación</li>
-	    				  <li>No olvides llevar el presente documento cada vez que asistas a las conferencias</li>
+	    	$html3 .='<h1>Importante:</h1>
+	    		     <ul>
+						  <li>No olvides llevar el presente documento cada vez que asistas a las conferencias.</li>
+	    				  <li>No olvides llevar identificaci&oacute;n.</li>
+						  <li>Para cualquier duda y/o aclaraci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 de Lunes a Viernes de 9:00 a 18:00 hrs.</li>
 					 </ul>  ';
 			// output the HTML content
 			$pdf->writeHTML($html3, true, false, true, false, '');
 			    	
 			    	
 	    	$pdf->lastPage();
-	    	 */
+	    	
 	    	$nombre_archivo = utf8_decode("Registro.pdf");
 	    	
 	    

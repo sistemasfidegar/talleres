@@ -308,14 +308,14 @@
 					<br>
 					<table style="width: 100%; border-style: 0;">		                        	
 			        	<tr>
-			        		<td>NO HAY TALLERES POR IMPARTIR EN ESTE MOMENTO</td>		                        		
+			        		<td>A&Uacute;N NO SE ENCUENTRA ACTIVO EL REGISTRO PARA EL CICLO DE CONFERENCIAS <strong>"PREP&Aacute;RATE"</strong></td>		                        		
 			            </tr>
 			            <tr><td>&nbsp;&nbsp;</td></tr>
 			            <tr><td>&nbsp;&nbsp;</td></tr>
 			            <tr>
 				            <td>
 					            <div style="text-align:rigth; padding-left:20px;  min-height:73px;" class="span4">
-		                			<a href="http://www.prepasi.df.gob.mx/" class="btn">Terminar</a>                                         	
+		                			<a href="http://www.prepasi.df.gob.mx/" class="btn">Salir</a>                                         	
 		                		</div>
 		                	</td>
 	                	</tr>
