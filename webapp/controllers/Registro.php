@@ -212,7 +212,7 @@ class Registro extends CI_Controller {
 	    	$pdf->SetCreator(PDF_CREATOR);
 	    	$pdf->SetAuthor('Cony Jaramillo');
 	    	$pdf->SetTitle('Comprobante');
-	    	$pdf->SetSubject('Registro Coordinadores y Promotores');
+	    	$pdf->SetSubject('Registro Conferecias "Prepárate"');
 	    	$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 	    	ob_start();
 	    	
@@ -316,29 +316,8 @@ class Registro extends CI_Controller {
 							font-size: 9;
 							line-height: 1.5;
 	    					color:  #070005;
-	    				}
-	    			h3{
-	    				line-height: 3;
-	    				text-align: center;
-	    				font-weight: normal;
-	    				font-size: 9;
-	    				}
-						h4{
-	    					text-align: center;
-	    					font-weight: bold;
-							font-size: 10;
-							line-height: 1;
-	    					color: #070005;
-					}
-	    			
-	    			h5{
-	    					text-align: justify;
-	    					font-weight: bold;
-							font-size: 10;
-							line-height: 4;
-	    					color:  #070005;
-					}
-	    			p {
+	    			}
+	    			p{
 	    			 	line-height: 1.5;
 	    				color: #5E5D5D;
 	    				font-weight: bold;
@@ -351,7 +330,7 @@ class Registro extends CI_Controller {
 	    	
 	    	$html .='<h1>'.$datos['nombre'].' '.$datos['paterno'].' '.$datos['materno'].'</h1>';//$datos['nombre'].' '.$datos['paterno'].' '.$datos['materno'].
 	    	
-	    	//$html .="<p><h5></h5></p>";
+	    	
 	    	
 	    	$html .='<table border="0">
 		    			<tr>

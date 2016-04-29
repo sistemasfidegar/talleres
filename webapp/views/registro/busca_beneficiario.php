@@ -28,8 +28,18 @@
        
 <script type="text/javascript">
         jQuery(document).ready(function(){
-            
-        	$("#reimpresión").click(function () {
+        	$("#asistencia").click(function () {
+        		if($("#matricula_asignada").val() != ""  ) {
+        			$.blockUI({message: 'Procesando por favor espere...'});
+
+        			
+        		}else if($("#matricula_escuela").val() != "" ){
+            		
+            	}
+				
+
+             });
+        	$("#reimpresion").click(function () {
         		if($("#matricula_asignada").val() != ""  ) {
     				$.blockUI({message: 'Procesando por favor espere...'});
     	        	jQuery.ajax({
@@ -301,12 +311,15 @@
 					         
 					        <tfoot>
 						        <tr>
-							      	<td style="width: 50%;">
+							      	<td style="width: 30%;">
 					     				<button style="width: 40%; height:40%; float: right;" id="registro" name="registro" type="button" class="btn">Iniciar Registro</button>
 					        	  	</td>
 					        	  	<td >&nbsp;</td>
-					        	  	<td style="width: 50%">
-					     				<button style="width: 40%; height:40%; float: left;" id="reimpresión" name="reimpresión" type="button" class="btn">Obtener Comprobante</button>
+					        	  	<td style="width: 30%">
+					     				<button style="width: 40%; height:40%; float: left;" id="reimpresion" name="reimpresion" type="button" class="btn">Obtener Comprobante</button>
+					        	  	</td>
+					        	  	<td style="width: 30%">
+					     				<button style="width: 40%; height:40%; float: left;" id="asistencia" name="asistencia" type="button" class="btn">Asistencia</button>
 					        	  	</td>
 						        </tr>
 					        </tfoot>
