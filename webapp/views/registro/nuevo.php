@@ -143,9 +143,9 @@
 <div class="register-container container">
 	<div class="row">                
     	<div class="register">
-        	<form role="form" class="form-horizontal" id="registro" name="registro" action="<?= base_url('registro/guardar') ?>" method="post">
+        	<form class="form-horizontal" id="registro" name="registro" action="<?= base_url('registro/guardar') ?>" method="post">
         		<div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-                	<img src="resources/formulario/img/pleca_logos.png" class="img-responsive center-block" style="padding-top:10px;" align="top" />&nbsp;                        	
+                	<img  src="resources/formulario/img/pleca_logos.png" alt="Logo" class="img-responsive center-block" style="padding-top:10px; vertical-align:top;" />&nbsp;                        	
                 </div>
                 <?php if(isset($matricula)) { ?>
                 <div id="datos_beneficiario" style="text-align:center; padding-top:10px;">
@@ -159,25 +159,25 @@
 				  		</ol>
 				  	</div>
 				  	<div class="form-group">
-    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="beneficiario">Beneficiari@: </label>
-      					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;" for="beneficiario"><?=  (isset($beneficiario['nombre']) ? $beneficiario['nombre'] : ' ') . ' ' .  (isset($beneficiario['ap']) ?  $beneficiario['ap'] : ' ') . ' ' . (isset($beneficiario['am']) ? $beneficiario['am'] : ' ') ?></label>
+    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;">Beneficiari@: </label>
+      					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;"><?=  (isset($beneficiario['nombre']) ? $beneficiario['nombre'] : ' ') . ' ' .  (isset($beneficiario['ap']) ?  $beneficiario['ap'] : ' ') . ' ' . (isset($beneficiario['am']) ? $beneficiario['am'] : ' ') ?></label>
   					</div>
   					<div class="form-group">
-    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="institucion">Instituci&oacute;n: </label>
-      					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;" for="institucion"><?=  isset($beneficiario['institucion']) ? $beneficiario['institucion'] : ' ' ?></label>
+    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;">Instituci&oacute;n: </label>
+      					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;"><?=  isset($beneficiario['institucion']) ? $beneficiario['institucion'] : ' ' ?></label>
   					</div>
   					<div class="form-group">
-    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="plantel">Plantel: </label>
-      					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;" for="plantel"><?=  isset($beneficiario['plantel']) ? $beneficiario['plantel'] : ' ' ?></label>
+    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;">Plantel: </label>
+      					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;"><?=  isset($beneficiario['plantel']) ? $beneficiario['plantel'] : ' ' ?></label>
   					</div>
   					<div class="form-group">
-    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="matricula">Matr&iacute;cula: </label>
-      					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;" for="matricula"><?=  isset($beneficiario['matricula_asignada']) ? $beneficiario['matricula_asignada'] : ' ' ?></label>
+    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;">Matr&iacute;cula: </label>
+      					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;"><?=  isset($beneficiario['matricula_asignada']) ? $beneficiario['matricula_asignada'] : ' ' ?></label>
       					<input type="hidden" id="matricula" name="matricula" value="<?=  isset($beneficiario['matricula_asignada']) ? $beneficiario['matricula_asignada'] : ' ' ?>">
   					</div>
   					<div class="form-group">
-    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="curp">CURP: </label>
-      					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;" for="curp"><?=  isset($beneficiario['curp']) ? $beneficiario['curp'] : ' ' ?></label>
+    					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;">CURP: </label>
+      					<label class="control-label col-sm-offset-1 col-sm-9" style="text-align: left;"><?=  isset($beneficiario['curp']) ? $beneficiario['curp'] : ' ' ?></label>
   					</div>
   					<div class="form-group">
     					<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="sede">Sede: </label>
@@ -196,12 +196,12 @@
       					</div>
   					</div>
   					<div class="form-group" style="; display: none;" id="direccion">
-  						<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="direccion">Direcci&oacute;n: </label>
+  						<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;">Direcci&oacute;n: </label>
   						<div class="col-sm-offset-1 col-sm-9" style="text-align: left;" id="datos">
   						</div>
   					</div>
   					<div class="form-group" style="; display: none;" id="ruta">
-  						<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;" for="ruta">C&oacute;mo llegar: </label>
+  						<label class="control-label col-sm-offset-1 col-sm-1" style="text-align: left; color:#4C4C4C;">C&oacute;mo llegar: </label>
   						<div class="col-sm-offset-1 col-sm-9" style="text-align: left;" id="transporte">
   						</div>
   					</div>
@@ -218,7 +218,7 @@
 		            				if($disponible == 1) { ?>
 		            		<div class="form-group">
 								<br>
-								<table width="100%" border="0">		                        	
+								<table style="width: 100%;">		                        	
 			        			<tr>
 			        				<td>NO HAY SEDES DISPONIBLES EN ESTE MOMENTO</td>		                        		
 			            		</tr>
@@ -236,7 +236,7 @@
 		            				<?php } else if($disponible == 2) { ?>
 		            				<div class="form-group">
 										<br>
-										<table width="100%" border="0">		                        	
+										<table style="width: 100%;">		                        	
 					        			<tr>
 					        				<td>NO HAY TALLERES DISPONIBLES EN ESTE MOMENTO</td>		                        		
 					            		</tr>
@@ -254,7 +254,7 @@
 		            						<?php } else { ?>
 		            								<div class="form-group">
 														<br>
-														<table width="100%" border="0">		                        	
+														<table style="width: 100%;">		                        	
 									        			<tr>
 									        				<td>
 									        					Te informamos que <strong>no podr&aacute;s realizar el registro a alg&uacute;n taller</strong> en tanto no <strong>regularices</strong> la 

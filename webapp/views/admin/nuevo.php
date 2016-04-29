@@ -11,21 +11,6 @@
 		input_pass2.value = sha1(input_pass2.value);
 	}
 
-      function muestraAviso() {        	        			        	 
-          bootbox.dialog({
-              title: '<span style=" font-weight:bold; font-size:29px; ">Aviso de Privacidad</span>',
-    		  message: $("#aviso").html(),
-    		  buttons: {
-        		  success: {
-    			  	label: "Cerrar",
-    			 	className: "btn-info",
-    			 	callback: function () {
-        			 	}
-			 		}
-			 	}
-    	     });    			                     
-        }
-
       $(document).ready(function() {
       	var rules_form = {
 		        rules: {
@@ -106,14 +91,15 @@
 
       $("#guardar").click(function (){ 
   				if($('#attributeForm').valid()) {
+  					cifrar();
   					$.blockUI({message: 'Procesando por favor espere...'});
   				    $.ajax({
   				    	type: 'POST',
   				        url: $('#attributeForm').attr("action"),
   				        data: $('#attributeForm').serialize(),
   				        success: function (data) {
-  	  				    	$.unblockUI();
   				            if(data == 'ok') {
+  				            	$.unblockUI();
   				             	swal({
   				             		title: 'Listo',
 		                          	  text: '¡Registro exitoso!',
@@ -130,6 +116,7 @@
   				                    } 
   				                });
   				            } else if (data == 'usuario') {
+  				            	$.unblockUI();
   				            	swal({
   					            	title: 'Error',
 		                         	  text: 'Nombre de Usuario no disponile!!! Favor de escoger otro',
@@ -141,6 +128,7 @@
 		                         	  closeOnCancel: true
   				                });
   				            } else {
+  				            	$.unblockUI();
   					            swal({
   					            	title: 'Error',
 		                         	  text: 'Ocurri\xf3 un error, int\xe9ntelo m\xe1s tarde!!!',
@@ -167,9 +155,9 @@
 <div class="register-container container">
 	<div class="row">                
 		<div class="register">
-			<form id="attributeForm" method="POST" action="<?= base_url() ?>admin/create" class="form-horizontal" role="form" autocomplete="off">
+			<form id="attributeForm" method="POST" action="<?= base_url('admin/create') ?>" class="form-horizontal" autocomplete="off">
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-                 	<a href="<?= base_url('asistencia') ?>">	<img  src="resources/formulario/img/pleca_logos.png" class="img-responsive center-block" style="padding-top:10px;" align="top" />&nbsp;</a>
+                 	<a href="<?= base_url('asistencia') ?>"><img  src="resources/formulario/img/pleca_logos.png" alt="Logo" class="img-responsive center-block" style="padding-top:10px; vertical-align:top;" />&nbsp;</a>
                  </div>
                  <div style="text-align: center;">
 				  		Introduce la siguiente informaci&oacute;n para <strong>Agregar un Usuario</strong>:<br/><br/>
@@ -229,7 +217,7 @@
 				  </div>
 				  <div class="form-group"> 
     				<div class="col-sm-offset-4 col-sm-4">
-						<button id="guardar" type="button" class="btn btn-primary" onclick="cifrar()">Guardar</button>
+						<button id="guardar" type="button" class="btn btn-primary">Guardar</button>
     				</div>
   				</div>
 			</form>

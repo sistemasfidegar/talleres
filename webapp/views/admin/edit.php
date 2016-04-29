@@ -31,6 +31,7 @@
 		        	materno: {required : true, maxlength: 50},
 		        	email: {required : true, estructuraemail: true, maxlength: 80},
 		        	usuario: {required : true, maxlength: 20},
+		        	actual: {required : true, minlength: 8, maxlength: 255},
 		        	password: {required : true, minlength: 8, maxlength: 255},
 		        	password2: {required : true, passwordigual: true},
 		        	sede: {required : true, selectNone: true}
@@ -41,6 +42,7 @@
 		        	materno: {required: "Campo obligatorio", maxlength: "Introduce m\xc1ximo 50 caract\xe9res"},
 		        	email: {required: "Campo obligatorio", estructuraemail: "Introduce un email v\xc1lido", maxlength: "Introduce m\xc1ximo 80 caract\xe9res"},
 		        	usuario: {required: "Campo obligatorio", maxlength: "Introduce m\xc1ximo 20 caract\xe9res"},
+		        	actual: {required: "Campo obligatorio", minlength: "Introduce al menos 8 caract\xe9res", maxlength: "Introduce m\xc1ximo 255 caract\xe9res"},
 		        	password: {required: "Campo obligatorio", minlength: "Introduce al menos 8 caract\xe9res", maxlength: "Introduce m\xc1ximo 255 caract\xe9res"},
 		        	password2: {required : "Campo obligatorio", passwordigual: "La confirmaci\xf3n de contrase\xf1a no coincide"},
 		        	sede: {required: "Campo obligatorio", selectNone: "Debe seleccionar una opci\xf3n"}
@@ -99,8 +101,8 @@
     				    return true;
     				}, "La confirmaci\xf3n de contrase\xf1a no coincide");
 
-      $("#editModal #datos").validate(rules_form);
-      $("#editPassModal #datos").validate(rules_form);
+      $("#editModal #datosEditModal").validate(rules_form);
+      $("#editPassModal #datosEditPassModal").validate(rules_form);
 
     	//Modal Editar
 		$('#editModal').on('show.bs.modal', function (event) {
@@ -140,7 +142,7 @@
 
 		//Actualizamos el Perfil
 		$("#edit").click(function(){
-			if($('#editPassModal #datos').valid()) {
+			if($('#editModal #datosEditModal').valid()) {
 				$.blockUI({message: 'Procesando por favor espere...'});
 				$.ajax({
 					type: "POST",
@@ -149,8 +151,8 @@
 						email: $("#email").val(), sede: $("#sede").val()},
 					success: function(msg){
 						$('#editModal').modal('hide'); //hide popup
-						$.unblockUI();
 						if (msg == 'ok') {
+							$.unblockUI();
                             swal({
 				             	title: 'Listo',
 	                          	  text: '¡Editado exitoso!',
@@ -167,6 +169,7 @@
 				                    } 
 				                });  
                         } else {
+                        	$.unblockUI();
                         	 swal({
 					            	title: 'Error',
 		                         	  text: 'Ocurri\xf3 un error, int\xe9ntelo m\xe1s tarde!!!',
@@ -185,7 +188,8 @@
 
 		//Actualizamos la Contrase&ntilde;a
 		$("#editPass").click(function(){
-			if($('#editPassModal #datos').valid()) {
+			if($('#editPassModal #datosEditPassModal').valid()) {
+				cifrar();
 				$.blockUI({message: 'Procesando por favor espere...'});
 				$.ajax({
 					type: "POST",
@@ -193,8 +197,8 @@
 					data: {usuarioId: $(this).attr('data-user'), actual: $("#actual").val(), password: $("#password").val()},
 					success: function(msg){
 						$('#editPassModal').modal('hide'); //hide popup
-						$.unblockUI();
 						if (msg == 'ok') {
+							$.unblockUI();
                             swal({
 				             	title: 'Listo',
 	                          	  text: '¡Editado exitoso!',
@@ -206,6 +210,7 @@
 	                          	  closeOnCancel: true
                             });
                         } else if (msg == 'nocoincide') {
+                        	$.unblockUI();
                         	swal({
 				            	title: 'Error',
 	                         	  text: 'La contrase\xf1a actual ingresada no es correcta!!!',
@@ -217,6 +222,7 @@
 	                         	  closeOnCancel: true
 			                });
                         } else {
+                        	$.unblockUI();
                         	 swal({
 					            	title: 'Error',
 		                         	  text: 'Ocurri\xf3 un error, int\xe9ntelo m\xe1s tarde!!!',
@@ -244,10 +250,10 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Editar Perfil</h4>
+					<h4 class="modal-title" style="text-align: center">Editar Perfil</h4>
 				</div>
 				<div class="modal-body">
-					<form id="datos" autocomplete="off">
+					<form id="datosEditModal" autocomplete="off">
 						<div class="row">
 							<div class="col-sm-3">
 								<label class="control-label" style="text-align: left;" for="nombre">Nombre:</label>
@@ -309,10 +315,10 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Cambiar Contrase&ntilde;a</h4>
+					<h4 class="modal-title" style="text-align: center">Cambiar Contrase&ntilde;a</h4>
 				</div>
 				<div class="modal-body">
-					<form id="datos" autocomplete="off">
+					<form id="datosEditPassModal" autocomplete="off">
 						<div class="row">
 							<div class="col-sm-3">
 								<label class="control-label" style="text-align: left;" for="actual">Contrase&ntilde;a actual:</label>
@@ -341,7 +347,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-					<button type="submit" id="editPass" class="btn btn-primary" data-user="" onclick="cifrar()">Actualizar</button>
+					<button type="submit" id="editPass" class="btn btn-primary" data-user="">Actualizar</button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -350,9 +356,9 @@
 <div class="register-container container">
 	<div class="row">                
 		<div class="register">
-			<form id="attributeForm" class="form-horizontal" role="form" autocomplete="off">
+			<form id="attributeForm" class="form-horizontal" autocomplete="off">
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-                 	<a href="<?= base_url('asistencia') ?>">	<img  src="resources/formulario/img/pleca_logos.png" class="img-responsive center-block" style="padding-top:10px;" align="top" />&nbsp;</a>
+                 	<a href="<?= base_url('asistencia') ?>"><img  src="resources/formulario/img/pleca_logos.png" alt="Logo" class="img-responsive center-block" style="padding-top:10px; vertical-align:top;" />&nbsp;</a>
                  </div>
                  <div style="text-align: center;">
 				  		<strong>Perfil</strong>:<br/><br/>

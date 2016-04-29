@@ -1,19 +1,4 @@
 <script type="text/javascript">
-		function muestraAviso() {        	        			        	 
-		    bootbox.dialog({
-		        title: '<span style=" font-weight:bold; font-size:29px; ">Aviso de Privacidad</span>',
-				  message: $("#aviso").html(),
-				  buttons: {
-		  		  success: {
-					  	label: "Cerrar",
-					 	className: "btn-info",
-					 	callback: function () {
-		  			 	}
-				 		}
-				 	}
-			     });    			                     
-		  }
-
 		jQuery(document).ready(function(){
 			var rules_form = {
 			        rules: {
@@ -75,7 +60,7 @@
 	     				}
 	     			}, "Introduce un email v\xc1lido");
 
-	      $("#editModal #datos").validate(rules_form);
+	      $("#editModal #datosEditModal").validate(rules_form);
 	      
 			 // Bot&oacute;n de Exportar a Excel
 			$("#btn-excel").click(function(e) {
@@ -177,7 +162,7 @@
 
 			//Submit Modal Editar
 			$("#edit").click(function(){
-				if($('#editModal #datos').valid()) {
+				if($('#editModal #datosEditModal').valid()) {
 					$.blockUI({message: 'Procesando por favor espere...'});
 					$.ajax({
 						type: "POST",
@@ -186,8 +171,8 @@
 							email: $("#email").val(), sede: $("#sede").val()},
 						success: function(msg){
 							$('#editModal').modal('hide'); //hide popup
-							$.unblockUI();
 							if (msg == 'ok') {
+								$.unblockUI();
 	                            swal({
 					             	title: 'Listo',
 		                          	  text: '¡Editado exitoso!',
@@ -204,6 +189,7 @@
 					                    } 
 					                });  
 	                        } else {
+	                        	$.unblockUI();
 	                        	 swal({
 						            	title: 'Error',
 			                         	  text: 'Ocurri\xf3 un error, int\xe9ntelo m\xe1s tarde!!!',
@@ -231,10 +217,10 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Eliminar Usuario</h4>
+					<h4 class="modal-title" style="text-align: center">Eliminar Usuario</h4>
 				</div>
 				<div class="modal-body">
-					<form id="datos">
+					<form id="datosDeleteModal">
 						<div class="form-group">
 							<label for="name" class="control-label">¿Est&aacute; seguro que desea eliminar el registro de:?</label>
 							<input type="text" class="form-control" id="name" name="name">
@@ -254,10 +240,10 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Editar Usuario</h4>
+					<h4 class="modal-title" style="text-align: center">Editar Usuario</h4>
 				</div>
 				<div class="modal-body">
-					<form id="datos" autocomplete="off">
+					<form id="datosEditModal" autocomplete="off">
 						<div class="row">
 							<div class="col-sm-3">
 								<label class="control-label" style="text-align: left;" for="nombre">Nombre:</label>
@@ -318,7 +304,7 @@
 	<div class="text-right">
 		<form action="<?= base_url('admin/excel') ?>" method="post" target="_blank" id="FormularioExportacion">
 			<div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-                 	<a href="<?= base_url('asistencia') ?>">	<img  src="resources/formulario/img/pleca_logos.png" class="img-responsive center-block" style="padding-top:10px;" align="top" />&nbsp;</a>
+                 	<a href="<?= base_url('asistencia') ?>"><img  src="resources/formulario/img/pleca_logos.png" alt="Logo" class="img-responsive center-block" style="padding-top:10px; vertical-align:top;" />&nbsp;</a>
             </div>
             <div style="text-align: center;">
 				  		<strong>Listado de Usuarios:</strong><br/><br/>

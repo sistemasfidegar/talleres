@@ -16,12 +16,10 @@
         		            	$.unblockUI();
         		            	$('#myModalError').modal('show'); //open modal
         		            	$("#matricula_asignada").val('');
-            		        }
-        		            else  if(data == 'bad'){
+            		        } else  if(data == 'bad'){
         		            	$.unblockUI();
         		            	$('#myModalSinRegistro').modal('show'); //open modal
-            		        }
-        		            else if(data == 'sintaller') {
+            		        } else if(data == 'sintaller') {
         		            	$.unblockUI();
         		            	$('#myModalSinTaller').modal('show'); //open modal
         		            	$("#matricula_asignada").val('');
@@ -47,15 +45,15 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">Beneficiario Sin Registro</h4>
+					<h4 class="modal-title" style="text-align: center">Beneficiario Sin Registro</h4>
 				</div>
 				<div class="modal-body">
-					<form id="attributeForm" role="form">
+					<form id="attributeFormModalSinRegistro">
 						<div class="form-group">
 							Lo sentimos no se encontr&oacute; tu registro a los talleres Prepa S&iacute;
 							<br/>
 							<br/>1. Verifica  que tu matr&iacute;cula est&eacute; escrita correctamente 
-							<br/><center><img src="resources/img/pink-sad-face.png" alt="codesi" width="50%" class="img-rounded"></center>
+							<br/><img src="resources/img/pink-sad-face.png" alt="codesi" style="vertical-align: middle; width: 50%" class="img-rounded">
 							
 						</div>
 					</form>
@@ -70,13 +68,15 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">Bienvenid@</h4>
+					<h4 class="modal-title" style="text-align: center">Bienvenid@</h4>
 				</div>
 				<div class="modal-body">
-					<form id="attributeForm" role="form">
+					<form id="attributeFormModalRegistro">
 						<div class="form-group">
-							 <label for="mensaje" class="control-label"><div id="mensaje"></div></label><br/><br/>
-							 <br/><center><img src="resources/img/ok.png" alt="codesi" width="50%" class="img-rounded"></center>
+							 <label for="mensaje" class="control-label">
+							 <div id="mensaje"></div>
+							 </label><br/><br/>
+							 <br/><img src="resources/img/ok.png" alt="codesi" style="vertical-align: middle; width: 50%" class="img-rounded">
 						</div>
 					</form>
 				</div>
@@ -90,12 +90,12 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">¡Ocurri&oacute; un error! Favor de intentarlo de nuevo</h4>
+					<h4 class="modal-title" style="text-align: center">¡Ocurri&oacute; un error! Favor de intentarlo de nuevo</h4>
 				</div>
 				<div class="modal-body">
-					<form id="attributeForm" role="form">
+					<form id="attributeFormModalError">
 						<div class="form-group">
-							 <br/><center><img src="resources/img/pink-sad-face.png" alt="codesi" width="50%" class="img-rounded"></center>
+							 <br/><img src="resources/img/pink-sad-face.png" alt="codesi" style="vertical-align: middle; width: 50%" class="img-rounded">
 						</div>
 					</form>
 				</div>
@@ -108,10 +108,10 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" align="center">Sin Talleres</h4>
+					<h4 class="modal-title" style="text-align: center">Sin Talleres</h4>
 				</div>
 				<div class="modal-body">
-					<form id="attributeForm" role="form">
+					<form id="attributeFormModalSinTaller">
 						<div class="form-group">
 							<div class="form-group">
 							Lo sentimos, no se encontraron talleres disponibles para el d&iacute;a de hoy
@@ -129,13 +129,13 @@
 		<div class="register">
 			<form role="form" id="buscar_beneficiario" name="buscar_beneficiario" action="" method="post" autocomplete="off">
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
-                 	<img  src="resources/formulario/img/pleca_logos.png" class="img-responsive center-block" style="padding-top:10px;" align="top" />&nbsp;
+                 	<img  src="resources/formulario/img/pleca_logos.png" alt="Logo" class="img-responsive center-block" style="padding-top:10px; vertical-align:top;" />&nbsp;
                  </div>
                  <?php	if (isset($disponible)){ 
                  			if($disponible == 1) { ?>
 				<div class="form-goup">
 					<br>
-					<table width="100%" border="0">		                        	
+					<table style="width: 100%;">		                        	
 			        	<tr>
 			        		<td>NO HAY TALLERES POR IMPARTIR EN ESTE MOMENTO</td>		                        		
 			            </tr>
@@ -153,46 +153,39 @@
 					<?php } ?>				
 				<?php } else { ?>
                  <br>
-                 	<div style="text-align:CENTER !important;"><label class="leyenda" style="color:#4C4C4C; padding-left:20px;"> ASISTENCIA TALLERES PREPA SÍ </label></div>
-						<table width="620" border="0" align="center" cellpadding="0" cellspacing="0">
-							 <tr>
-							   	<td bgcolor="">
-							    	<table width="95%" border="0" align="center" cellpadding="0" cellspacing="5">
-							    	    <tr>
-							        		<td colspan="2" align="center" class=""></td>
-							          	</tr>      
-							        	 <tr>
-							         		<td colspan="2">&nbsp;</td>
-								        </tr>
-								        <tr>
-								          <td colspan="2"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="                 Ingresa tu matricula PS o CURP" style="width:80%; text-transform:uppercase;" autofocus/></td>
-							        	</tr>
-								         <tr>
-								          <td colspan="2">&nbsp;</td>
-								        </tr>
-								         <tr>
-									      <td colspan ="2""center">
-								          	  <div class="box-footer" style="text-align: center;" >
-							     				<button style="width:50%;" id="guardar" name="guardar" type="button" class="btn">Consultar</button>
-							     		   	  </div>
-							        	  </td>
-								        </tr>
-								        <tr>
-								          <td>&nbsp;</td>
-							         	  <td>&nbsp;</td>
-							        	</tr>
-							        	<tr>
-							        	<td>&nbsp;</td>
-									  	<td><div style="width:; display:inline-block;" id="letrero"> </div></td>
-									    <td>&nbsp;</td>
-							        	</tr>
-							      	</table>
-							 </tr>
+                 	<div style="text-align:CENTER !important;"><label class="leyenda" style="color:#4C4C4C; padding-left:20px;">ASISTENCIA TALLERES PREPA SÍ</label></div>
+						<table style="width:100%; text-align: center; float: center; border-spacing: 5;">
+							<tbody>
+				    	    	<tr>
+							    	<td colspan="2" style="text-align: center;" class=""></td>
+							  	</tr>      
+							    <tr>
+							    	<td colspan="2">&nbsp;</td>
+						        </tr>
+						        <tr>
+						          	<td colspan="2"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="Ingresa tu matricula PS o CURP" style="width:50%; text-transform:uppercase;" autofocus/></td>
+					        	</tr>
+					         	<tr>
+						          	<td colspan="2">&nbsp;</td>
+						        </tr>
+							</tbody>
+							
+							<tfoot>
+				         		<tr>
+						      		<td colspan="2" style="width: 25%; text-align: center;">
+					          	  		<div class="box-footer" style="text-align: center;" >
+					     					<button style="width:25%;" id="guardar" name="guardar" type="button" class="btn">Consultar</button>
+					     		   	  	</div>
+					        	  	</td>
+						        </tr>
+						        <tr>
+					          		<td>&nbsp;</td>
+					         	  	<td>&nbsp;</td>
+					        	</tr>
+							</tfoot>
 						</table>
 				<?php } ?>
-						
 				</form>
 			</div>
 		</div>
 	</div>
-		 							
