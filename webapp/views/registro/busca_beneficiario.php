@@ -31,10 +31,42 @@
         	$("#asistencia").click(function () {
         		if($("#matricula_asignada").val() != ""  ) {
         			$.blockUI({message: 'Procesando por favor espere...'});
-
+        			jQuery.ajax({
+    		            type: 'post',
+    		            dataType: 'html',
+    		            url: 'registro/getBeneficiario/',
+    		            data: {matricula: $("#matricula_asignada").val()},
+    		            success: function (data) {
+        		            if(data == 'bad') {
+        		            	$.unblockUI();
+        		            	$('#myModalSinRegistroReimpresion').modal('show'); //open modal
+        		            }
+        		            else
+            		        {
+        		            	$.unblockUI();
+        		            	irAPdf('asistencia/listaAsistencia/'+$("#matricula_asignada").val());
+            		        }
+    		            }
+        			});		
         			
         		}else if($("#matricula_escuela").val() != "" ){
-            		
+        			$.blockUI({message: 'Procesando por favor espere...'});
+    	        	jQuery.ajax({
+    		            type: 'post',
+    		            dataType: 'html',
+    		            url: 'registro/getBeneficiarioUnamReimpresion/',
+    		            data: {matricula_escuela: $("#matricula_escuela").val()},
+    		            success: function (data) {
+    		            	if(data == 'bad') {
+    		            		$.unblockUI();
+        		            	$('#myModalSinRegistroReimpresion').modal('show'); //open modal
+        		            } else {
+        		            	$.unblockUI();
+        		            	irAPdf('asistencia/listaAsistencia/'+data);
+        		            	$("#matricula_escuela").val("");
+            		        }
+    		            }
+    		        });		
             	}
 				
 
@@ -72,7 +104,7 @@
         		            	$('#myModalSinRegistroReimpresion').modal('show'); //open modal
         		            } else {
         		            	$.unblockUI();
-        		            	irAPdf('registro/pdf/'+ $("#matricula_escuela").val());
+        		            	irAPdf('registro/pdf/'+ data);
         		            	$("#matricula_escuela").val("");
             		        }
     		            }
@@ -203,7 +235,7 @@
 	</div><!-- /.modal -->
 	
 	<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinRegistroReimpresion">
-		<div class="modal-dialog modal-md">
+		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -212,7 +244,7 @@
 				<div class="modal-body">
 					<form id="attributeFormModalSinRegistroReimpresion" role="form">
 						<div class="form-group">
-							No se encontraron los datos proporcionados (CURP, PS &oacute; No. de cuenta), por favor reg&iacute;strate primero. <br /><br />
+							No se encontraron los datos proporcionados (CURP, PS &oacute; No. de cuenta) <br /><br />
 						</div>
 					</form>
 				</div>
@@ -293,7 +325,7 @@
 				<?php } else { ?>
                  <br>
                  	<div style="text-align:CENTER !important;"><label  style="color:#4C4C4C;  font-size: 180%;">REGISTRO AL CICLO DE CONFERENCIAS "PREP&Aacute;RATE"</label></div>
-				    	<table style="width:100%; text-align: center; float: center; border-spacing: 5; <?php if($navegador=='IE'){ echo 'display:none;'; }?>">
+				    	<table  style="width:100%; text-align: center; float: center; border-spacing: 5; <?php if($navegador=='IE'){ echo 'display:none;'; }?>">
 			    	 		<tbody>
 					        	<tr>
 					         		<td colspan="3" style="padding: 0;">&nbsp;</td>
@@ -311,16 +343,20 @@
 					         
 					        <tfoot>
 						        <tr>
-							      	<td style="width: 30%;">
+							      <td style="width: 50%;">
 					     				<button style="width: 40%; height:40%; float: right;" id="registro" name="registro" type="button" class="btn">Iniciar Registro</button>
 					        	  	</td>
 					        	  	<td >&nbsp;</td>
-					        	  	<td style="width: 30%">
+					        	 
+					        	  	<td style="width: 50%;">
 					     				<button style="width: 40%; height:40%; float: left;" id="reimpresion" name="reimpresion" type="button" class="btn">Obtener Comprobante</button>
 					        	  	</td>
+					        	  	
+					        	 <!-- 	
 					        	  	<td style="width: 30%">
-					     				<button style="width: 40%; height:40%; float: left;" id="asistencia" name="asistencia" type="button" class="btn">Asistencia</button>
+					     				<button style="width: 30%; height:40%; float: center;" id="asistencia" name="asistencia" type="button" class="btn">Obtener Asistencia</button>
 					        	  	</td>
+					        	 -->
 						        </tr>
 					        </tfoot>
 				      	</table>

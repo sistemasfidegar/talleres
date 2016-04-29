@@ -9,38 +9,38 @@ class Asistencia extends CI_Controller {
 	}
 	
 	public function index() {
-// 		if($this->session->userdata('CRUD_AUTH')) {
-// 			$datos['title'] = 'Asistencia';
-// 			$hoy = new DateTime(fecha_actual());
+		if($this->session->userdata('CRUD_AUTH')) {
+			$datos['title'] = 'Asistencia';
+			$hoy = new DateTime(fecha_actual());
 			
-// 			// Taller Activo
-// 			$aux = $this->m_asistencia->getCicloActivo();
-// 			$inicio = isset ($aux[0]['inicio']) ? new DateTime ($aux[0]['inicio']) : null;
-// 			$fin = isset ($aux[0]['fin']) ? new DateTime ($aux[0]['fin']) : null;
+			// Taller Activo
+			$aux = $this->m_asistencia->getCicloActivo();
+			$inicio = isset ($aux[0]['inicio']) ? new DateTime ($aux[0]['inicio']) : null;
+			$fin = isset ($aux[0]['fin']) ? new DateTime ($aux[0]['fin']) : null;
 			
-// 			$this->load->view('layout/header', $datos, false );
-// 			$this->load->view('admin/nav', false, false);
+			$this->load->view('layout/header', $datos, false );
+			$this->load->view('admin/nav', false, false);
 			
-// 			if (!is_null($inicio) && ! is_null($fin)) {
-// 				if ($hoy >= $inicio && $hoy <= $fin) {
+			if (!is_null($inicio) && ! is_null($fin)) {
+				if ($hoy >= $inicio && $hoy <= $fin) {
 					
-// 					$this->load->view('asistencia/asistencia_beneficiario', $datos, false );
+					$this->load->view('asistencia/asistencia_beneficiario', $datos, false );
 				
-// 				} else {
-// 					$datos ['disponible'] = 1;
-// 					$this->load->view('asistencia/asistencia_beneficiario', $datos, false );
-// 				}
-// 			} else {
-// 				$datos ['disponible'] = 1;
-// 				$this->load->view('asistencia/asistencia_beneficiario', $datos, false );
-// 			}
+				} else {
+					$datos ['disponible'] = 1;
+					$this->load->view('asistencia/asistencia_beneficiario', $datos, false );
+				}
+			} else {
+				$datos ['disponible'] = 1;
+				$this->load->view('asistencia/asistencia_beneficiario', $datos, false );
+			}
 			
-// 			$this->load->view('layout/footer', false, false );
-// 		} else {
-// 			header("Location: " . base_url('admin'));
-// 		}
-		$this->load->view('layout/header', false, false );
-		$this->load->view('asistencia/prueba', false, false );
+			$this->load->view('layout/footer', false, false );
+		} else {
+			header("Location: " . base_url('admin'));
+		}
+// 		$this->load->view('layout/header', false, false );
+// 		$this->load->view('asistencia/prueba', false, false );
 	}
 	
 	function registroAsistencia() {
@@ -76,7 +76,7 @@ class Asistencia extends CI_Controller {
 		
 	}
 
-	function listaAsistencia($matricula){
+	function listaAsistencia($matricula=""){
 		
 		if(!empty($matricula)){
 			$this->load->library('Pdf');
@@ -151,14 +151,15 @@ class Asistencia extends CI_Controller {
 			if(!is_null($noTalleres)) {
 				$noTalleres= ($noTalleres/100);
 			}
+			$datos['asistencia']=array();
+			$datos['asistencia']=$this->m_asistencia->getTalleresAsistencia($matricula);
 			
-			$asistencia=$this->m_asistencia->getTalleresAsistencia($matricula);
-			
-			if(!empty($asistencia)) {
+			if(!empty($datos['asistencia'])) {
 				$datos['asistencia'] = $asistencia;
 				
 				
 			}
+			
 			$talleres = $this->m_asistencia->getTallerByPlantel($matricula);
 			
 			if(!empty($talleres)) {
