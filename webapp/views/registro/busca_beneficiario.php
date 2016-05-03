@@ -137,7 +137,7 @@
 	         		            	$('#myModalRegistro').modal('show'); //open modal
 	         		            } else if(data == 'pagoMax') {
 	         		            	$.unblockUI();
-	         		            	$('#myModalpagoMax').modal('show'); //open modal
+	         		            	$('#myModalPagoMax').modal('show'); //open modal
 	         		            } else if(data == 'espera') {
 	         		            	$.unblockUI();
 	         		            	$('#myModalEspera').modal('show'); //open modal
@@ -300,7 +300,7 @@
 						<div class="form-group" style="text-align: justify;">
 							Lo sentimos no cumples con los requisitos. <br /><br />
 	                        
-	                        Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br /><br />  
+	                        Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br />
 						</div>
 					</form>
 				</div>
@@ -318,9 +318,9 @@
 				<div class="modal-body">
 					<form id="attributeFormModalSinEdad">
 						<div class="form-group" style="text-align: justify;">
-							Lo sentimos no cumples con los requisitos de la edad.<br /><br />
+							Lo sentimos no cumples con el requisito m&iacute;nimo de edad (m&aacute;ximo 20 a&ntilde;os).<br /><br />
 	                        
-	                        Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br /><br />  
+	                        Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br />
 						</div>
 					</form>
 				</div>
@@ -341,7 +341,7 @@
 					<br>
 					<table style="width: 100%; border-style: 0;">		                        	
 			        	<tr>
-			        		<td>A&Uacute;N NO SE ENCUENTRA ACTIVO EL REGISTRO PARA EL CICLO DE CONFERENCIAS <strong>"PREP&Aacute;RATE"</strong></td>		                        		
+			        		<td>A&Uacute;N NO SE ENCUENTRA ACTIVO EL REGISTRO PARA EL CICLO DE CONFERENCIAS <strong>"PREP&Aacute;rate"</strong></td>		                        		
 			            </tr>
 			            <tr><td>&nbsp;&nbsp;</td></tr>
 			            <tr><td>&nbsp;&nbsp;</td></tr>
@@ -357,7 +357,7 @@
 					<?php } ?>				
 				<?php } else { ?>
                  <br>
-                 	<div style="text-align:CENTER !important;"><label  style="color:#4C4C4C;  font-size: 180%;">REGISTRO AL CICLO DE CONFERENCIAS "PREP&Aacute;RATE"</label></div>
+                 	<div style="text-align:CENTER !important;"><label  style="color:#4C4C4C;  font-size: 180%;">REGISTRO AL CICLO DE CONFERENCIAS "PREP&Aacute;rate"</label></div>
 				    	<table  style="width:100%; text-align: center; float: center; border-spacing: 5; <?php if($navegador=='IE'){ echo 'display:none;'; }?>">
 			    	 		<tbody>
 					        	<tr>

@@ -271,7 +271,7 @@ class Registro extends CI_Controller {
 	    	$pdf->SetCreator(PDF_CREATOR);
 	    	$pdf->SetAuthor('Cony Jaramillo');
 	    	$pdf->SetTitle('Comprobante');
-	    	$pdf->SetSubject('Registro Conferecias "Prepárate"');
+	    	$pdf->SetSubject('Registro Conferecias "PREPÁrate"');
 	    	$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 	    	ob_start();
 	    	
@@ -443,7 +443,7 @@ class Registro extends CI_Controller {
 						}
 	    			</style>";
 	    	
-	    	$html1 .='<h1>CICLO DE CONFERENCIAS "PREPÁRATE"</h1><br><br>';
+	    	$html1 .='<h1>CICLO DE CONFERENCIAS "PREP&Aacute;rate"</h1><br><br>';
 	    	$html1 .='<table border="0" width="100%">
 	    			 <tr><td >&nbsp;</td></tr>';
 	    	
@@ -472,7 +472,7 @@ class Registro extends CI_Controller {
 	    	$pdf->AddPage();
 	    	$html3 ='
 	    			<br/>
-	    			<h1>Cómo llegar:</h1>
+	    			<h1>C&oacute;mo llegar:</h1>
 	    			<br/>
 					'.$datos['ruta'].'	
 			    	 <br/><br/><br/>

@@ -77,7 +77,7 @@
   				            if(data == 'ok') {
   				             	swal({
   				             		title: 'Registro exitoso:',
-		                          	  text: 'Has quedado registrado al Ciclo de Conferencias "PREP\xc1RATE", no olvides imprimir tu Comprobante.',
+		                          	  text: 'Has quedado registrado al Ciclo de Conferencias "PREP\xc1rate", no olvides imprimir tu Comprobante.',
 		                          	  type: "success",
 		                          	  showCancelButton: false,
 		                          	  confirmButtonColor: '#4C4C4C',
