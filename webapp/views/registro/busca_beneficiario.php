@@ -298,7 +298,7 @@
 				<div class="modal-body">
 					<form id="attributeFormModalPagoMax">
 						<div class="form-group" style="text-align: justify;">
-							Lo sentimos no cumples con los requisitos. <br /><br />
+							Lo sentimos no cumples con los requisitos (m&aacute;ximo 26 dep&oacute;sitos). <br /><br />
 	                        
 	                        Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br />
 						</div>
