@@ -41,7 +41,7 @@ class M_registro extends MY_Model {
 		$results = "";
 		
 		if(!empty($matricula)) {
-			$this->sql = "SELECT matricula 
+			$this->sql = "SELECT matricula, espera 
 					FROM registro_taller RT, cat_ciclo CC 
 					WHERE RT.matricula = '$matricula' 
 					AND RT.id_ciclo = CC.id_ciclo 
@@ -129,9 +129,9 @@ class M_registro extends MY_Model {
 		$results = "";
 		
 		if(!empty($dato)) {
-			$this->sql = "SELECT B.matricula_asignada
-			FROM beneficiarios B
-			INNER JOIN b_personal P on B.matricula_asignada = P.matricula_asignada
+			$this->sql = "SELECT B.matricula_asignada, P.fecha_nacimiento 
+			FROM beneficiarios B 
+			INNER JOIN b_personal P on B.matricula_asignada = P.matricula_asignada 
 			WHERE  P.matricula_asignada = '$dato' OR P.CURP = '$dato' AND B.id_archivo in (1, 2, 3);";
 			$results = $this->db_b->query($this->sql);
 			return $results->result_array();
@@ -154,9 +154,10 @@ class M_registro extends MY_Model {
 		$results = "";
 		
 		if(!empty($dato)) {
-			$this->sql = "SELECT matricula_asignada 
-			FROM  b_escolar 
-			WHERE matricula_escuela = '$dato' AND id_archivo in (1, 2, 3) AND id_institucion in (1, 2);";
+			$this->sql = "SELECT E.matricula_asignada, P.fecha_nacimiento
+			FROM  b_escolar E 
+			INNER JOIN b_personal P on E.matricula_asignada = P.matricula_asignada 
+			WHERE E.matricula_escuela = '$dato' AND E.id_archivo in (1, 2, 3) AND E.id_institucion in (1, 2);";
 			$results = $this->db_b->query($this->sql);
 			return $results->result_array();
 		}
@@ -180,7 +181,7 @@ class M_registro extends MY_Model {
 				AND T.id_ciclo = CC.id_ciclo 
 				AND CC.activo is true AND T.activo is true AND S.activo is true
 				GROUP BY S.plantel, S.capacidad, S.total_asistentes, S.id_plantel, S.direccion, S.url, S.ruta_transporte 
-				HAVING (S.capacidad - S.total_asistentes) > 0 
+				HAVING ((S.capacidad + 50) - S.total_asistentes) > 0 
 				ORDER BY S.plantel ASC;";
 		$results = $this->db->query($this->sql);
 		return $results->result_array();
@@ -229,11 +230,11 @@ class M_registro extends MY_Model {
 		$results = "";
 		
 		if(!empty($id_plantel)) {
-			$this->sql = "SELECT plantel, total_asistentes 
+			$this->sql = "SELECT plantel, capacidad, total_asistentes 
 					FROM sede 
 					WHERE id_plantel = $id_plantel 
 					GROUP BY plantel, capacidad, total_asistentes  
-					HAVING (capacidad - total_asistentes) > 0;";
+					HAVING ((capacidad + 50) - total_asistentes) > 0;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -269,8 +270,8 @@ class M_registro extends MY_Model {
 	 * @since  2016-04-04
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	function create($post = "", $asistentes = "") {
-		if(!empty($post) || !empty($asistentes)) {
+	function create($post = "", $asistentes = "", $espera = "") {
+		if(!empty($post) || !empty($asistentes) || !empty($espera)) {
 			//obtenemos el ciclo activo
 			$ciclo = $this->getCicloActivo();
 			//controlamos la transaccion
@@ -278,8 +279,8 @@ class M_registro extends MY_Model {
 			$dataRegistroTaller = array(
 					'matricula' => $post['matricula'],
 					'id_plantel' => $post['sede'],
-					'fecha_registro' => date('Y-m-d H:i:s'),
-					'id_ciclo' => $ciclo[0]['id_ciclo']
+					'id_ciclo' => $ciclo[0]['id_ciclo'],
+					'espera' => $espera
 			);
 			
 			$this->db->insert('registro_taller', $dataRegistroTaller);

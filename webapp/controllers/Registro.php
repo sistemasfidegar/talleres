@@ -37,26 +37,40 @@ class Registro extends CI_Controller {
 	function getBeneficiario() {
 		if(!empty($this->input->post())){
 			$matricula = $this->input->post('matricula');
-			$aux = $this->m_registro->getMatricula($matricula);
+			$datos = $this->m_registro->getMatricula($matricula);
 		
-			$aux = isset($aux[0]['matricula_asignada']) ? $aux[0]['matricula_asignada'] : null;
+			$aux = isset($datos[0]['matricula_asignada']) ? $datos[0]['matricula_asignada'] : null;
 		
 			
 			if (!is_null($aux)) {
-				
-				$noPagos=$this->m_registro->noPagos($aux);
+				$noPagos = $this->m_registro->noPagos($aux);
 				$noPagos = isset($noPagos[0]['pago']) ? $noPagos[0]['pago'] : null;
-				if (!is_null($noPagos) && $noPagos <=26){
-					$registro = $this->m_registro->checkRegistroTaller($aux);
+				
+				if (!is_null($noPagos) && $noPagos <= 26){
+					$fechaNacimiento = isset($datos[0]['fecha_nacimiento']) ? $datos[0]['fecha_nacimiento'] : null;
 					
-					if(empty($registro)) {
-						echo $aux;
+					if (!is_null($fechaNacimiento)) {
+						//operacion calcular edad
+						$edad = $this->calculaEdad($fechaNacimiento);
+						
+						if($edad <= 20) {
+							$registro = $this->m_registro->checkRegistroTaller($aux);
+							$espera = isset($registro[0]['espera']) ? $registro[0]['espera'] : null;
+							
+							if(empty($registro)) {
+								echo $aux;
+							} else if($espera == true) {
+								echo 'espera';
+							} else {
+								echo 'registro';
+							}
+						} else {
+							echo 'sinedad';
+						}
 					} else {
-						echo 'registro';
+						echo 'bad';
 					}
-				}
-				else 
-				{
+				} else {
 					echo 'pagoMax';
 				}
 			} else {
@@ -76,9 +90,12 @@ class Registro extends CI_Controller {
 		
 			if (!is_null($aux)) {
 				$registro = $this->m_registro->checkRegistroTaller($aux);
-		
+				$espera = isset($registro[0]['espera']) ? $registro[0]['espera'] : null;
+				
 				if(empty($registro)) {
 					echo 'bad';
+				} else if($espera == true) {
+					echo 'espera';
 				} else {
 					echo $aux;
 				}
@@ -93,24 +110,39 @@ class Registro extends CI_Controller {
 	function getBeneficiarioUnam(){
 		if(!empty($this->input->post())){
 			$matricula =  $this->input->post('matricula_escuela');
-			$aux = $this->m_registro->getMatriculaUnam($matricula);
+			$datos = $this->m_registro->getMatriculaUnam($matricula);
 		
-			$aux = isset($aux[0]['matricula_asignada']) ? $aux[0]['matricula_asignada'] : null;
+			$aux = isset($datos[0]['matricula_asignada']) ? $datos[0]['matricula_asignada'] : null;
 		
 			if (!is_null($aux)) {
-				$noPagos=$this->m_registro->noPagos($aux);
+				$noPagos = $this->m_registro->noPagos($aux);
 				$noPagos = isset($noPagos[0]['pago']) ? $noPagos[0]['pago'] : null;
-				if (!is_null($noPagos) && $noPagos <=26){
-					$registro = $this->m_registro->checkRegistroTaller($aux);
+				
+				if (!is_null($noPagos) && $noPagos <= 26){
+					$fechaNacimiento = isset($datos[0]['fecha_nacimiento']) ? $datos[0]['fecha_nacimiento'] : null;
 					
-					if(empty($registro)) {
-						echo $aux;
+					if (!is_null($fechaNacimiento)) {
+						//operacion calcular edad
+						$edad = $this->calculaEdad($fechaNacimiento);
+						
+						if($edad <= 20) {
+							$registro = $this->m_registro->checkRegistroTaller($aux);
+							$espera = isset($registro[0]['espera']) ? $registro[0]['espera'] : null;
+							
+							if(empty($registro)) {
+								echo $aux;
+							} else if($espera == true) {
+								echo 'espera';
+							} else {
+								echo 'registro';
+							}
+						} else {
+							echo 'sinedad';
+						}
 					} else {
-						echo 'registro';
+						echo 'bad';
 					}
-				}
-				else
-				{
+				} else {
 					echo 'pagoMax';
 				}
 			} else {
@@ -130,9 +162,12 @@ class Registro extends CI_Controller {
 		
 			if (!is_null($aux)) {
 				$registro = $this->m_registro->checkRegistroTaller($aux);
+				$espera = isset($registro[0]['espera']) ? $registro[0]['espera'] : null;
 					
 				if(empty($registro)) {
 					echo 'bad';
+				} else if($espera == true) {
+					echo 'espera';
 				} else {
 					echo $aux;
 				}
@@ -191,9 +226,28 @@ class Registro extends CI_Controller {
 			$disponibilidad = $this->m_registro->getDisponibilidadByPlantel($this->input->post('sede'));
 			
 			if(!empty($disponibilidad)) {
-				//tratamos de realizar la insercion de datos
-				if($this->m_registro->create($this->input->post(), $disponibilidad[0]['total_asistentes'])) {
-					echo 'ok';
+				$capacidad = isset($disponibilidad[0]['total_asistentes']) ? $disponibilidad[0]['total_asistentes'] : null;
+				$totalAsistentes = isset($disponibilidad[0]['total_asistentes']) ? $disponibilidad[0]['total_asistentes'] : null;
+				
+				if(!is_null($capacidad) && !is_null($totalAsistentes)) {
+					//verificamos si va a estar o no en lista de espera
+					if($capacidad > $totalAsistentes) {
+						//tratamos de realizar la insercion de datos
+						if($this->m_registro->create($this->input->post(), $totalAsistentes, false)) {
+							echo 'ok';
+						} else {
+							echo 'bad';
+						}
+					} else if(($capacidad + 50) > $totalAsistentes) {
+						//tratamos de realizar la insercion de datos en lista de espera
+						if($this->m_registro->create($this->input->post(), $totalAsistentes, true)) {
+							echo 'espera';
+						} else {
+							echo 'bad';
+						}
+					} else {
+						echo 'nodisponible';
+					}
 				} else {
 					echo 'bad';
 				}
@@ -203,6 +257,11 @@ class Registro extends CI_Controller {
 		} else {
 			header("Location: " . base_url());
 		}
+	}
+	
+	function calculaEdad($fecha) {
+		list($d, $m, $y) = explode("/", $fecha);
+		return(date("md") < $m.$d ? date("Y") - ($y + 1900) - 1 : date("Y") - ($y + 1900));
 	}
 	
 	function pdf($matricula = ""){

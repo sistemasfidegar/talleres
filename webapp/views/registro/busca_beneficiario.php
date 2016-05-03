@@ -71,6 +71,7 @@
 				
 
              });
+            
         	$("#reimpresion").click(function () {
         		if($("#matricula_asignada").val() != ""  ) {
     				$.blockUI({message: 'Procesando por favor espere...'});
@@ -83,6 +84,9 @@
         		            if(data == 'bad') {
         		            	$.unblockUI();
         		            	$('#myModalSinRegistroReimpresion').modal('show'); //open modal
+        		            } else if(data == 'espera') {
+        		            	$.unblockUI();
+        		            	$('#myModalEsperaReimpresion').modal('show'); //open modal
         		            } else {
         		            	$.unblockUI();
          		            	irAPdf('registro/pdf/'+ $("#matricula_asignada").val());
@@ -102,6 +106,9 @@
     		            	if(data == 'bad') {
     		            		$.unblockUI();
         		            	$('#myModalSinRegistroReimpresion').modal('show'); //open modal
+        		            } else if(data == 'espera') {
+        		            	$.unblockUI();
+        		            	$('#myModalEsperaReimpresion').modal('show'); //open modal
         		            } else {
         		            	$.unblockUI();
         		            	irAPdf('registro/pdf/'+ data);
@@ -128,9 +135,15 @@
 	        		            } else if(data == 'registro') {
 	        		            	$.unblockUI();
 	         		            	$('#myModalRegistro').modal('show'); //open modal
-	         		            }else if(data=='pagoMax'){
+	         		            } else if(data == 'pagoMax') {
 	         		            	$.unblockUI();
 	         		            	$('#myModalpagoMax').modal('show'); //open modal
+	         		            } else if(data == 'espera') {
+	         		            	$.unblockUI();
+	         		            	$('#myModalEspera').modal('show'); //open modal
+	         		            } else if(data == 'sinedad') {
+	         		            	$.unblockUI();
+	         		            	$('#myModalSinEdad').modal('show'); //open modal
 	         		            } else {
 	         		            	irA('registro/nuevo/'+ data);
 	            		        }
@@ -151,9 +164,15 @@
 	         		            } else if(data == 'registro') {
 	         		            	$.unblockUI();
 	         		            	$('#myModalRegistro').modal('show'); //open modal
-	         		            }else if(data=='pagoMax'){
+	         		            }else if(data == 'pagoMax'){
 	         		            	$.unblockUI();
 	         		            	$('#myModalPagoMax').modal('show'); //open modal
+	         		            } else if(data == 'espera') {
+	         		            	$.unblockUI();
+	         		            	$('#myModalEspera').modal('show'); //open modal
+	         		            } else if(data == 'sinedad') {
+	         		            	$.unblockUI();
+	         		            	$('#myModalSinEdad').modal('show'); //open modal
 	         		            } else {
 	         		            	irA('registro/nuevo/'+ data);
 	             		        }
@@ -162,6 +181,7 @@
 	    			}
     		});
         });//ready
+        
         function irA(uri) {
             window.location.href =  '<?= base_url() ?>' + uri;
             
@@ -172,44 +192,60 @@
         }	
 </script>
 
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalEsperaReimpresion">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" style="text-align: center;">Lista de espera</h4>
+				</div>
+				<div class="modal-body">
+					<form id="attributeFormModalEsperaReimpresion">
+						<div class="form-group" style="text-align: justify;">
+							Te has registrado en lista de espera y no es posible imprimir tu comprobante.<br />
+							Te sugerimos estar al pendiente, ya que puedes ser seleccionad@ posteriormente.<br /><br />
+							Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs).<br />
+						</div>
+					</form>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalEspera">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" style="text-align: center;">Lista de espera</h4>
+				</div>
+				<div class="modal-body">
+					<form id="attributeFormModalEspera">
+						<div class="form-group" style="text-align: justify;">
+							Los datos proporcionados corresponden a un Beneficiario Previamente Registrado en lista de espera.<br /><br />
+							Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br />
+						</div>
+					</form>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
 	<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinRegistro">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" style="text-align: center">Datos No Registrados</h4>
+					<h4 class="modal-title" style="text-align: center;">Datos No Registrados</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeFormModalSinRegistro">
-						<div class="form-group">
+						<div class="form-group" style="text-align: justify;">
 							Los datos proporcionados (CURP, PS &oacute; No. de cuenta) no se encontraron en nuestra Base de Datos, recuerda que para poder registrarte es necesario ser un Beneficiario Activo del Programa "Prepa S&iacute;". <br /><br />
 	                        
 	                        Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br /><br />  
 						</div>
 					</form>
-				</div>
-				<div class="modal-footer" style="text-align: center;">
-						Para mayor informaci&oacute;n visita:<br/>
-						<a href="http://www.prepasi.df.gob.mx" target="_blank">www.prepasi.df.gob.mx</a><br/>
-						<a href="https://www.facebook.com/pprepasi" target="_blank">
-							<span class="fa-stack fa-lg">
-                            	<i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                        <a href="https://www.twitter.com/P_Prepa_Si" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                        </a>
-                        <a href="https://www.instagram.com/actividadesps/" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-                                </span>
-                        </a><br/>
-						Atenci&oacute;n telef&oacute;nica Prepa S&iacute; 1102 1750 (L a V de 9 a 18 hrs)
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -220,11 +256,11 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" style="text-align: center">Beneficiario Previamente Registrado</h4>
+					<h4 class="modal-title" style="text-align: center;">Beneficiario Previamente Registrado</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeFormModalRegistro">
-						<div class="form-group">
+						<div class="form-group" style="text-align: justify;">
 							Los datos proporcionados corresponden a un Beneficiario Previamente Registrado.<br /><br />
 							Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br /><br />
 						</div>
@@ -235,15 +271,15 @@
 	</div><!-- /.modal -->
 	
 	<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinRegistroReimpresion">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog modal-md">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" style="text-align: center">Datos No Registrados</h4>
+					<h4 class="modal-title" style="text-align: center;">Datos No Registrados</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeFormModalSinRegistroReimpresion" role="form">
-						<div class="form-group">
+						<div class="form-group" style="text-align: justify;">
 							No se encontraron los datos proporcionados (CURP, PS &oacute; No. de cuenta) <br /><br />
 						</div>
 					</form>
@@ -253,43 +289,40 @@
 	</div><!-- /.modal -->
 	
 	<div class="modal fade" tabindex="-1" role="dialog" id="myModalPagoMax">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog modal-md">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" style="text-align: center">!IMPORTANTE¡</h4>
+					<h4 class="modal-title" style="text-align: center;">!IMPORTANTE¡</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeFormModalPagoMax">
-						<div class="form-group">
+						<div class="form-group" style="text-align: justify;">
 							Lo sentimos no cumples con los requisitos. <br /><br />
 	                        
 	                        Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br /><br />  
 						</div>
 					</form>
 				</div>
-				<div class="modal-footer" style="text-align: center;">
-						Para mayor informaci&oacute;n visita:<br/>
-						<a href="http://www.prepasi.df.gob.mx" target="_blank">www.prepasi.df.gob.mx</a><br/>
-						<a href="https://www.facebook.com/pprepasi" target="_blank">
-							<span class="fa-stack fa-lg">
-                            	<i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                        <a href="https://www.twitter.com/P_Prepa_Si" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                        </a>
-                        <a href="https://www.instagram.com/actividadesps/" target="_blank">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-                                </span>
-                        </a><br/>
-						Atenci&oacute;n telef&oacute;nica Prepa S&iacute; 1102 1750 (L a V de 9 a 18 hrs)
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinEdad">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" style="text-align: center;">!IMPORTANTE¡</h4>
+				</div>
+				<div class="modal-body">
+					<form id="attributeFormModalSinEdad">
+						<div class="form-group" style="text-align: justify;">
+							Lo sentimos no cumples con los requisitos de la edad.<br /><br />
+	                        
+	                        Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs)<br /><br />  
+						</div>
+					</form>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->

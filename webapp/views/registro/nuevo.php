@@ -107,6 +107,9 @@
   				                    	irA('registro/nuevo/'+ $('#matricula').val());
   				                    } 
   				                });
+  				            } else if (data == 'espera') {
+  				            	$.unblockUI();
+        		            	$('#myModalEspera').modal('show'); //open modal
   				            } else {
   					            swal({
   					            	title: 'Error',
@@ -128,6 +131,11 @@
   				     });
   			     }
   			 });
+
+    //Se redirecciona a inicio cuando cierran el modal
+		$('#myModalEspera').on('hidden.bs.modal', function () {
+			irA('');
+		});
   		 
       }); //fin ready
   		 
@@ -139,6 +147,26 @@
             window.open('<?= base_url() ?>' + uri, '_blank');
         }	
 </script>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalEspera">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" style="text-align: center;">Lista de espera</h4>
+				</div>
+				<div class="modal-body">
+					<form id="attributeFormModalEspera">
+						<div class="form-group" style="text-align: justify;">
+							Por el momento no hay lugares disponibles en la Sede seleccionada, sin embargo, has quedado registrad@ en la lista de espera.<br />
+							Te sugerimos estar al pendiente, ya que puedes ser seleccionad@ posteriormente.<br /><br />
+							Para mayor informaci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 (L a V de 9 a 18 hrs).<br />
+						</div>
+					</form>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 <div class="register-container container">
 	<div class="row">                
