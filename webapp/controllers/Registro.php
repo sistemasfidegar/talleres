@@ -226,7 +226,7 @@ class Registro extends CI_Controller {
 			$disponibilidad = $this->m_registro->getDisponibilidadByPlantel($this->input->post('sede'));
 			
 			if(!empty($disponibilidad)) {
-				$capacidad = isset($disponibilidad[0]['total_asistentes']) ? $disponibilidad[0]['total_asistentes'] : null;
+				$capacidad = isset($disponibilidad[0]['capacidad']) ? $disponibilidad[0]['capacidad'] : null;
 				$totalAsistentes = isset($disponibilidad[0]['total_asistentes']) ? $disponibilidad[0]['total_asistentes'] : null;
 				
 				if(!is_null($capacidad) && !is_null($totalAsistentes)) {
