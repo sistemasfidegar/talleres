@@ -9,7 +9,7 @@
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: '<?= base_url('asistencia/registroAsistencia') ?>',
+    		            url: '<?= base_url('asistencia/registroAsistencia/') ?>',
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
         		            if(data == 'error') {
@@ -36,25 +36,23 @@
         });//ready
         
         function irA(uri) {
-            window.location.href =  uri;
+            window.location.href =  '<?= base_url() ?>' + uri;
         }	
 </script>
 
 	<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinRegistro">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog modal-md">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" style="text-align: center">Beneficiario Sin Registro</h4>
+					<h4 class="modal-title" style="text-align: center">Beneficiari@ Sin Registro</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeFormModalSinRegistro">
-						<div class="form-group">
-							Lo sentimos no se encontr&oacute; tu registro a los talleres Prepa S&iacute;
+						<div class="form-group" style="text-align: justify;">
+							Lo sentimos no se encontr&oacute; tu registro al Ciclo de Conferencias <strong>"PREP&Aacute;rate"</strong>
 							<br/>
-							<br/>1. Verifica  que tu matr&iacute;cula est&eacute; escrita correctamente 
-							<br/><img src="resources/img/pink-sad-face.png" alt="codesi" style="vertical-align: middle; width: 50%" class="img-rounded">
-							
+							<br/>1. Verifica  que tu matr&iacute;cula est&eacute; escrita correctamente. 
 						</div>
 					</form>
 				</div>
@@ -64,19 +62,16 @@
 	</div><!-- /.modal -->
 	
 	<div class="modal fade" tabindex="-1" role="dialog" id="myModalRegistro">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog modal-md">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" style="text-align: center">Bienvenid@</h4>
+					<h4 class="modal-title" style="text-align: center;">Bienvenid@</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeFormModalRegistro">
-						<div class="form-group">
-							 <label for="mensaje" class="control-label">
+						<div class="form-group" style="text-align: justify;">
 							 <div id="mensaje"></div>
-							 </label><br/><br/>
-							 <br/><img src="resources/img/ok.png" alt="codesi" style="vertical-align: middle; width: 50%" class="img-rounded">
 						</div>
 					</form>
 				</div>
@@ -90,12 +85,12 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" style="text-align: center">¡Ocurri&oacute; un error! Favor de intentarlo de nuevo</h4>
+					<h4 class="modal-title" style="text-align: center;">Error</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeFormModalError">
-						<div class="form-group">
-							 <br/><img src="resources/img/pink-sad-face.png" alt="codesi" style="vertical-align: middle; width: 50%" class="img-rounded">
+						<div class="form-group" style="text-align: justify;">
+							 ¡Ocurri&oacute; un error! Favor de intentarlo de nuevo
 						</div>
 					</form>
 				</div>
@@ -104,16 +99,16 @@
 	</div><!-- /.modal -->	
 	
 	<div class="modal fade" tabindex="-1" role="dialog" id="myModalSinTaller">
-		<div class="modal-dialog modal-sm">
+		<div class="modal-dialog modal-md">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" style="text-align: center">Sin Talleres</h4>
+					<h4 class="modal-title" style="text-align: center;">Sin Talleres</h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeFormModalSinTaller">
 						<div class="form-group">
-							<div class="form-group">
+							<div class="form-group" style="text-align: justify;">
 							Lo sentimos, no se encontraron talleres disponibles para el d&iacute;a de hoy
 							<br/>
 						</div>
@@ -124,6 +119,7 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->	
+	
 <div class="register-container container">
 	<div class="row">                
 		<div class="register">
@@ -137,7 +133,7 @@
 					<br>
 					<table style="width: 100%;">		                        	
 			        	<tr>
-			        		<td>NO HAY TALLERES POR IMPARTIR EN ESTE MOMENTO</td>		                        		
+			        		<td>A&Uacute;N NO SE ENCUENTRA ACTIVO LA ASISTENCIA PARA EL CICLO DE CONFERENCIAS <strong>"PREP&Aacute;rate"</td>		                        		
 			            </tr>
 			            <tr><td>&nbsp;&nbsp;</td></tr>
 			            <tr><td>&nbsp;&nbsp;</td></tr>
@@ -153,7 +149,7 @@
 					<?php } ?>				
 				<?php } else { ?>
                  <br>
-                 	<div style="text-align:CENTER !important;"><label class="leyenda" style="color:#4C4C4C; padding-left:20px;">ASISTENCIA TALLERES PREPA SÍ</label></div>
+                 	<div style="text-align:CENTER !important;"><label  style="color:#4C4C4C;  font-size: 180%;">ASISTENCIA AL CICLO DE CONFERENCIAS "PREP&Aacute;rate"</label></div>
 						<table style="width:100%; text-align: center; float: center; border-spacing: 5;">
 							<tbody>
 				    	    	<tr>

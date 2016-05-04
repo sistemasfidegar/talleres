@@ -43,10 +43,10 @@ class Registro extends CI_Controller {
 		
 			
 			if (!is_null($aux)) {
-				$noPagos = $this->m_registro->noPagos($aux);
+				/*$noPagos = $this->m_registro->noPagos($aux);
 				$noPagos = isset($noPagos[0]['pago']) ? $noPagos[0]['pago'] : null;
 				
-				if (!is_null($noPagos) && $noPagos <= 26){
+				if (!is_null($noPagos) && $noPagos <= 26){*/
 					$fechaNacimiento = isset($datos[0]['fecha_nacimiento']) ? $datos[0]['fecha_nacimiento'] : null;
 					
 					if (!is_null($fechaNacimiento)) {
@@ -59,7 +59,7 @@ class Registro extends CI_Controller {
 							
 							if(empty($registro)) {
 								echo $aux;
-							} else if($espera == true) {
+							} else if($espera == "t") {
 								echo 'espera';
 							} else {
 								echo 'registro';
@@ -70,9 +70,9 @@ class Registro extends CI_Controller {
 					} else {
 						echo 'bad';
 					}
-				} else {
+				/*} else {
 					echo 'pagoMax';
-				}
+				}*/
 			} else {
 				echo 'bad';
 			}
@@ -94,7 +94,7 @@ class Registro extends CI_Controller {
 				
 				if(empty($registro)) {
 					echo 'bad';
-				} else if($espera == true) {
+				} else if($espera == "t") {
 					echo 'espera';
 				} else {
 					echo $aux;
@@ -115,10 +115,10 @@ class Registro extends CI_Controller {
 			$aux = isset($datos[0]['matricula_asignada']) ? $datos[0]['matricula_asignada'] : null;
 		
 			if (!is_null($aux)) {
-				$noPagos = $this->m_registro->noPagos($aux);
+				/*$noPagos = $this->m_registro->noPagos($aux);
 				$noPagos = isset($noPagos[0]['pago']) ? $noPagos[0]['pago'] : null;
 				
-				if (!is_null($noPagos) && $noPagos <= 26){
+				if (!is_null($noPagos) && $noPagos <= 26){*/
 					$fechaNacimiento = isset($datos[0]['fecha_nacimiento']) ? $datos[0]['fecha_nacimiento'] : null;
 					
 					if (!is_null($fechaNacimiento)) {
@@ -131,7 +131,7 @@ class Registro extends CI_Controller {
 							
 							if(empty($registro)) {
 								echo $aux;
-							} else if($espera == true) {
+							} else if($espera == "t") {
 								echo 'espera';
 							} else {
 								echo 'registro';
@@ -142,9 +142,9 @@ class Registro extends CI_Controller {
 					} else {
 						echo 'bad';
 					}
-				} else {
+				/*} else {
 					echo 'pagoMax';
-				}
+				}*/
 			} else {
 				echo 'bad';
 			}
@@ -166,7 +166,7 @@ class Registro extends CI_Controller {
 					
 				if(empty($registro)) {
 					echo 'bad';
-				} else if($espera == true) {
+				} else if($espera == "t") {
 					echo 'espera';
 				} else {
 					echo $aux;
@@ -261,11 +261,13 @@ class Registro extends CI_Controller {
 	
 	function calculaEdad($fecha) {
 		list($d, $m, $y) = explode("/", $fecha);
-		return(date("md") < $m.$d ? date("Y") - ($y + 1900) - 1 : date("Y") - ($y + 1900));
+		$y = ($y >= 00 && $y <= 10) ? ($y + 2000) : ($y + 1900);
+		return(date("md") < $m.$d ? date("Y") - $y - 1 : date("Y") - $y);
 	}
 	
 	function pdf($matricula = ""){
 		if(!empty($matricula)){
+			$matricula = strtoupper($matricula);
 			$this->load->library('Pdf');
 	    	$pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
 	    	$pdf->SetCreator(PDF_CREATOR);

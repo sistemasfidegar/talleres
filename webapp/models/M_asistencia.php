@@ -29,7 +29,7 @@ class M_asistencia extends MY_Model {
 		$results = "";
 		
 		if(!empty($dato)) {
-			$this->sql = "SELECT matricula	FROM registro_taller WHERE  matricula = '$dato';";
+			$this->sql = "SELECT matricula FROM registro_taller WHERE matricula = UPPER('$dato');";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -46,9 +46,9 @@ class M_asistencia extends MY_Model {
 		$results = "";
 		
 		if(!empty($hoy)) {
-			$this->sql="select * from talleres t, taller_plantel tp  
-					WHERE t.id_taller=tp.id_taller  and fecha_inicio='$hoy'  
-					and tp.id_plantel=(SELECT id_plantel from registro_taller where matricula='$matricula')  and activo is true;";
+			$this->sql="select * FROM talleres t, taller_plantel tp  
+					WHERE t.id_taller = tp.id_taller  AND fecha_inicio = '$hoy'  
+					AND tp.id_plantel = (SELECT id_plantel FROM registro_taller WHERE matricula = UPPER('$matricula'))  AND activo is true;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -65,7 +65,7 @@ class M_asistencia extends MY_Model {
 		$results = "";
 		
 		if(!empty($idtaller) || !empty($matricula)) {
-			$this->sql="SELECT matricula from asistencia WHERE id_taller=$idtaller and matricula='$matricula'";
+			$this->sql="SELECT matricula FROM asistencia WHERE id_taller = $idtaller AND matricula = UPPER('$matricula');";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -82,7 +82,7 @@ class M_asistencia extends MY_Model {
 		$results = "";
 		
 		if(!empty($idtaller) || !empty($matricula) || !empty($usuario)) {
-			$this->sql = "INSERT INTO asistencia(id_taller, matricula, id_usuario) VALUES($idtaller, '$matricula', $usuario) RETURNING matricula";
+			$this->sql = "INSERT INTO asistencia(id_taller, matricula, id_usuario) VALUES($idtaller, UPPER('$matricula'), $usuario) RETURNING matricula";
 			$results = $this->db->query($this->sql);
 			return $results;
 		}
@@ -98,7 +98,7 @@ class M_asistencia extends MY_Model {
 	function noTalleres($matricula=""){
 		$results = "";
 		if (!empty($matricula)){
-			$this->sql = "select count(*) as suma from taller_plantel where id_plantel = (select id_plantel from registro_taller where matricula='$matricula');";
+			$this->sql = "SELECT count(*) AS suma from taller_plantel WHERE id_plantel = (SELECT id_plantel FROM registro_taller WHERE matricula = UPPER('$matricula'));";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -119,7 +119,7 @@ class M_asistencia extends MY_Model {
 		$results = "";
 	
 		if(!empty($matricula)) {
-			$this->sql = "SELECT nombre, ap, am FROM beneficiarios 	WHERE matricula_asignada='$matricula'";
+			$this->sql = "SELECT nombre, ap, am FROM beneficiarios WHERE matricula_asignada = UPPER('$matricula')";
 			$results = $this->db_b->query($this->sql);
 			return $results->result_array();
 		}
@@ -128,7 +128,7 @@ class M_asistencia extends MY_Model {
 	}
 	function getTalleresAsistencia($matricula = ""){
 		if(!empty($matricula)) {
-			$this->sql = "select T.id_taller,T.taller, fecha  from asistencia A, talleres T where A.id_taller=T.id_taller and matricula='$matricula' ORDER BY T.id_taller ASC;";
+			$this->sql = "SELECT T.id_taller,T.taller, fecha FROM asistencia A, talleres T WHERE A.id_taller = T.id_taller AND matricula = UPPER('$matricula') ORDER BY T.id_taller ASC;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -153,7 +153,7 @@ class M_asistencia extends MY_Model {
 			WHERE TP.id_taller= TA.id_taller 
 			AND TP.id_plantel=S.id_plantel 
 			AND	TA.id_ciclo = CC.id_ciclo AND CC.activo is true AND TA.activo is true
-			AND S.id_plantel=(SELECT id_plantel FROM registro_taller where matricula='$matricula')
+			AND S.id_plantel = (SELECT id_plantel FROM registro_taller where matricula = UPPER('$matricula'))
 			ORDER BY TA.id_taller ASC;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
@@ -177,7 +177,7 @@ class M_asistencia extends MY_Model {
 			$this->sql = "SELECT matricula, rt.id_plantel, plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro,s.espacio
 			FROM registro_taller rt, sede s
 			WHERE rt.id_plantel = s.id_plantel
-			AND matricula='$matricula'";
+			AND matricula = UPPER('$matricula');";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}

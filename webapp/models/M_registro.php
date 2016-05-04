@@ -43,7 +43,7 @@ class M_registro extends MY_Model {
 		if(!empty($matricula)) {
 			$this->sql = "SELECT matricula, espera 
 					FROM registro_taller RT, cat_ciclo CC 
-					WHERE RT.matricula = '$matricula' 
+					WHERE RT.matricula = UPPER('$matricula') 
 					AND RT.id_ciclo = CC.id_ciclo 
 					AND CC.activo is true;";
 			$results = $this->db->query($this->sql);
@@ -132,7 +132,7 @@ class M_registro extends MY_Model {
 			$this->sql = "SELECT B.matricula_asignada, P.fecha_nacimiento 
 			FROM beneficiarios B 
 			INNER JOIN b_personal P on B.matricula_asignada = P.matricula_asignada 
-			WHERE  P.matricula_asignada = '$dato' OR P.CURP = '$dato' AND B.id_archivo in (1, 2, 3);";
+			WHERE  P.matricula_asignada = UPPER('$dato') OR P.CURP = UPPER('$dato') AND B.id_archivo in (1, 2, 3);";
 			$results = $this->db_b->query($this->sql);
 			return $results->result_array();
 		}
@@ -157,7 +157,7 @@ class M_registro extends MY_Model {
 			$this->sql = "SELECT E.matricula_asignada, P.fecha_nacimiento
 			FROM  b_escolar E 
 			INNER JOIN b_personal P on E.matricula_asignada = P.matricula_asignada 
-			WHERE E.matricula_escuela = '$dato' AND E.id_archivo in (1, 2, 3) AND E.id_institucion in (1, 2);";
+			WHERE E.matricula_escuela = UPPER('$dato') AND E.id_archivo in (1, 2, 3) AND E.id_institucion in (1, 2);";
 			$results = $this->db_b->query($this->sql);
 			return $results->result_array();
 		}
@@ -207,7 +207,7 @@ class M_registro extends MY_Model {
 			AND B.matricula_asignada = P.matricula_asignada
 			AND E.id_institucion = I.id_institucion
 			AND E.id_plantel = PL.id_plantel
-			AND B.matricula_asignada = '$matricula';";
+			AND B.matricula_asignada = UPPER('$matricula');";
 			$results = $this->db_b->query($this->sql);
 			return $results->result_array();
 		}
@@ -277,7 +277,7 @@ class M_registro extends MY_Model {
 			//controlamos la transaccion
 			$this->db->trans_begin();
 			$dataRegistroTaller = array(
-					'matricula' => $post['matricula'],
+					'matricula' => strtoupper($post['matricula']),
 					'id_plantel' => $post['sede'],
 					'id_ciclo' => $ciclo[0]['id_ciclo'],
 					'espera' => $espera
@@ -323,7 +323,7 @@ class M_registro extends MY_Model {
 			$this->sql = "SELECT matricula, rt.id_plantel, plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro,s.espacio
 			FROM registro_taller rt, sede s
 			WHERE rt.id_plantel = s.id_plantel
-			AND matricula='$matricula'";
+			AND matricula = UPPER('$matricula');";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -344,7 +344,7 @@ class M_registro extends MY_Model {
 		$results = "";
 		
 		if(!empty($matricula)) {
-			$this->sql = "SELECT nombre, ap, am FROM beneficiarios 	WHERE matricula_asignada='$matricula'";
+			$this->sql = "SELECT nombre, ap, am FROM beneficiarios 	WHERE matricula_asignada = UPPER('$matricula')";
 			$results = $this->db_b->query($this->sql);
 			return $results->result_array();
 		}
@@ -387,7 +387,7 @@ class M_registro extends MY_Model {
 	function noPagos($matricula){
 		$results="";
 		if(!empty($matricula)){
-			$this->sql="select * from pagobeneficiarios where matricula_asignada='$matricula'";
+			$this->sql="SELECT * FROM pagobeneficiarios WHERE matricula_asignada = UPPER('$matricula');";
 			$results = $this->db_b->query($this->sql);
 			return $results->result_array();
 		}
