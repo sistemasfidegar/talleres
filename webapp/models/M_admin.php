@@ -3,8 +3,11 @@ if (! defined ( 'BASEPATH' ))
 	exit ('no se permite el acceso directo al script');
 
 class M_admin extends MY_Model {
+	protected $db_b;
+	
 	function __construct() {
 		parent::__construct ();
+		$this->db_b = $this->load->database('beneficiarios', TRUE);
 	}
 	
 	/**
@@ -125,6 +128,109 @@ class M_admin extends MY_Model {
 	}
 	
 	/**
+	 * Obtiene todos los datos de un taller de acuerdo a su identificador.
+	 *
+	 * @param  int:$id_taller  Identificador del taller a buscar.
+	 *
+	 * @return List            Instancia del taller encontrado. Null en caso contrario.
+	 *
+	 * @since  2016-05-06
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	public function getTallerById($id_taller = "") {
+		$results = "";
+	
+		if(!empty($id_taller)) {
+			$this->db->select('*');
+			$this->db->from('talleres');
+			$this->db->where('id_taller', $id_taller);
+			$query = $this->db->get();
+			$tallerInstance = $query->row_array();
+			$query->free_result();
+			return $tallerInstance;
+		}
+	
+		return $results;
+	}
+	
+	/**
+	 * Obtiene el primer y &uacute;ltimo registro de asistencia a un taller de un Beneficiario en espec&iacute;fico.
+	 * 
+	 * @param string:$matricula      Matricula a buscar.
+	 * @param int:$id_taller         Identificador del taller a buscar.
+	 * 
+	 * @return List:                 Lista de los datos de la asistencia encontrada. Null en caso contrario.
+	 *
+	 * @since  2016-05-06
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	public function getAsistenciaByTaller($matricula = "", $id_taller = "") {
+		$results = "";
+		
+		if(!empty($matricula) || !empty($id_taller)) {
+			$this->sql = "SELECT to_char(MIN(fecha), 'DD-MM-YYYY HH24:mm:ss') AS inicio, to_char(MAX(fecha), 'DD-MM-YYYY HH24:mm:ss') AS final 
+					FROM asistencia 
+					WHERE matricula = '$matricula' 
+					AND id_taller = $id_taller;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
+	}
+	
+	/**
+	 * Obtiene todos los datos de un usuario de acuerdo a su identificador.
+	 *
+	 * @param  int:$id_plantel  Identificador del plantel a buscar.
+	 *
+	 * @return List:sedes       Lista de los datos de la Sede encontrada. Null en caso contrario.
+	 *
+	 * @since  2016-05-05
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	public function getBeneficiariosByPlantel($id_plantel = "") {
+		$results = "";
+	
+		if(!empty($id_plantel)) {
+			$this->sql = "SELECT *
+				FROM registro_taller 
+				WHERE id_plantel = $id_plantel
+				AND espera = false
+				ORDER BY fecha_registro ASC;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+	
+		return $results;
+	}
+	
+	/**
+	 * Obtiene nombre completo y correo electr&oacute;nico del beneficiatio registrado.
+	 *
+	 * @param  String:$matricula     Matr&iacute;cula asignada a buscar.
+	 *
+	 * @return List:Beneficiario     Nombre completo del beneficiario. Null en caso contrario.
+	 *
+	 * @since  2016-05-05
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	public function getNombre($matricula = ""){
+		$results = "";
+	
+		if(!empty($matricula)) {
+			$this->sql = "SELECT B.nombre, B.ap, B.am, P.email 
+			FROM beneficiarios B
+			INNER JOIN b_personal P on B.matricula_asignada = P.matricula_asignada
+			WHERE B.matricula_asignada = UPPER('$matricula')";
+			$results = $this->db_b->query($this->sql);
+			return $results->result_array();
+		}
+	
+		return $results;
+	}
+	
+	/**
 	 * Verifica si el usuario a crear en la Base de Datos existe o no
 	 * 
 	 * @param unknown $usuario
@@ -205,6 +311,66 @@ class M_admin extends MY_Model {
 			}
 		} else {
 			return false;
+		}
+	}
+	
+	/**
+	 * Se encarga de construir una Tabla en HTML con todos los beneficiarios registrados en los talleres que no est&eacute;n en lista de espera de una Sede en espec&iacute;fico.
+	 * 
+	 * @param  int:$id_plantel   Identificador de la Sede a buscar sus beneficiarios.
+	 *
+	 * @return html              Listado de todos los usuarios. Null en caso contrario.
+	 *
+	 * @since  2016-05-05
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	public function builtBeneficiarios($id_plantel = "", $taller = "") {
+		$html = '';
+		
+		if(!empty($id_plantel) && !empty($taller)) {
+			$beneficiarioInstance = $this->getBeneficiariosByPlantel($id_plantel);
+			$tallerInstance = $this->getTallerById($taller);
+		
+			//Se construye la tabla que contiene a todas los beneficiarios de acuerdo a la Sede asignada dadas de alta en la BD
+			$html .= '<table id="tbl-export" class="table table-hover list table-condensed table-striped">'.chr(13);
+			$html .= '<caption style="text-align: center; font-size: 125%; font-weight: bold;">'. isset($tallerInstance["taller"]) ? $tallerInstance["taller"] : "" .'</caption>'.chr(13);
+			$html .= '<colgroup>'.chr(13);
+			$html .= '<col />'.chr(13);
+			$html .= '<col />'.chr(13);
+			$html .= '<col />'.chr(13);
+			$html .= '<col />'.chr(13);
+			$html .= '<col />'.chr(13);
+			$html .= '</colgroup>'.chr(13);
+			$html .= '<thead>'.chr(13);
+			$html .= '<tr>'.chr(13);
+			$html .= '<th>Matr&iacute;cula</th>'.chr(13);
+			$html .= '<th>Nombre Completo</th>'.chr(13);
+			$html .= '<th>Email</th>'.chr(13);
+			$html .= '<th>Fecha Hora Entrada</th>'.chr(13);
+			$html .= '<th>Fecha Hora Salida</th>'.chr(13);
+			$html .= '</tr>'.chr(13);
+			$html .= '</thead>'.chr(13);
+			$html .= '<tbody class="buscar">'.chr(13);
+		
+			foreach ($beneficiarioInstance as $row) {
+				$nombre = $this->getNombre($row['matricula']);
+				$asistencia = $this->getAsistenciaByTaller($row['matricula'], $taller);
+				
+				$html .= '<tr>'.chr(13);
+				$html .= '<td>' . (isset($row['matricula']) ? $row['matricula'] : "") . '</td>'.chr(13);
+				$html .= '<td>' . (isset($nombre[0]['nombre']) ? $nombre[0]['nombre'] : "") . ' '. (isset($nombre[0]['ap']) ? $nombre[0]['ap'] : "") . ' ' . (isset($nombre[0]['am']) ? $nombre[0]['am'] : "") . '</td>'.chr(13);
+				$html .= '<td>' . (isset($nombre[0]['email']) ? $nombre[0]['email'] : "") . '</td>'.chr(13);
+				$html .= '<td>' . (isset($asistencia[0]['inicio']) ? $asistencia[0]['inicio'] : "") . '</td>'.chr(13);
+				$html .= '<td>' . (isset($asistencia[0]['final']) ? $asistencia[0]['final'] : "") . '</td>'.chr(13);
+				$html .= '</tr>';
+			}
+		
+			$html .= '</tbody>'.chr(13);
+			$html .= '</table>'.chr(13);
+		
+			return $html;
+		} else {
+			return $html;
 		}
 	}
 	

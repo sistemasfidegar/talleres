@@ -153,6 +153,32 @@ class Admin extends CI_Controller {
 		header("Location: " . base_url('admin'));
 	}
 	
+	public function attendance() {
+		if($this->session->userdata('CRUD_AUTH')) {
+			$usuario = $this->session->userdata('CRUD_AUTH');
+			$datos['title'] = 'Lista Asistencia';
+			$datos['talleres'] = $this->m_registro->getTalleresByPlantelAndDate($usuario['id_plantel'], fecha_actual());
+			$datos['plantel'] = $this->m_registro->getPlantelById($usuario['id_plantel']);
+			$this->load->view('layout/header', $datos, false);
+			$this->load->view('admin/nav', false, false);
+			$this->load->view('admin/attendance', $datos, false);
+			$this->load->view('layout/footer', false, false);
+		} else {
+			header("Location: " . base_url('admin'));
+		}
+	}
+	
+	public function ajaxGetBeneficiarios($taller = "") {
+		if($this->session->userdata('CRUD_AUTH')) {
+			$usuario = $this->session->userdata('CRUD_AUTH');
+			$datos = $this->m_admin->builtBeneficiarios($usuario['id_plantel'], $taller);
+			//$datos = "";
+			echo $datos;
+		} else {
+			header("Location: " . base_url('admin'));
+		}
+	}
+	
 	public function profile() {
 		if($this->session->userdata('CRUD_AUTH')) {
 			$usuario = $this->session->userdata('CRUD_AUTH');
@@ -181,6 +207,114 @@ class Admin extends CI_Controller {
 			} else {
 				header("Location: " . base_url('asistencia'));
 			}
+		} else {
+			header("Location: " . base_url('admin'));
+		}
+	}
+	
+	public function excelPdf() {
+		if($this->session->userdata('CRUD_AUTH')) {
+			header("Content-type: application/vnd.ms-excel");
+			header("Content-Disposition: attachment; filename=beneficiarios" . date("YmdHis") . ".xls");
+			header("Pragma: no-cache");
+			header("Expires: 0");
+				
+			echo utf8_decode($_POST['datos_a_enviar']);
+		} else {
+			header("Location: " . base_url('admin'));
+		}
+	}
+	
+	public function pdf() {
+		if($this->session->userdata('CRUD_AUTH')) {
+			$name = "asistencia" . date("YmdHis") . ".pdf";
+			//file_get_contents is standard function
+			$content = file_get_contents($_POST['datos_a_enviar']);
+			header('Content-Type: application/pdf');
+			header('Content-Transfer-Encoding: binary');
+			header('Content-Length: '.filesize( $content ));
+			header('Content-disposition: inline; filename="' . $name . '"');
+			header('Cache-Control: public, must-revalidate, max-age=0');
+			header('Pragma: public');
+			header('Expires: 0');
+				
+			echo utf8_decode($content);
+			/*$this->load->library('Pdf');
+			$pdf = new Pdf('L', 'mm', 'A4', true, 'UTF-8', false);
+			$pdf->SetCreator(PDF_CREATOR);
+			$pdf->SetAuthor('Alfredo Mtz Cobos');
+			$pdf->SetTitle('Comprobante');
+			$pdf->SetSubject('Impresión de asistencia Conferencias "Prepárate"');
+			$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+			ob_start();
+			// datos por defecto de cabecera, se pueden modificar en el archivo tcpdf_config_alt.php de libraries/config
+			$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING, array(0, 64, 255), array(0, 1, 0));
+			$pdf->setFooterData($tc = array(0, 64, 0), $lc = array(0, 64, 128));
+			 
+			// datos por defecto de cabecera, se pueden modificar en el archivo tcpdf_config.php de libraries/config
+			$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+			$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+			 
+			// se pueden modificar en el archivo tcpdf_config.php de libraries/config
+			$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+			 
+			// se pueden modificar en el archivo tcpdf_config.php de libraries/config
+			$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+			$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+			//$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+			 
+			// se pueden modificar en el archivo tcpdf_config.php de libraries/config
+			$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+			 
+			//relación utilizada para ajustar la conversión de los píxeles
+			$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+			$pdf->setFontSubsetting(true);
+			$pdf->SetFont('helvetica', '', 14, '', true);
+			$pdf->AddPage();
+			//fijar efecto de sombra en el texto
+			$pdf->setTextShadow(array('enabled' => true, 'depth_w' => 0.2, 'depth_h' => 0.2, 'color' => array(255, 255, 255), 'opacity' => 1, 'blend_mode' => 'Normal'));
+			
+			//preparamos y maquetamos el contenido a crear
+			
+			$html ="";
+			$html .= "<style type=text/css>";
+			$html .=" h1 {
+			
+						    width: 100%;
+						    font-weight: bold;
+						    font-size: 13;
+						    line-height: 2;
+						    text-align: center;
+						    color: #4C4C4C;
+						}
+	    			h2{
+	    					text-align: justify;
+	    					font-weight: bold;
+							font-size: 9;
+							line-height: 1.5;
+	    					color:  #070005;
+	    			}
+	    			p{
+	    			 	line-height: 1.5;
+	    				color: #5E5D5D;
+	    				font-weight: bold;
+						text-align: letf;
+	    				font-size: 9;
+					}
+				";
+			
+			$html .= "</style>";
+	    	
+	    	$html .= $_POST['datos_a_enviar'];
+	    	$html .="";
+	    	
+	    	// Imprimimos el texto con writeHTMLCell()
+	    	//$pdf->writeHTML($html, true, 0, true, 0);
+	    	$pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+	    	$pdf->lastPage();
+	    	$nombre_archivo = utf8_decode("Asistencia.pdf");
+			$pdf->Output($nombre_archivo, 'I');
+			ob_end_flush();*/
 		} else {
 			header("Location: " . base_url('admin'));
 		}

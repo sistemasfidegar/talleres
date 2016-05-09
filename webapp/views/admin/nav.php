@@ -31,11 +31,14 @@
   						</ul>
 					</li>
 					<?php } ?>
-                    <li>
-                        <a href="<?= base_url('admin/logout') ?>">Cerrar Sesi&oacute;n</a>
+					<li>
+                        <a href="<?= base_url('admin/attendance') ?>">Lista Asistencia</a>
                     </li>
                     <li>
                         <a href="<?= base_url('admin/profile') ?>">Perfil</a>
+                    </li>
+                    <li>
+                        <a href="<?= base_url('admin/logout') ?>">Cerrar Sesi&oacute;n</a>
                     </li>
                     <?php } ?>
                 </ul>

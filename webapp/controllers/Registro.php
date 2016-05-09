@@ -182,36 +182,54 @@ class Registro extends CI_Controller {
 	function nuevo($matricula = "") {
 		if(!empty($matricula)){
 			$datos['title'] = 'Registro Taller';
+			$hoy = new DateTime(fecha_actual());
+			
+			// Taller Activo
+			$aux = $this->m_registro->getTallerActivo();
+			$inicio = isset ($aux[0]['inicio']) ? new DateTime ($aux[0]['inicio']) : null;
+			$fin = isset ($aux[0]['fin']) ? new DateTime ($aux[0]['fin']) : null;
 			$disponibilidad = $this->m_registro->getDisponibilidad();
 			
 			$this->load->view('layout/header', $datos, false);
 			
-			if(!empty($disponibilidad)) {
-				$talleres = $this->m_registro->getTalleres();
-				
-				if(!empty($talleres)) {
-					$beneficiario = $this->m_registro->getDatos($matricula);
-					
-					if(!empty($beneficiario)) {
-						$datos['matricula'] = $matricula;
-						$datos['beneficiario'] = $beneficiario[0];
-						$datos['sedes'] = $disponibilidad;
-						$datos['talleres'] = $talleres;
-						$this->load->view('registro/nuevo', $datos, false);
+			if (!is_null($inicio) && ! is_null($fin)) {
+				if ($hoy >= $inicio && $hoy <= $fin) {
+					if(!empty($disponibilidad)) {
+						$talleres = $this->m_registro->getTalleres();
+						
+						if(!empty($talleres)) {
+							$beneficiario = $this->m_registro->getDatos($matricula);
+							
+							if(!empty($beneficiario)) {
+								$datos['matricula'] = $matricula;
+								$datos['beneficiario'] = $beneficiario[0];
+								$datos['sedes'] = $disponibilidad;
+								$datos['talleres'] = $talleres;
+								$this->load->view('registro/nuevo', $datos, false);
+							} else {
+								//expediente con inconsistencias
+								$datos['disponible'] = 3;
+								$this->load->view('registro/nuevo', $datos, false);
+							}
+						} else {
+							//sin talleres disponibles
+							$datos['disponible'] = 2;
+							$this->load->view('registro/nuevo', $datos, false);
+						}
 					} else {
-						//expediente con inconsistencias
-						$datos['disponible'] = 3;
+						//sin sedes disponibles
+						$datos['disponible'] = 1;
 						$this->load->view('registro/nuevo', $datos, false);
 					}
 				} else {
-					//sin talleres disponibles
-					$datos['disponible'] = 2;
-					$this->load->view('registro/nuevo', $datos, false);
+					//sin sedes disponibles
+					$datos ['disponible'] = 1;
+					$this->load->view('registro/nuevo', $datos, false );
 				}
 			} else {
 				//sin sedes disponibles
-				$datos['disponible'] = 1;
-				$this->load->view('registro/nuevo', $datos, false);
+				$datos ['disponible'] = 1;
+				$this->load->view('registro/nuevo', $datos, false );
 			}
 			
 			$this->load->view('layout/footer', false, false);
@@ -238,7 +256,7 @@ class Registro extends CI_Controller {
 						} else {
 							echo 'bad';
 						}
-					} else if(($capacidad + 50) > $totalAsistentes) {
+					} else if(($capacidad + 100) > $totalAsistentes) {
 						//tratamos de realizar la insercion de datos en lista de espera
 						if($this->m_registro->create($this->input->post(), $totalAsistentes, true)) {
 							echo 'espera';

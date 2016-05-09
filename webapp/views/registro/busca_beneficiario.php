@@ -376,13 +376,14 @@
 					         
 					        <tfoot>
 						        <tr>
-							      <td style="width: 50%;">
+							      <!-- 	<td style="width: 50%;">
 					     				<button style="width: 40%; height:40%; float: right;" id="registro" name="registro" type="button" class="btn">Iniciar Registro</button>
 					        	  	</td>
+					        	  -->
 					        	  	<td >&nbsp;</td>
 					        	 
-					        	  	<td style="width: 50%;">
-					     				<button style="width: 40%; height:40%; float: left;" id="reimpresion" name="reimpresion" type="button" class="btn">Obtener Comprobante</button>
+					        	  	<td style="width: 100%;">
+					     				<button style="width: 40%; height:40%; float: center;" id="reimpresion" name="reimpresion" type="button" class="btn">Obtener Comprobante</button>
 					        	  	</td>
 					        	  	
 					        	 <!-- 	

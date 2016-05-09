@@ -46,9 +46,9 @@ class M_asistencia extends MY_Model {
 		$results = "";
 		
 		if(!empty($hoy)) {
-			$this->sql="select * FROM talleres t, taller_plantel tp  
-					WHERE t.id_taller = tp.id_taller  AND fecha_inicio = '$hoy'  
-					AND tp.id_plantel = (SELECT id_plantel FROM registro_taller WHERE matricula = UPPER('$matricula'))  AND activo is true;";
+			$this->sql="SELECT * FROM talleres t, taller_plantel tp  
+					WHERE t.id_taller = tp.id_taller  AND t.fecha_inicio = '$hoy'  
+					AND tp.id_plantel = (SELECT id_plantel FROM registro_taller WHERE matricula = UPPER('$matricula') AND espera = FALSE LIMIT 1) AND t.activo is true;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}

@@ -1,10 +1,84 @@
 
 <script type="text/javascript">
         jQuery(document).ready(function(){
+        	var rules_form = {
+			        rules: {
+			        	matricula_asignada: {required : true}
+			        },
+			        messages: {
+			        	matricula_asignada: {required: "Campo obligatorio"}
+			        },
+			        ignore: ":not(:visible)",
+			        showErrors: function (map, list) {
+			            // there's probably a way to simplify this
+			            var focussed = document.activeElement;
+			            
+			            if (focussed && $(focussed).is("input, textarea")) {
+			                $(this.currentForm).tooltip("close", {
+			                    currentTarget: focussed
+			                }, true);
+			            }
+			            //this.currentElements.removeAttr("title").removeClass("ui-state-error1");
+			            this.currentElements.css(  {"border-style":"solid","border-color":"#A4A4A4","border-width":"1px"});
+			            
+			            $.each(list, function (index, error) {
+			            	 //$(error.element).css( "border-color", "red","border-style:dashed" );
+			            	 //$(error.element).attr("title", error.message).addClass("ui-state-error1");
+			                $(error.element).attr("title", error.message).css( {"border-style":"dashed","border-color":"red", "border-width":"2px"} );
+			            });
+			            
+			            if (focussed && $(focussed).is("input, textarea")) {
+			                $(this.currentForm).tooltip("open", {
+			                    target: focussed
+			                });
+			            }
+			        }
+			    };
 
+        	$("#buscar_beneficiario").validate(rules_form);
+		    
+        	$(document).keypress(function(event) {
+        		if($('#buscar_beneficiario').valid()) {
+        			var keycode = (event.keyCode ? event.keyCode : event.which);
+        			
+	        		if(keycode == 13) {
+	        			event.preventDefault();
+	        			$.blockUI({message: 'Procesando por favor espere...'});
+	    				
+	    	        	jQuery.ajax({
+	    		            type: 'post',
+	    		            dataType: 'html',
+	    		            url: '<?= base_url('asistencia/registroAsistencia/') ?>',
+	    		            data: {matricula: $("#matricula_asignada").val()},
+	    		            success: function (data) {
+	    			            if(data == 'error') {
+	    			            	$.unblockUI();
+	    			            	$('#myModalError').modal('show'); //open modal
+	    			            	$("#matricula_asignada").val('');
+	    	    		        } else  if(data == 'bad'){
+	    			            	$.unblockUI();
+	    			            	$('#myModalSinRegistro').modal('show'); //open modal
+	    	    		        } else if(data == 'sintaller') {
+	    			            	$.unblockUI();
+	    			            	$('#myModalSinTaller').modal('show'); //open modal
+	    			            	$("#matricula_asignada").val('');
+	    			            } else {
+	    			            	$.unblockUI();
+	    			            	$('#myModalRegistro').modal('show'); //open modal
+	    			            	$('#mensaje').html('Asistencia '+data+' Completo');
+	    			            	$("#matricula_asignada").val('');
+	    			            }
+	    		            }
+	    		        });
+	    	        } 
+        		}
+    		});
+
+			function registroAsistencia() {
+			}
 
     		$("#guardar").click(function () {
-    			if($("#matricula_asignada").val() != ""  ) {
+    			if($('#buscar_beneficiario').valid()) {
     				$.blockUI({message: 'Procesando por favor espere...'});
     	        	jQuery.ajax({
     		            type: 'post',
@@ -123,7 +197,7 @@
 <div class="register-container container">
 	<div class="row">                
 		<div class="register">
-			<form role="form" id="buscar_beneficiario" name="buscar_beneficiario" action="" method="post" autocomplete="off">
+			<form role="form" id="buscar_beneficiario" name="buscar_beneficiario" method="post" autocomplete="off">
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
                  	<img  src="resources/formulario/img/pleca_logos.png" alt="Logo" class="img-responsive center-block" style="padding-top:10px; vertical-align:top;" />&nbsp;
                  </div>
@@ -133,7 +207,7 @@
 					<br>
 					<table style="width: 100%;">		                        	
 			        	<tr>
-			        		<td>A&Uacute;N NO SE ENCUENTRA ACTIVO LA ASISTENCIA PARA EL CICLO DE CONFERENCIAS <strong>"PREP&Aacute;rate"</td>		                        		
+			        		<td>A&Uacute;N NO SE ENCUENTRA ACTIVO LA ASISTENCIA PARA EL CICLO DE CONFERENCIAS <strong>"PREP&Aacute;rate" </strong></td>		                        		
 			            </tr>
 			            <tr><td>&nbsp;&nbsp;</td></tr>
 			            <tr><td>&nbsp;&nbsp;</td></tr>

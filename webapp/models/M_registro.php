@@ -181,7 +181,7 @@ class M_registro extends MY_Model {
 				AND T.id_ciclo = CC.id_ciclo 
 				AND CC.activo is true AND T.activo is true AND S.activo is true
 				GROUP BY S.plantel, S.capacidad, S.total_asistentes, S.id_plantel, S.direccion, S.url, S.ruta_transporte 
-				HAVING ((S.capacidad + 50) - S.total_asistentes) > 0 
+				HAVING ((S.capacidad + 100) - S.total_asistentes) > 0 
 				ORDER BY S.plantel ASC;";
 		$results = $this->db->query($this->sql);
 		return $results->result_array();
@@ -234,7 +234,7 @@ class M_registro extends MY_Model {
 					FROM sede 
 					WHERE id_plantel = $id_plantel 
 					GROUP BY plantel, capacidad, total_asistentes  
-					HAVING ((capacidad + 50) - total_asistentes) > 0;";
+					HAVING ((capacidad + 100) - total_asistentes) > 0;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -351,6 +351,7 @@ class M_registro extends MY_Model {
 		
 		return $results;
 	}
+	
 	/**
 	 * Obtiene los talleres correspondientes al plantel.
 	 *
@@ -361,7 +362,7 @@ class M_registro extends MY_Model {
 	 * @author cony jaramillo
 	 */
 	function getTallerByPlantel($sede = ""){
-		$results="";
+		$results = "";
 		
 		if(!empty($sede)){
 		$this->sql="SELECT TA.taller, to_char(TA.fecha_inicio, 'DD-MM-YYYY') as fecha_inicio
@@ -373,8 +374,38 @@ class M_registro extends MY_Model {
 		$results = $this->db->query($this->sql);
 		return $results->result_array();
 		}
+		
 		return $results;
 	}
+	
+	/**
+	 * Obtiene los talleres correspondientes al plantel y de acuerdo a un d&iacute;a en espec&iacute;fico.
+	 *
+	 * @param  int:$sede  Identificador del plantel.
+	 * @param  Date:$hoy  Fecha a buscar.
+	 *
+	 * @return List       Talleres encontrados. Null en caso contrario.
+	 *
+	 * @since  2016-05-05
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	function getTalleresByPlantelAndDate($sede = "", $hoy = ""){
+		$results = "";
+	
+		if(!empty($sede) || !empty($hoy)){
+			$this->sql = "SELECT TA.taller, TA.id_taller 
+					FROM talleres TA, cat_ciclo CC, taller_plantel TP, sede S 
+					WHERE TP.id_taller = TA.id_taller AND TP.id_plantel = S.id_plantel 
+					AND TA.id_ciclo = CC.id_ciclo AND CC.activo IS TRUE AND TA.activo IS TRUE 
+					AND S.id_plantel = $sede AND TA.fecha_inicio <= '$hoy' 
+					ORDER BY TA.id_taller ASC;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
+	}
+	
 	/**
 	 * Obtiene el número de pagos del beneficiario.
 	 *
