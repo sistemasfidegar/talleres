@@ -278,7 +278,7 @@
 					<h4 class="modal-title" style="text-align: center;">Datos No Registrados</h4>
 				</div>
 				<div class="modal-body">
-					<form id="attributeFormModalSinRegistroReimpresion" role="form">
+					<form id="attributeFormModalSinRegistroReimpresion">
 						<div class="form-group" style="text-align: justify;">
 							No se encontraron los datos proporcionados (CURP, PS &oacute; No. de cuenta) <br /><br />
 						</div>

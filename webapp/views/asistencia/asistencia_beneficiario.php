@@ -36,7 +36,8 @@
 			    };
 
         	$("#buscar_beneficiario").validate(rules_form);
-		    
+
+		    //evento Enter
         	$(document).keypress(function(event) {
         		if($('#buscar_beneficiario').valid()) {
         			var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -65,7 +66,16 @@
 	    			            } else {
 	    			            	$.unblockUI();
 	    			            	$('#myModalRegistro').modal('show'); //open modal
-	    			            	$('#mensaje').html('Asistencia '+data+' Completo');
+	    			            	var d = new Date();
+	    			            	
+	    			            	if(d.getHours() < 11) {
+	    			            		$('#encabezado').html('ENTRADA');
+		    			            	$('#mensaje').html('Tu ENTRADA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+	    			            	} else {
+	    			            		$('#encabezado').html('SALIDA');
+		    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+	    			            	}
+	    			            	
 	    			            	$("#matricula_asignada").val('');
 	    			            }
 	    		            }
@@ -74,9 +84,7 @@
         		}
     		});
 
-			function registroAsistencia() {
-			}
-
+		    //evento Boton Guardar
     		$("#guardar").click(function () {
     			if($('#buscar_beneficiario').valid()) {
     				$.blockUI({message: 'Procesando por favor espere...'});
@@ -100,7 +108,16 @@
         		            } else {
         		            	$.unblockUI();
         		            	$('#myModalRegistro').modal('show'); //open modal
-        		            	$('#mensaje').html('Asistencia '+data+' Completo');
+        		            	var d = new Date();
+    			            	
+    			            	if(d.getHours() < 11) {
+    			            		$('#encabezado').html('ENTRADA');
+	    			            	$('#mensaje').html('Tu ENTRADA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+    			            	} else {
+    			            		$('#encabezado').html('SALIDA');
+	    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+    			            	}
+    			            	
         		            	$("#matricula_asignada").val('');
         		            }
     		            }
@@ -140,7 +157,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" style="text-align: center;">Bienvenid@</h4>
+					<h4 class="modal-title" style="text-align: center;" id="encabezado"></h4>
 				</div>
 				<div class="modal-body">
 					<form id="attributeFormModalRegistro">
