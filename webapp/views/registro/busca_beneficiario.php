@@ -357,7 +357,7 @@
 					<?php } ?>				
 				<?php } else { ?>
                  <br>
-                 	<div style="text-align:CENTER !important;"><label  style="color:#4C4C4C;  font-size: 180%;">REGISTRO AL CICLO DE CONFERENCIAS "PREP&Aacute;rate"</label></div>
+                 	<div style="text-align:CENTER !important;"><label  style="color:#4C4C4C;  font-size: 180%;">REIMPRESIÓN CICLO DE CONFERENCIAS "PREP&Aacute;rate"</label></div>
 				    	<table  style="width:100%; text-align: center; float: center; border-spacing: 5; <?php if($navegador=='IE'){ echo 'display:none;'; }?>">
 			    	 		<tbody>
 					        	<tr>

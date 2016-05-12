@@ -461,6 +461,14 @@ class Registro extends CI_Controller {
 						 text-align: center;
 						 color: #4C4C4C;
 						}
+	    			h2 {
+						 width: 100%;
+						 font-weight: bold;
+						 font-size: 8;
+						 line-height: 2;
+						 text-align: center;
+						 color: #4C4C4C;
+						}
 	    			</style>";
 	    	
 	    	$html1 .='<h1>CICLO DE CONFERENCIAS "PREP&Aacute;rate"</h1><br><br>';
@@ -505,7 +513,10 @@ class Registro extends CI_Controller {
 						  <li>No olvides llevar el presente documento cada vez que asistas a las conferencias.</li>
 	    				  <li>No olvides llevar identificaci&oacute;n.</li>
 						  <li>Para cualquier duda y/o aclaraci&oacute;n comun&iacute;cate al tel&eacute;fono 1102 1750 de Lunes a Viernes de 9:00 a 18:00 hrs.</li>
-					 </ul>  ';
+						  
+	    			</ul> 
+	    			<br><br>
+	    			<h2>Este formato se debe imprimir en una impresora láser, de lo contrario no se podrá registrar la asistencia en la sede seleccionada.</h2> ';
 			// output the HTML content
 			$pdf->writeHTML($html3, true, false, true, false, '');
 			    	
