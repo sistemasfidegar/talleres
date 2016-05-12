@@ -68,7 +68,7 @@
 	    			            	$('#myModalRegistro').modal('show'); //open modal
 	    			            	var d = new Date();
 	    			            	
-	    			            	if(d.getHours() < 11) {
+	    			            	if(d.getHours() <= 11) {
 	    			            		$('#encabezado').html('ENTRADA');
 		    			            	$('#mensaje').html('Tu ENTRADA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
 	    			            	} else {
@@ -110,7 +110,7 @@
         		            	$('#myModalRegistro').modal('show'); //open modal
         		            	var d = new Date();
     			            	
-    			            	if(d.getHours() < 11) {
+    			            	if(d.getHours() <= 11) {
     			            		$('#encabezado').html('ENTRADA');
 	    			            	$('#mensaje').html('Tu ENTRADA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
     			            	} else {
