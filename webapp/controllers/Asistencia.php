@@ -47,25 +47,31 @@ class Asistencia extends CI_Controller {
 		if($this->session->userdata('CRUD_AUTH')) {
 			$usuario = $this->session->userdata('CRUD_AUTH');
 			$matricula = $this->input->post('matricula');
-			$aux = $this->m_asistencia->getMatricula($matricula);
+			$temp = $this->m_asistencia->getMatricula($matricula);
 		
-			$aux = isset($aux[0]['matricula']) ? $aux[0]['matricula'] : null;
+			$aux = isset($temp[0]['matricula']) ? $temp[0]['matricula'] : null;
 		
 			if (!is_null($aux)) {
-				$taller = $this->m_asistencia->getTaller(fecha_actual(), $aux);
-				$idtaller = isset($taller[0]['id_taller']) ? $taller[0]['id_taller'] : null;
-				$nombreTaller = isset($taller[0]['taller']) ? $taller[0]['taller'] : "";
+				$espera = ($temp[0]['espera'] == "f") ? true : null;
 				
-				if (!is_null($idtaller)) {
-					$asistencia = $this->m_asistencia->insertaAsistencia($idtaller, $aux, $usuario['id_usuario']);
+				if (!is_null($espera)) {
+					$taller = $this->m_asistencia->getTaller(fecha_actual(), $aux);
+					$idtaller = isset($taller[0]['id_taller']) ? $taller[0]['id_taller'] : null;
+					$nombreTaller = isset($taller[0]['taller']) ? $taller[0]['taller'] : "";
 					
-					if (!is_null($asistencia)) {
-						echo $nombreTaller;
+					if (!is_null($idtaller)) {
+						$asistencia = $this->m_asistencia->insertaAsistencia($idtaller, $aux, $usuario['id_usuario']);
+						
+						if (!is_null($asistencia)) {
+							echo $nombreTaller;
+						} else {
+							echo 'error';
+						}
 					} else {
-						echo 'error';
+						echo 'sintaller';
 					}
 				} else {
-					echo 'sintaller';
+					echo 'nocumple';
 				}
 			} else {
 				echo 'bad';

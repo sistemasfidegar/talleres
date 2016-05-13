@@ -29,7 +29,7 @@ class M_asistencia extends MY_Model {
 		$results = "";
 		
 		if(!empty($dato)) {
-			$this->sql = "SELECT matricula FROM registro_taller WHERE matricula = UPPER('$dato');";
+			$this->sql = "SELECT matricula, espera FROM registro_taller WHERE matricula = UPPER('$dato') LIMIT 1;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}

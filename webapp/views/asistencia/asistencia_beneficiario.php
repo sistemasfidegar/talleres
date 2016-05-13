@@ -63,6 +63,10 @@
 	    			            	$.unblockUI();
 	    			            	$('#myModalSinTaller').modal('show'); //open modal
 	    			            	$("#matricula_asignada").val('');
+	    			            } else if(data == 'nocumple') {
+	    			            	$.unblockUI();
+	    			            	$('#myModalNoCumple').modal('show'); //open modal
+	    			            	$("#matricula_asignada").val('');
 	    			            } else {
 	    			            	$.unblockUI();
 	    			            	$('#myModalRegistro').modal('show'); //open modal
@@ -105,6 +109,10 @@
         		            	$.unblockUI();
         		            	$('#myModalSinTaller').modal('show'); //open modal
         		            	$("#matricula_asignada").val('');
+        		            } else if(data == 'nocumple') {
+    			            	$.unblockUI();
+    			            	$('#myModalNoCumple').modal('show'); //open modal
+    			            	$("#matricula_asignada").val('');
         		            } else {
         		            	$.unblockUI();
         		            	$('#myModalRegistro').modal('show'); //open modal
@@ -144,6 +152,26 @@
 							Lo sentimos no se encontr&oacute; tu registro al Ciclo de Conferencias <strong>"PREP&Aacute;rate"</strong>
 							<br/>
 							<br/>1. Verifica  que tu matr&iacute;cula est&eacute; escrita correctamente. 
+						</div>
+					</form>
+				</div>
+				
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalNoCumple">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" style="text-align: center">Beneficiari@ Sin Registro</h4>
+				</div>
+				<div class="modal-body">
+					<form id="attributeFormModalNoCumple">
+						<div class="form-group" style="text-align: justify;">
+							La persona no cumple con alguno de los requisitos (m&aacute;ximo 20 a&ntilde;os o ser beneficiario activo del Programa "Prepa S&iacute;") para asistir al Ciclo de Conferencias <strong>"PREP&Aacute;rate"</strong>
+							<br/>
 						</div>
 					</form>
 				</div>
