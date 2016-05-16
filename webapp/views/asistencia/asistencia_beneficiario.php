@@ -71,10 +71,17 @@
 	    			            	$.unblockUI();
 	    			            	$('#myModalRegistro').modal('show'); //open modal
 	    			            	var d = new Date();
-	    			            	
-	    			            	if(d.getHours() <= 11) {
-	    			            		$('#encabezado').html('ENTRADA');
-		    			            	$('#mensaje').html('Tu ENTRADA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+	    			            	var hora = d.getHours();
+	    			            	var minutos = d.getMinutes();
+
+	    			            	if(hora <= 11) {
+	    			            		if(hora == 11 && minutos > 0){
+	    			            			$('#encabezado').html('SALIDA');
+			    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+		    			            	} else {
+	    			            			$('#encabezado').html('ENTRADA');
+		    			            		$('#mensaje').html('Tu ENTRADA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+		    			            	}
 	    			            	} else {
 	    			            		$('#encabezado').html('SALIDA');
 		    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
@@ -117,10 +124,16 @@
         		            	$.unblockUI();
         		            	$('#myModalRegistro').modal('show'); //open modal
         		            	var d = new Date();
-    			            	
-    			            	if(d.getHours() <= 11) {
-    			            		$('#encabezado').html('ENTRADA');
-	    			            	$('#mensaje').html('Tu ENTRADA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+        		            	var hora = d.getHours();
+    			            	var minutos = d.getMinutes();
+
+    			            	if(hora <= 11) {
+    			            		if(hora == 11 && minutos > 0){
+    			            			$('#encabezado').html('SALIDA');
+		    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+	    			            	} else {
+    			            			$('#encabezado').html('ENTRADA');
+	    			            		$('#mensaje').html('Tu ENTRADA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
     			            	} else {
     			            		$('#encabezado').html('SALIDA');
 	    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
