@@ -188,7 +188,7 @@
         }	
         
         function irAPdf(uri) {
-            window.open('<?= base_url() ?>' + uri, '_blank');
+            window.open('<?= base_url() ?>' + uri, 'Comprobante', 'resizable=yes, menubar=no, location=center, toolbar=no, scrollbars=yes');
         }	
 </script>
 
