@@ -88,7 +88,7 @@
         		            	$.unblockUI();
         		            	$('#myModalEsperaReimpresion').modal('show'); //open modal
         		            } else {
-        		            	$.unblockUI();
+        		            	//$.unblockUI();
          		            	irAPdf('registro/pdf/'+ $("#matricula_asignada").val());
          		            	$("#matricula_asignada").val("");
             		        }
@@ -188,7 +188,7 @@
         }	
         
         function irAPdf(uri) {
-            window.open('<?= base_url() ?>' + uri, 'Comprobante', 'resizable=yes, menubar=no, location=center, toolbar=no, scrollbars=yes');
+            window.open('<?= base_url() ?>' + uri, '_self');
         }	
 </script>
 
