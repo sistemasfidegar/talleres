@@ -193,7 +193,7 @@ class M_admin extends MY_Model {
 		$results = "";
 	
 		if(!empty($id_plantel)) {
-			$this->sql = "SELECT *
+			$this->sql = "SELECT DISTINCT*
 				FROM registro_taller 
 				WHERE id_plantel = $id_plantel
 				AND espera = false
@@ -333,14 +333,7 @@ class M_admin extends MY_Model {
 		
 			//Se construye la tabla que contiene a todas los beneficiarios de acuerdo a la Sede asignada dadas de alta en la BD
 			$html .= '<table id="tbl-export" class="table table-hover list table-condensed table-striped">'.chr(13);
-			$html .= '<caption style="text-align: center; font-size: 125%; font-weight: bold;">'. isset($tallerInstance["taller"]) ? $tallerInstance["taller"] : "" .'</caption>'.chr(13);
-			$html .= '<colgroup>'.chr(13);
-			$html .= '<col />'.chr(13);
-			$html .= '<col />'.chr(13);
-			$html .= '<col />'.chr(13);
-			$html .= '<col />'.chr(13);
-			$html .= '<col />'.chr(13);
-			$html .= '</colgroup>'.chr(13);
+			$html .= '<caption style="text-align: center; font-size: 125%; font-weight: bold;">'. (isset($tallerInstance['taller']) ? $tallerInstance['taller'] : "") .'</caption>'.chr(13);
 			$html .= '<thead>'.chr(13);
 			$html .= '<tr>'.chr(13);
 			$html .= '<th>Matr&iacute;cula</th>'.chr(13);
