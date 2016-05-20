@@ -193,11 +193,10 @@ class M_admin extends MY_Model {
 		$results = "";
 	
 		if(!empty($id_plantel)) {
-			$this->sql = "SELECT DISTINCT*
+			$this->sql = "SELECT DISTINCT(matricula)
 				FROM registro_taller 
 				WHERE id_plantel = $id_plantel
-				AND espera = false
-				ORDER BY fecha_registro ASC;";
+				AND espera = false;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -215,14 +214,15 @@ class M_admin extends MY_Model {
 	 * @since  2016-05-05
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	public function getNombre($matricula = ""){
+	public function getNombres($matricula = ""){
 		$results = "";
 	
 		if(!empty($matricula)) {
-			$this->sql = "SELECT B.nombre, B.ap, B.am, P.email 
+			$this->sql = "SELECT B.nombre, B.ap, B.am, B.matricula_asignada, P.email 
 			FROM beneficiarios B
 			INNER JOIN b_personal P on B.matricula_asignada = P.matricula_asignada
-			WHERE B.matricula_asignada = UPPER('$matricula')";
+			WHERE B.matricula_asignada IN ($matricula) 
+			ORDER BY B.ap ASC;";
 			$results = $this->db_b->query($this->sql);
 			return $results->result_array();
 		}
@@ -344,18 +344,28 @@ class M_admin extends MY_Model {
 			$html .= '</tr>'.chr(13);
 			$html .= '</thead>'.chr(13);
 			$html .= '<tbody class="buscar">'.chr(13);
-		
-			foreach ($beneficiarioInstance as $row) {
-				$nombre = $this->getNombre($row['matricula']);
-				$asistencia = $this->getAsistenciaByTaller($row['matricula'], $taller);
+			
+			if(!empty($beneficiarioInstance)){
+				$array_beneficiario = array();
 				
-				$html .= '<tr>'.chr(13);
-				$html .= '<td>' . (isset($row['matricula']) ? $row['matricula'] : "") . '</td>'.chr(13);
-				$html .= '<td>' . (isset($nombre[0]['nombre']) ? $nombre[0]['nombre'] : "") . ' '. (isset($nombre[0]['ap']) ? $nombre[0]['ap'] : "") . ' ' . (isset($nombre[0]['am']) ? $nombre[0]['am'] : "") . '</td>'.chr(13);
-				$html .= '<td>' . (isset($nombre[0]['email']) ? $nombre[0]['email'] : "") . '</td>'.chr(13);
-				$html .= '<td>' . (isset($asistencia[0]['inicio']) ? $asistencia[0]['inicio'] : "") . '</td>'.chr(13);
-				$html .= '<td>' . (isset($asistencia[0]['final']) ? $asistencia[0]['final'] : "") . '</td>'.chr(13);
-				$html .= '</tr>';
+				foreach ($beneficiarioInstance as $nuevo) {
+					$array_beneficiario[]= "'". $nuevo['matricula'] ."'";
+				}
+				
+				$beneficiariosSeperados = implode(",", $array_beneficiario);
+				$beneficiarios = $this->getNombres($beneficiariosSeperados);
+			
+				foreach ($beneficiarios as $row) {
+					$asistencia = $this->getAsistenciaByTaller($row['matricula_asignada'], $taller);
+					
+					$html .= '<tr>'.chr(13);
+					$html .= '<td>' . (isset($row['matricula_asignada']) ? $row['matricula_asignada'] : "") . '</td>'.chr(13);
+					$html .= '<td>' . (isset($row['ap']) ? $row['ap'] : "") . ' ' . (isset($row['am']) ? $row['am'] : "") . (isset($row['nombre']) ? $row['nombre'] : "") . '</td>'.chr(13);
+					$html .= '<td>' . (isset($row['email']) ? $row['email'] : "") . '</td>'.chr(13);
+					$html .= '<td>' . (isset($asistencia[0]['inicio']) ? $asistencia[0]['inicio'] : "") . '</td>'.chr(13);
+					$html .= '<td>' . (isset($asistencia[0]['final']) ? $asistencia[0]['final'] : "") . '</td>'.chr(13);
+					$html .= '</tr>';
+				}
 			}
 		
 			$html .= '</tbody>'.chr(13);
