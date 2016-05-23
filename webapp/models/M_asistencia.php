@@ -36,6 +36,28 @@ class M_asistencia extends MY_Model {
 		
 		return $results;
 	}
+	
+	/**
+	 * Obtiene la matr&iacute;cula PS que se registr&oacute; al sistema de acuerdo al par&aacute;metro de busqueda.
+	 * 
+	 * @param String:$dato            Matr&iacute;cula UNAM a obtener la matr&iacute;cula PS.
+	 * 
+	 * @return String:matricula       Matr&iacute;cula PS encontrada. Null en caso contrario.
+	 *
+	 * @since  2016-05-23
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	function getMatriculaUnam($dato = "") {
+		$results = "";
+	
+		if(!empty($dato)) {
+			$this->sql = "SELECT matricula FROM registro_taller_unam WHERE matricula_unam = '$dato' LIMIT 1;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+	
+		return $results;
+	}
 	/**
 	 * 
 	 *

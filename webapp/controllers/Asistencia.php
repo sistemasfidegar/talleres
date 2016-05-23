@@ -39,8 +39,6 @@ class Asistencia extends CI_Controller {
 		} else {
 			header("Location: " . base_url('admin'));
 		}
-// 		$this->load->view('layout/header', false, false );
-// 		$this->load->view('asistencia/prueba', false, false );
 	}
 	
 	function registroAsistencia() {
@@ -79,7 +77,38 @@ class Asistencia extends CI_Controller {
 		} else {
 			header("Location: " . base_url('admin'));
 		}
-		
+	}
+	
+	function registroAsistenciaUnam() {
+		if($this->session->userdata('CRUD_AUTH')) {
+			$usuario = $this->session->userdata('CRUD_AUTH');
+			$matricula = $this->input->post('matricula_escuela');
+			$temp = $this->m_asistencia->getMatriculaUnam($matricula);
+	
+			$aux = isset($temp[0]['matricula']) ? $temp[0]['matricula'] : null;
+	
+			if (!is_null($aux)) {
+				$taller = $this->m_asistencia->getTaller(fecha_actual(), $aux);
+				$idtaller = isset($taller[0]['id_taller']) ? $taller[0]['id_taller'] : null;
+				$nombreTaller = isset($taller[0]['taller']) ? $taller[0]['taller'] : "";
+					
+				if (!is_null($idtaller)) {
+					$asistencia = $this->m_asistencia->insertaAsistencia($idtaller, $aux, $usuario['id_usuario']);
+
+					if (!is_null($asistencia)) {
+						echo $nombreTaller;
+					} else {
+						echo 'error';
+					}
+				} else {
+					echo 'sintaller';
+				}
+			} else {
+				echo 'bad';
+			}
+		} else {
+			header("Location: " . base_url('admin'));
+		}
 	}
 
 	function listaAsistencia($matricula=""){

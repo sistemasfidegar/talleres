@@ -5,45 +5,10 @@ $minutos = date("i");
 ?>
 <script type="text/javascript">
         jQuery(document).ready(function(){
-        	var rules_form = {
-			        rules: {
-			        	matricula_asignada: {required : true}
-			        },
-			        messages: {
-			        	matricula_asignada: {required: "Campo obligatorio"}
-			        },
-			        ignore: ":not(:visible)",
-			        showErrors: function (map, list) {
-			            // there's probably a way to simplify this
-			            var focussed = document.activeElement;
-			            
-			            if (focussed && $(focussed).is("input, textarea")) {
-			                $(this.currentForm).tooltip("close", {
-			                    currentTarget: focussed
-			                }, true);
-			            }
-			            //this.currentElements.removeAttr("title").removeClass("ui-state-error1");
-			            this.currentElements.css(  {"border-style":"solid","border-color":"#A4A4A4","border-width":"1px"});
-			            
-			            $.each(list, function (index, error) {
-			            	 //$(error.element).css( "border-color", "red","border-style:dashed" );
-			            	 //$(error.element).attr("title", error.message).addClass("ui-state-error1");
-			                $(error.element).attr("title", error.message).css( {"border-style":"dashed","border-color":"red", "border-width":"2px"} );
-			            });
-			            
-			            if (focussed && $(focussed).is("input, textarea")) {
-			                $(this.currentForm).tooltip("open", {
-			                    target: focussed
-			                });
-			            }
-			        }
-			    };
-
-        	$("#buscar_beneficiario").validate(rules_form);
 
 		    //evento Enter
         	$(document).keypress(function(event) {
-        		if($('#buscar_beneficiario').valid()) {
+        		if($("#matricula_asignada").val() != ""  ) {
         			var keycode = (event.keyCode ? event.keyCode : event.which);
         			
 	        		if(keycode == 13) {
@@ -63,6 +28,7 @@ $minutos = date("i");
 	    	    		        } else  if(data == 'bad'){
 	    			            	$.unblockUI();
 	    			            	$('#myModalSinRegistro').modal('show'); //open modal
+	    			            	$("#matricula_asignada").val('');
 	    	    		        } else if(data == 'sintaller') {
 	    			            	$.unblockUI();
 	    			            	$('#myModalSinTaller').modal('show'); //open modal
@@ -94,13 +60,62 @@ $minutos = date("i");
 	    			            }
 	    		            }
 	    		        });
-	    	        } 
+	    	        }
+        		} else if($("#matricula_escuela").val() != "" ){
+					var keycode = (event.keyCode ? event.keyCode : event.which);
+        			
+	        		if(keycode == 13) {
+	        			event.preventDefault();
+	        			$.blockUI({message: 'Procesando por favor espere...'});
+	    				
+	    	        	jQuery.ajax({
+	    		            type: 'post',
+	    		            dataType: 'html',
+	    		            url: '<?= base_url('asistencia/registroAsistenciaUnam/') ?>',
+	    		            data: {matricula_escuela: $("#matricula_escuela").val()},
+	    		            success: function (data) {
+	    			            if(data == 'error') {
+	    			            	$.unblockUI();
+	    			            	$('#myModalError').modal('show'); //open modal
+	    			            	$("#matricula_escuela").val('');
+	    	    		        } else  if(data == 'bad'){
+	    			            	$.unblockUI();
+	    			            	$('#myModalSinRegistro').modal('show'); //open modal
+	    			            	$("#matricula_escuela").val('');
+	    	    		        } else if(data == 'sintaller') {
+	    			            	$.unblockUI();
+	    			            	$('#myModalSinTaller').modal('show'); //open modal
+	    			            	$("#matricula_escuela").val('');
+	    			            } else {
+	    			            	$.unblockUI();
+	    			            	$('#myModalRegistro').modal('show'); //open modal
+	    			            	var hora = <?= $hora ?>;
+	    			            	var minutos = <?= $minutos ?>;
+
+	    			            	if(hora <= 11) {
+	    			            		if(hora == 11 && minutos > 0){
+	    			            			$('#encabezado').html('SALIDA');
+			    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+		    			            	} else {
+	    			            			$('#encabezado').html('ENTRADA');
+		    			            		$('#mensaje').html('Tu ENTRADA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+		    			            	}
+	    			            	} else {
+	    			            		$('#encabezado').html('SALIDA');
+		    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+	    			            	}
+	    			            	
+	    			            	$("#matricula_escuela").val('');
+	    			            }
+	    		            }
+	    		        });
+	    	        }
         		}
     		});
 
 		    //evento Boton Guardar
     		$("#guardar").click(function () {
-    			if($('#buscar_beneficiario').valid()) {
+    			if($("#matricula_asignada").val() != ""  ) {
     				$.blockUI({message: 'Procesando por favor espere...'});
     	        	jQuery.ajax({
     		            type: 'post',
@@ -115,6 +130,7 @@ $minutos = date("i");
             		        } else  if(data == 'bad'){
         		            	$.unblockUI();
         		            	$('#myModalSinRegistro').modal('show'); //open modal
+        		            	$("#matricula_asignada").val('');
             		        } else if(data == 'sintaller') {
         		            	$.unblockUI();
         		            	$('#myModalSinTaller').modal('show'); //open modal
@@ -126,9 +142,8 @@ $minutos = date("i");
         		            } else {
         		            	$.unblockUI();
         		            	$('#myModalRegistro').modal('show'); //open modal
-        		            	var d = new Date();
-        		            	var hora = d.getHours();
-    			            	var minutos = d.getMinutes();
+        		            	var hora = <?= $hora ?>;
+    			            	var minutos = <?= $minutos ?>;
 
     			            	if(hora <= 11) {
     			            		if(hora == 11 && minutos > 0){
@@ -147,7 +162,50 @@ $minutos = date("i");
         		            }
     		            }
     		        });
-    	        } 
+    	        } else if($("#matricula_escuela").val() != "" ){
+    	        	$.blockUI({message: 'Procesando por favor espere...'});
+    	        	jQuery.ajax({
+    		            type: 'post',
+    		            dataType: 'html',
+    		            url: '<?= base_url('asistencia/registroAsistenciaUnam/') ?>',
+    		            data: {matricula_escuela: $("#matricula_escuela").val()},
+    		            success: function (data) {
+        		            if(data == 'error') {
+        		            	$.unblockUI();
+        		            	$('#myModalError').modal('show'); //open modal
+        		            	$("#matricula_escuela").val('');
+            		        } else  if(data == 'bad'){
+        		            	$.unblockUI();
+        		            	$('#myModalSinRegistro').modal('show'); //open modal
+        		            	$("#matricula_escuela").val('');
+            		        } else if(data == 'sintaller') {
+        		            	$.unblockUI();
+        		            	$('#myModalSinTaller').modal('show'); //open modal
+        		            	$("#matricula_escuela").val('');
+        		            } else {
+        		            	$.unblockUI();
+        		            	$('#myModalRegistro').modal('show'); //open modal
+        		            	var hora = <?= $hora ?>;
+    			            	var minutos = <?= $minutos ?>;
+
+    			            	if(hora <= 11) {
+    			            		if(hora == 11 && minutos > 0){
+    			            			$('#encabezado').html('SALIDA');
+		    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+	    			            	} else {
+    			            			$('#encabezado').html('ENTRADA');
+	    			            		$('#mensaje').html('Tu ENTRADA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+	    			            	}
+    			            	} else {
+    			            		$('#encabezado').html('SALIDA');
+	    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+    			            	}
+    			            	
+        		            	$("#matricula_escuela").val('');
+        		            }
+    		            }
+    		        });
+    	        }
     		});
         });//ready
         
@@ -295,10 +353,13 @@ $minutos = date("i");
 							    	<td colspan="2">&nbsp;</td>
 						        </tr>
 						        <tr>
-						          	<td colspan="2"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="Ingresa tu matricula PS o CURP" style="width:50%; text-transform:uppercase;" autofocus/></td>
+						          	<td colspan="2"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="Ingresa tu matr&iacute;cula PS o CURP" style="width:50%; text-transform:uppercase;" autofocus/></td>
 					        	</tr>
 					         	<tr>
 						          	<td colspan="2">&nbsp;</td>
+						        </tr>
+						        <tr>
+						          	<td colspan="2"><input type="text" id="matricula_escuela" name="matricula_escuela" value="" placeholder="Ingresa matr&iacute;cula (unam)" style="width:50%; text-transform:uppercase;"/></td>
 						        </tr>
 							</tbody>
 							
