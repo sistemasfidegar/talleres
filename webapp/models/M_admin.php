@@ -206,23 +206,23 @@ class M_admin extends MY_Model {
 	}
 	
 	/**
-	 * Obtiene nombre completo y correo electr&oacute;nico del beneficiatio registrado.
+	 * Obtiene nombre completo, matr&iacute;cula asignada y correo electr&oacute;nico de ls beneficiatios registrados de acuerdo al par&aacute;metro de b&uacute;squeda.
 	 *
-	 * @param  String:$matricula     Matr&iacute;cula asignada a buscar.
+	 * @param  List:$matriculas      Listado de Matr&iacute;culas asignadas a buscar.
 	 *
-	 * @return List:Beneficiario     Nombre completo del beneficiario. Null en caso contrario.
+	 * @return List:Beneficiario     Datos de los beneficiarios a buscar. Null en caso contrario.
 	 *
 	 * @since  2016-05-05
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
-	public function getNombres($matricula = ""){
+	public function getNombres($matriculas = ""){
 		$results = "";
 	
-		if(!empty($matricula)) {
+		if(!empty($matriculas)) {
 			$this->sql = "SELECT B.nombre, B.ap, B.am, B.matricula_asignada, P.email 
 			FROM beneficiarios B
 			INNER JOIN b_personal P on B.matricula_asignada = P.matricula_asignada
-			WHERE B.matricula_asignada IN ($matricula) 
+			WHERE B.matricula_asignada IN ($matriculas) 
 			ORDER BY B.ap ASC;";
 			$results = $this->db_b->query($this->sql);
 			return $results->result_array();
