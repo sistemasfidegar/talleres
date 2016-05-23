@@ -1,4 +1,8 @@
-
+<?php
+date_default_timezone_set('America/Mexico_City');
+$hora = date("G");
+$minutos = date("i");
+?>
 <script type="text/javascript">
         jQuery(document).ready(function(){
         	var rules_form = {
@@ -70,9 +74,8 @@
 	    			            } else {
 	    			            	$.unblockUI();
 	    			            	$('#myModalRegistro').modal('show'); //open modal
-	    			            	var d = new Date();
-	    			            	var hora = d.getHours();
-	    			            	var minutos = d.getMinutes();
+	    			            	var hora = <?= $hora ?>;
+	    			            	var minutos = <?= $minutos ?>;
 
 	    			            	if(hora <= 11) {
 	    			            		if(hora == 11 && minutos > 0){
@@ -134,6 +137,7 @@
 	    			            	} else {
     			            			$('#encabezado').html('ENTRADA');
 	    			            		$('#mensaje').html('Tu ENTRADA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+	    			            	}
     			            	} else {
     			            		$('#encabezado').html('SALIDA');
 	    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');

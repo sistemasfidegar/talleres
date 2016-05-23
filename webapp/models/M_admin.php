@@ -193,10 +193,11 @@ class M_admin extends MY_Model {
 		$results = "";
 	
 		if(!empty($id_plantel)) {
-			$this->sql = "SELECT DISTINCT(matricula)
-				FROM registro_taller 
-				WHERE id_plantel = $id_plantel
-				AND espera = false;";
+			$this->sql = "SELECT DISTINCT(matricula) 
+					FROM registro_taller 
+					WHERE espera IS FALSE 
+					AND matricula NOT IN (SELECT DISTINCT matricula FROM registro_taller WHERE espera IS TRUE) 
+					AND id_plantel = $id_plantel;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -360,7 +361,7 @@ class M_admin extends MY_Model {
 					
 					$html .= '<tr>'.chr(13);
 					$html .= '<td>' . (isset($row['matricula_asignada']) ? $row['matricula_asignada'] : "") . '</td>'.chr(13);
-					$html .= '<td>' . (isset($row['ap']) ? $row['ap'] : "") . ' ' . (isset($row['am']) ? $row['am'] : "") . (isset($row['nombre']) ? $row['nombre'] : "") . '</td>'.chr(13);
+					$html .= '<td>' . (isset($row['ap']) ? $row['ap'] : "") . ' ' . (isset($row['am']) ? $row['am'] : "") . ' ' . (isset($row['nombre']) ? $row['nombre'] : "") . '</td>'.chr(13);
 					$html .= '<td>' . (isset($row['email']) ? $row['email'] : "") . '</td>'.chr(13);
 					$html .= '<td>' . (isset($asistencia[0]['inicio']) ? $asistencia[0]['inicio'] : "") . '</td>'.chr(13);
 					$html .= '<td>' . (isset($asistencia[0]['final']) ? $asistencia[0]['final'] : "") . '</td>'.chr(13);
