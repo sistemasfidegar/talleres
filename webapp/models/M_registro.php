@@ -157,7 +157,7 @@ class M_registro extends MY_Model {
 			$this->sql = "SELECT E.matricula_asignada, P.fecha_nacimiento
 			FROM  b_escolar E 
 			INNER JOIN b_personal P on E.matricula_asignada = P.matricula_asignada 
-			WHERE E.matricula_escuela = UPPER('$dato') AND E.id_archivo in (1, 2, 3) AND E.id_institucion in (1, 2);";
+			WHERE E.matricula_escuela = UPPER('$dato') AND E.id_archivo in (1, 2, 3) AND E.id_institucion in (1, 2, 15);";
 			$results = $this->db_b->query($this->sql);
 			return $results->result_array();
 		}
