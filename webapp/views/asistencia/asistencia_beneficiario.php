@@ -43,8 +43,8 @@ $minutos = date("i");
 	    			            	var hora = <?= $hora ?>;
 	    			            	var minutos = <?= $minutos ?>;
 
-	    			            	if(hora <= 11) {
-	    			            		if(hora == 11 && minutos > 0){
+	    			            	if(hora <= 13) {
+	    			            		if(hora == 13 && minutos > 0){
 	    			            			$('#encabezado').html('SALIDA');
 			    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
 		    			            	} else {
@@ -92,8 +92,8 @@ $minutos = date("i");
 	    			            	var hora = <?= $hora ?>;
 	    			            	var minutos = <?= $minutos ?>;
 
-	    			            	if(hora <= 11) {
-	    			            		if(hora == 11 && minutos > 0){
+	    			            	if(hora <= 13) {
+	    			            		if(hora == 13 && minutos > 0){
 	    			            			$('#encabezado').html('SALIDA');
 			    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
 		    			            	} else {

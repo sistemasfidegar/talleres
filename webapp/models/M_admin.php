@@ -219,7 +219,7 @@ class M_admin extends MY_Model {
 		$results = "";
 	
 		if(!empty($matriculas)) {
-			$this->sql = "SELECT B.nombre, B.ap, B.am, B.matricula_asignada, P.email 
+			$this->sql = "SELECT B.nombre, B.ap, B.am, B.matricula_asignada, P.curp, P.email 
 			FROM beneficiarios B
 			INNER JOIN b_personal P on B.matricula_asignada = P.matricula_asignada
 			WHERE B.matricula_asignada IN ($matriculas) 
@@ -232,10 +232,11 @@ class M_admin extends MY_Model {
 	}
 	
 	/**
-	 * Verifica si el usuario a crear en la Base de Datos existe o no
+	 * Verifica si el usuario a crear en la Base de Datos existe o no.
 	 * 
-	 * @param unknown $usuario
-	 * @return unknown
+	 * @param  String:$usuario     Nombre de usuario a buscar.
+	 * 
+	 * @return List                Datos del usuario encontrado. Null en caso contrario.
 	 * 
 	 * @since  2016-04-14
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
@@ -319,8 +320,9 @@ class M_admin extends MY_Model {
 	 * Se encarga de construir una Tabla en HTML con todos los beneficiarios registrados en los talleres que no est&eacute;n en lista de espera de una Sede en espec&iacute;fico.
 	 * 
 	 * @param  int:$id_plantel   Identificador de la Sede a buscar sus beneficiarios.
+	 * @param  int:$taller       Identificador del Taller a buscar.
 	 *
-	 * @return html              Listado de todos los usuarios. Null en caso contrario.
+	 * @return html              Listado de todos los beneficiarios inscritos. Null en caso contrario.
 	 *
 	 * @since  2016-05-05
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
@@ -339,6 +341,7 @@ class M_admin extends MY_Model {
 			$html .= '<tr>'.chr(13);
 			$html .= '<th>Matr&iacute;cula</th>'.chr(13);
 			$html .= '<th>Nombre Completo</th>'.chr(13);
+			$html .= '<th>CURP</th>'.chr(13);
 			$html .= '<th>Email</th>'.chr(13);
 			$html .= '<th>Fecha Hora Entrada</th>'.chr(13);
 			$html .= '<th>Fecha Hora Salida</th>'.chr(13);
@@ -362,6 +365,7 @@ class M_admin extends MY_Model {
 					$html .= '<tr>'.chr(13);
 					$html .= '<td>' . (isset($row['matricula_asignada']) ? $row['matricula_asignada'] : "") . '</td>'.chr(13);
 					$html .= '<td>' . (isset($row['ap']) ? $row['ap'] : "") . ' ' . (isset($row['am']) ? $row['am'] : "") . ' ' . (isset($row['nombre']) ? $row['nombre'] : "") . '</td>'.chr(13);
+					$html .= '<td>' . (isset($row['curp']) ? $row['curp'] : "") . '</td>'.chr(13);
 					$html .= '<td>' . (isset($row['email']) ? $row['email'] : "") . '</td>'.chr(13);
 					$html .= '<td>' . (isset($asistencia[0]['inicio']) ? $asistencia[0]['inicio'] : "") . '</td>'.chr(13);
 					$html .= '<td>' . (isset($asistencia[0]['final']) ? $asistencia[0]['final'] : "") . '</td>'.chr(13);
