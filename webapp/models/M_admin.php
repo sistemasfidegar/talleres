@@ -345,6 +345,7 @@ class M_admin extends MY_Model {
 			$html .= '<th>Email</th>'.chr(13);
 			$html .= '<th>Fecha Hora Entrada</th>'.chr(13);
 			$html .= '<th>Fecha Hora Salida</th>'.chr(13);
+			//$html .= '<th>ASISTENCIA</th>'.chr(13);
 			$html .= '</tr>'.chr(13);
 			$html .= '</thead>'.chr(13);
 			$html .= '<tbody class="buscar">'.chr(13);
@@ -369,6 +370,7 @@ class M_admin extends MY_Model {
 					$html .= '<td>' . (isset($row['email']) ? $row['email'] : "") . '</td>'.chr(13);
 					$html .= '<td>' . (isset($asistencia[0]['inicio']) ? $asistencia[0]['inicio'] : "") . '</td>'.chr(13);
 					$html .= '<td>' . (isset($asistencia[0]['final']) ? $asistencia[0]['final'] : "") . '</td>'.chr(13);
+					//$html .= '<td>' . (isset($asistencia[0]['inicio']) ? "ASISTI&Oacute;" : "") . '</td>'.chr(13);
 					$html .= '</tr>';
 				}
 			}
