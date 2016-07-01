@@ -170,9 +170,14 @@ class Admin extends CI_Controller {
 	
 	public function ajaxGetBeneficiarios($taller = "") {
 		if($this->session->userdata('CRUD_AUTH')) {
+			set_time_limit(0);
+			ini_set('memory_limit', '-1');
+			ini_set('max_execution_time', '0');
+			ini_set('zlib.output_compression', '0');
+			ini_set('implicit_flush', '1');
+			ignore_user_abort(true);
 			$usuario = $this->session->userdata('CRUD_AUTH');
 			$datos = $this->m_admin->builtBeneficiarios($usuario['id_plantel'], $taller);
-			//$datos = "";
 			echo $datos;
 		} else {
 			header("Location: " . base_url('admin'));

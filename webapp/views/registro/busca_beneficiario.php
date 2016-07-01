@@ -386,11 +386,11 @@
 					     				<button style="width: 40%; height:40%; float: center;" id="reimpresion" name="reimpresion" type="button" class="btn">Obtener Comprobante</button>
 					        	  	</td>
 					        	  	
-					        	 <!-- 	
+					        	  	 <!-- 
 					        	  	<td style="width: 30%">
 					     				<button style="width: 30%; height:40%; float: center;" id="asistencia" name="asistencia" type="button" class="btn">Obtener Asistencia</button>
 					        	  	</td>
-					        	 -->
+					        	  -->
 						        </tr>
 					        </tfoot>
 				      	</table>

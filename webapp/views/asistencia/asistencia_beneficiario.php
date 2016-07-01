@@ -43,10 +43,15 @@ $minutos = date("i");
 	    			            	var hora = <?= $hora ?>;
 	    			            	var minutos = <?= $minutos ?>;
 
-	    			            	if(hora <= 13) {
+	    			            	$('#encabezado').html('ASISTENCIA');
+	    			            	$('#mensaje').html('Tu ASISTENCIA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+	    			            	
+	    			            	/*if(hora <= 13) {
 	    			            		if(hora == 13 && minutos > 0){
-	    			            			$('#encabezado').html('SALIDA');
-			    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+	    			            			//$('#encabezado').html('SALIDA');
+	    			            			$('#encabezado').html('ASISTENCIA');
+			    			            	//$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+	    			            			$('#mensaje').html('Tu ASISTENCIA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
 		    			            	} else {
 	    			            			$('#encabezado').html('ENTRADA');
 		    			            		$('#mensaje').html('Tu ENTRADA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
@@ -54,7 +59,7 @@ $minutos = date("i");
 	    			            	} else {
 	    			            		$('#encabezado').html('SALIDA');
 		    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
-	    			            	}
+	    			            	}*/
 	    			            	
 	    			            	$("#matricula_asignada").val('');
 	    			            }
@@ -92,7 +97,10 @@ $minutos = date("i");
 	    			            	var hora = <?= $hora ?>;
 	    			            	var minutos = <?= $minutos ?>;
 
-	    			            	if(hora <= 13) {
+	    			            	$('#encabezado').html('ASISTENCIA');
+	    			            	$('#mensaje').html('Tu ASISTENCIA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+	    			            	
+	    			            	/*if(hora <= 13) {
 	    			            		if(hora == 13 && minutos > 0){
 	    			            			$('#encabezado').html('SALIDA');
 			    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
@@ -103,7 +111,7 @@ $minutos = date("i");
 	    			            	} else {
 	    			            		$('#encabezado').html('SALIDA');
 		    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
-	    			            	}
+	    			            	}*/
 	    			            	
 	    			            	$("#matricula_escuela").val('');
 	    			            }
@@ -145,8 +153,11 @@ $minutos = date("i");
         		            	var hora = <?= $hora ?>;
     			            	var minutos = <?= $minutos ?>;
 
-    			            	if(hora <= 11) {
-    			            		if(hora == 11 && minutos > 0){
+    			            	$('#encabezado').html('ASISTENCIA');
+    			            	$('#mensaje').html('Tu ASISTENCIA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+    			            	
+    			            	/*if(hora <= 13) {
+    			            		if(hora == 13 && minutos > 0){
     			            			$('#encabezado').html('SALIDA');
 		    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
 	    			            	} else {
@@ -156,7 +167,7 @@ $minutos = date("i");
     			            	} else {
     			            		$('#encabezado').html('SALIDA');
 	    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
-    			            	}
+    			            	}*/
     			            	
         		            	$("#matricula_asignada").val('');
         		            }
@@ -188,8 +199,11 @@ $minutos = date("i");
         		            	var hora = <?= $hora ?>;
     			            	var minutos = <?= $minutos ?>;
 
-    			            	if(hora <= 11) {
-    			            		if(hora == 11 && minutos > 0){
+    			            	$('#encabezado').html('ASISTENCIA');
+    			            	$('#mensaje').html('Tu ASISTENCIA a la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
+    			            	
+    			            	/*if(hora <= 13) {
+    			            		if(hora == 13 && minutos > 0){
     			            			$('#encabezado').html('SALIDA');
 		    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
 	    			            	} else {
@@ -199,7 +213,7 @@ $minutos = date("i");
     			            	} else {
     			            		$('#encabezado').html('SALIDA');
 	    			            	$('#mensaje').html('Tu SALIDA de la Conferencia: '+data+', se registr\xf3 con \xc9XITO');
-    			            	}
+    			            	}*/
     			            	
         		            	$("#matricula_escuela").val('');
         		            }

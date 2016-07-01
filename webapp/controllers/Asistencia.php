@@ -119,7 +119,7 @@ class Asistencia extends CI_Controller {
 			$pdf->SetCreator(PDF_CREATOR);
 			$pdf->SetAuthor('Cony Jaramillo');
 			$pdf->SetTitle('Comprobante');
-			$pdf->SetSubject('Impresión de asistencia Conferencias "Prepárate"');
+			$pdf->SetSubject('Impresión de Asistencia Conferencias "PREPÁrate"');
 			$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 			ob_start();
 			// datos por defecto de cabecera, se pueden modificar en el archivo tcpdf_config_alt.php de libraries/config

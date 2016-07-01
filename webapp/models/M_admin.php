@@ -331,6 +331,12 @@ class M_admin extends MY_Model {
 		$html = '';
 		
 		if(!empty($id_plantel) && !empty($taller)) {
+			set_time_limit(0);
+			ini_set('memory_limit', '-1');
+			ini_set('max_execution_time', '0');
+			ini_set('zlib.output_compression', '0');
+			ini_set('implicit_flush', '1');
+			ignore_user_abort(true);
 			$beneficiarioInstance = $this->getBeneficiariosByPlantel($id_plantel);
 			$tallerInstance = $this->getTallerById($taller);
 		
@@ -342,10 +348,10 @@ class M_admin extends MY_Model {
 			$html .= '<th>Matr&iacute;cula</th>'.chr(13);
 			$html .= '<th>Nombre Completo</th>'.chr(13);
 			$html .= '<th>CURP</th>'.chr(13);
-			$html .= '<th>Email</th>'.chr(13);
-			$html .= '<th>Fecha Hora Entrada</th>'.chr(13);
-			$html .= '<th>Fecha Hora Salida</th>'.chr(13);
-			//$html .= '<th>ASISTENCIA</th>'.chr(13);
+			//$html .= '<th>Email</th>'.chr(13);
+			//$html .= '<th>Fecha Hora Entrada</th>'.chr(13);
+			//$html .= '<th>Fecha Hora Salida</th>'.chr(13);
+			$html .= '<th>TALLER 7</th>'.chr(13);
 			$html .= '</tr>'.chr(13);
 			$html .= '</thead>'.chr(13);
 			$html .= '<tbody class="buscar">'.chr(13);
@@ -354,7 +360,7 @@ class M_admin extends MY_Model {
 				$array_beneficiario = array();
 				
 				foreach ($beneficiarioInstance as $nuevo) {
-					$array_beneficiario[]= "'". $nuevo['matricula'] ."'";
+					$array_beneficiario[] = "'". $nuevo['matricula'] ."'";
 				}
 				
 				$beneficiariosSeperados = implode(",", $array_beneficiario);
@@ -367,10 +373,10 @@ class M_admin extends MY_Model {
 					$html .= '<td>' . (isset($row['matricula_asignada']) ? $row['matricula_asignada'] : "") . '</td>'.chr(13);
 					$html .= '<td>' . (isset($row['ap']) ? $row['ap'] : "") . ' ' . (isset($row['am']) ? $row['am'] : "") . ' ' . (isset($row['nombre']) ? $row['nombre'] : "") . '</td>'.chr(13);
 					$html .= '<td>' . (isset($row['curp']) ? $row['curp'] : "") . '</td>'.chr(13);
-					$html .= '<td>' . (isset($row['email']) ? $row['email'] : "") . '</td>'.chr(13);
-					$html .= '<td>' . (isset($asistencia[0]['inicio']) ? $asistencia[0]['inicio'] : "") . '</td>'.chr(13);
-					$html .= '<td>' . (isset($asistencia[0]['final']) ? $asistencia[0]['final'] : "") . '</td>'.chr(13);
-					//$html .= '<td>' . (isset($asistencia[0]['inicio']) ? "ASISTI&Oacute;" : "") . '</td>'.chr(13);
+					//$html .= '<td>' . (isset($row['email']) ? $row['email'] : "") . '</td>'.chr(13);
+					//$html .= '<td>' . (isset($asistencia[0]['inicio']) ? $asistencia[0]['inicio'] : "") . '</td>'.chr(13);
+					//$html .= '<td>' . (isset($asistencia[0]['final']) ? $asistencia[0]['final'] : "") . '</td>'.chr(13);
+					$html .= '<td>' . (isset($asistencia[0]['inicio']) ? "ASISTI&Oacute;" : "") . '</td>'.chr(13);
 					$html .= '</tr>';
 				}
 			}
