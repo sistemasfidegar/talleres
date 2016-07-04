@@ -341,7 +341,7 @@
 					<br>
 					<table style="width: 100%; border-style: 0;">		                        	
 			        	<tr>
-			        		<td>A&Uacute;N NO SE ENCUENTRA ACTIVO EL REGISTRO PARA EL CICLO DE CONFERENCIAS <strong>"PREP&Aacute;rate"</strong></td>		                        		
+			        		<td>POR EL MOMENTO, NO SE ENCUENTRA ACTIVO EL REGISTRO PARA EL CICLO DE CONFERENCIAS <strong>"PREP&Aacute;rate"</strong></td>		                        		
 			            </tr>
 			            <tr><td>&nbsp;&nbsp;</td></tr>
 			            <tr><td>&nbsp;&nbsp;</td></tr>
