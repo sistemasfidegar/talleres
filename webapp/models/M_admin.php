@@ -35,6 +35,7 @@ class M_admin extends MY_Model {
 			$this->db->from('usuario');
 			$this->db->where('usuario', $this->security->xss_clean($crudAuth['name']));
 			$this->db->where('password', $this->security->xss_clean($crudAuth['password']));
+			$this->db->where('activo', true);
 			$query = $this->db->get();
 			$usuarioInstance = $query->row_array();
 			$query->free_result();

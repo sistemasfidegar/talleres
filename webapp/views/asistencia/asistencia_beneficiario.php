@@ -18,7 +18,7 @@ $minutos = date("i");
 	    	        	jQuery.ajax({
 	    		            type: 'post',
 	    		            dataType: 'html',
-	    		            url: '<?= base_url('asistencia/registroAsistencia/') ?>',
+	    		            url: '<?= base_url('asistencia/registroAsistenciaRecuperate/') ?>',
 	    		            data: {matricula: $("#matricula_asignada").val()},
 	    		            success: function (data) {
 	    			            if(data == 'error') {
@@ -36,6 +36,10 @@ $minutos = date("i");
 	    			            } else if(data == 'nocumple') {
 	    			            	$.unblockUI();
 	    			            	$('#myModalNoCumple').modal('show'); //open modal
+	    			            	$("#matricula_asignada").val('');
+	    			            } else if(data == 'nocoincide') { //apartado realizado para recupérate
+	    			            	$.unblockUI();
+	    			            	$('#myModalNoCoincide').modal('show'); //open modal
 	    			            	$("#matricula_asignada").val('');
 	    			            } else {
 	    			            	$.unblockUI();
@@ -76,7 +80,7 @@ $minutos = date("i");
 	    	        	jQuery.ajax({
 	    		            type: 'post',
 	    		            dataType: 'html',
-	    		            url: '<?= base_url('asistencia/registroAsistenciaUnam/') ?>',
+	    		            url: '<?= base_url('asistencia/registroAsistenciaUnamRecuperate/') ?>',
 	    		            data: {matricula_escuela: $("#matricula_escuela").val()},
 	    		            success: function (data) {
 	    			            if(data == 'error') {
@@ -90,6 +94,10 @@ $minutos = date("i");
 	    	    		        } else if(data == 'sintaller') {
 	    			            	$.unblockUI();
 	    			            	$('#myModalSinTaller').modal('show'); //open modal
+	    			            	$("#matricula_escuela").val('');
+	    			            } else if(data == 'nocoincide') { //apartado realizado para recupérate
+	    			            	$.unblockUI();
+	    			            	$('#myModalNoCoincide').modal('show'); //open modal
 	    			            	$("#matricula_escuela").val('');
 	    			            } else {
 	    			            	$.unblockUI();
@@ -128,7 +136,7 @@ $minutos = date("i");
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: '<?= base_url('asistencia/registroAsistencia/') ?>',
+    		            url: '<?= base_url('asistencia/registroAsistenciaRecuperate/') ?>',
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
         		            if(data == 'error') {
@@ -147,7 +155,11 @@ $minutos = date("i");
     			            	$.unblockUI();
     			            	$('#myModalNoCumple').modal('show'); //open modal
     			            	$("#matricula_asignada").val('');
-        		            } else {
+        		            } else if(data == 'nocoincide') { //apartado realizado para recupérate
+    			            	$.unblockUI();
+    			            	$('#myModalNoCoincide').modal('show'); //open modal
+    			            	$("#matricula_asignada").val('');
+    			            } else {
         		            	$.unblockUI();
         		            	$('#myModalRegistro').modal('show'); //open modal
         		            	var hora = <?= $hora ?>;
@@ -178,7 +190,7 @@ $minutos = date("i");
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: '<?= base_url('asistencia/registroAsistenciaUnam/') ?>',
+    		            url: '<?= base_url('asistencia/registroAsistenciaUnamRecuperate/') ?>',
     		            data: {matricula_escuela: $("#matricula_escuela").val()},
     		            success: function (data) {
         		            if(data == 'error') {
@@ -193,7 +205,11 @@ $minutos = date("i");
         		            	$.unblockUI();
         		            	$('#myModalSinTaller').modal('show'); //open modal
         		            	$("#matricula_escuela").val('');
-        		            } else {
+        		            } else if(data == 'nocoincide') { //apartado realizado para recupérate
+    			            	$.unblockUI();
+    			            	$('#myModalNoCoincide').modal('show'); //open modal
+    			            	$("#matricula_escuela").val('');
+    			            } else {
         		            	$.unblockUI();
         		            	$('#myModalRegistro').modal('show'); //open modal
         		            	var hora = <?= $hora ?>;
@@ -260,6 +276,26 @@ $minutos = date("i");
 					<form id="attributeFormModalNoCumple">
 						<div class="form-group" style="text-align: justify;">
 							La persona no cumple con alguno de los requisitos (m&aacute;ximo 20 a&ntilde;os o ser beneficiario activo del Programa "Prepa S&iacute;") para asistir al Ciclo de Conferencias <strong>"PREP&Aacute;rate"</strong>
+							<br/>
+						</div>
+					</form>
+				</div>
+				
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	<div class="modal fade" tabindex="-1" role="dialog" id="myModalNoCoincide">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" style="text-align: center">Sede Distinta</h4>
+				</div>
+				<div class="modal-body">
+					<form id="attributeFormModalNoCumple">
+						<div class="form-group" style="text-align: justify;">
+							A la persona le corresponde otra Sede distinta a la cual intenta realizar su registro de Asistencia.
 							<br/>
 						</div>
 					</form>

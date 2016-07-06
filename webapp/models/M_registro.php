@@ -141,6 +141,28 @@ class M_registro extends MY_Model {
 	}
 	
 	/**
+	 * Obtiene la matr&iacute;cula PS que se registr&oacute; m&eacute;todo alterno para el Taller de Recup&eacute;rate.
+	 *
+	 * @param String:$dato            Matr&iacute;cula PS a obtener la matr&iacute;cula PS.
+	 *
+	 * @return String:matricula       Matr&iacute;cula PS encontrada. Null en caso contrario.
+	 *
+	 * @since  2016-07-05
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	function getMatriculaRecuperate($dato = "") {
+		$results = "";
+	
+		if(!empty($dato)) {
+			$this->sql = "SELECT matricula FROM registro_taller_recuperate WHERE matricula = '$dato' LIMIT 1;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+	
+		return $results;
+	}
+	
+	/**
 	 * Obtiene si la persona a buscar es un beneficiario o no.
 	 * 
 	 * @param  String:$dato                Dato a buscar (matr&iacute;cula escuela UNAM).
@@ -162,6 +184,28 @@ class M_registro extends MY_Model {
 			return $results->result_array();
 		}
 		
+		return $results;
+	}
+	
+	/**
+	 * Obtiene la matr&iacute;cula PS que se registr&oacute; m&eacute;todo alterno para el Taller de Recup&eacute;rate.
+	 *
+	 * @param String:$dato            Matr&iacute;cula UNAM a obtener la matr&iacute;cula PS.
+	 *
+	 * @return String:matricula       Matr&iacute;cula PS encontrada. Null en caso contrario.
+	 *
+	 * @since  2016-07-05
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	function getMatriculaUnamRecuperate($dato = "") {
+		$results = "";
+	
+		if(!empty($dato)) {
+			$this->sql = "SELECT matricula FROM registro_taller_unam_recuperate WHERE matricula_unam = '$dato' LIMIT 1;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+	
 		return $results;
 	}
 	
@@ -328,6 +372,31 @@ class M_registro extends MY_Model {
 			return $results->result_array();
 		}
 		
+		return $results;
+	}
+	
+	/**
+	 * Obtiene los datos del beneficiatio registrado.
+	 *
+	 * @param  String:$matricula     Matricula asignada a buscar.
+	 *
+	 * @return List:Beneficiario    Listado de atributos del beneficiario. Null en caso contrario.
+	 *
+	 * @author cony jaramillo
+	 */
+	function getRegistroRecuperate($matricula = ""){
+		$results = "";
+	
+		if(!empty($matricula)) {
+			$this->sql = "SELECT rt.matricula, rt.id_plantel, s.plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(rt.fecha_registro, 'dd-mm-yyyy') fecha_registro, s.espacio
+			FROM registro_taller_recuperate rtr, registro_taller rt, sede s
+			WHERE rtr.matricula = rt.matricula 
+			AND rtr.id_plantel = s.id_plantel
+			AND rt.matricula = UPPER('$matricula');";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+	
 		return $results;
 	}
 	

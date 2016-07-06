@@ -79,6 +79,44 @@ class Asistencia extends CI_Controller {
 		}
 	}
 	
+	function registroAsistenciaRecuperate() {
+		if($this->session->userdata('CRUD_AUTH')) {
+			$usuario = $this->session->userdata('CRUD_AUTH');
+			$matricula = $this->input->post('matricula');
+			$temp = $this->m_asistencia->getMatriculaRecuperate($matricula);
+	
+			$aux = isset($temp[0]['matricula']) ? $temp[0]['matricula'] : null;
+	
+			if (!is_null($aux)) {
+				$idplantel = isset($temp[0]['id_plantel']) ? $temp[0]['id_plantel'] : 0;
+				
+				if($usuario['id_plantel'] == $idplantel) {
+					$taller = $this->m_asistencia->getTallerRecuperate(fecha_actual(), $aux);
+					$idtaller = isset($taller[0]['id_taller']) ? $taller[0]['id_taller'] : null;
+					$nombreTaller = isset($taller[0]['taller']) ? $taller[0]['taller'] : "";
+					
+					if (!is_null($idtaller)) {
+						$asistencia = $this->m_asistencia->insertaAsistencia($idtaller, $aux, $usuario['id_usuario']);
+							
+						if (!is_null($asistencia)) {
+							echo $nombreTaller;
+						} else {
+							echo 'error';
+						}
+					} else {
+						echo 'sintaller';
+					}
+				} else {
+					echo 'nocoincide';
+				}
+			} else {
+				echo 'bad';
+			}
+		} else {
+			header("Location: " . base_url('admin'));
+		}
+	}
+	
 	function registroAsistenciaUnam() {
 		if($this->session->userdata('CRUD_AUTH')) {
 			$usuario = $this->session->userdata('CRUD_AUTH');
@@ -102,6 +140,44 @@ class Asistencia extends CI_Controller {
 					}
 				} else {
 					echo 'sintaller';
+				}
+			} else {
+				echo 'bad';
+			}
+		} else {
+			header("Location: " . base_url('admin'));
+		}
+	}
+	
+	function registroAsistenciaUnamRecuperate() {
+		if($this->session->userdata('CRUD_AUTH')) {
+			$usuario = $this->session->userdata('CRUD_AUTH');
+			$matricula = $this->input->post('matricula_escuela');
+			$temp = $this->m_asistencia->getMatriculaUnamRecuperate($matricula);
+	
+			$aux = isset($temp[0]['matricula']) ? $temp[0]['matricula'] : null;
+	
+			if (!is_null($aux)) {
+			$idplantel = isset($temp[0]['id_plantel']) ? $temp[0]['id_plantel'] : 0;
+				
+				if($usuario['id_plantel'] == $idplantel) {
+					$taller = $this->m_asistencia->getTallerRecuperate(fecha_actual(), $aux);
+					$idtaller = isset($taller[0]['id_taller']) ? $taller[0]['id_taller'] : null;
+					$nombreTaller = isset($taller[0]['taller']) ? $taller[0]['taller'] : "";
+					
+					if (!is_null($idtaller)) {
+						$asistencia = $this->m_asistencia->insertaAsistencia($idtaller, $aux, $usuario['id_usuario']);
+							
+						if (!is_null($asistencia)) {
+							echo $nombreTaller;
+						} else {
+							echo 'error';
+						}
+					} else {
+						echo 'sintaller';
+					}
+				} else {
+					echo 'nocoincide';
 				}
 			} else {
 				echo 'bad';

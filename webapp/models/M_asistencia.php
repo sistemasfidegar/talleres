@@ -38,6 +38,28 @@ class M_asistencia extends MY_Model {
 	}
 	
 	/**
+	 * Obtiene la matr&iacute;cula PS que se registr&oacute; m&eacute;todo alterno para el Taller de Recup&eacute;rate.
+	 *
+	 * @param String:$dato            Matr&iacute;cula PS a obtener la matr&iacute;cula PS.
+	 *
+	 * @return String:matricula       Matr&iacute;cula PS encontrada. Null en caso contrario.
+	 *
+	 * @since  2016-07-05
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	function getMatriculaRecuperate($dato = "") {
+		$results = "";
+	
+		if(!empty($dato)) {
+			$this->sql = "SELECT * FROM registro_taller_recuperate WHERE matricula = UPPER('$dato') LIMIT 1;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+	
+		return $results;
+	}
+	
+	/**
 	 * Obtiene la matr&iacute;cula PS que se registr&oacute; al sistema de acuerdo al par&aacute;metro de busqueda.
 	 * 
 	 * @param String:$dato            Matr&iacute;cula UNAM a obtener la matr&iacute;cula PS.
@@ -58,6 +80,32 @@ class M_asistencia extends MY_Model {
 	
 		return $results;
 	}
+	
+	/**
+	 * Obtiene la matr&iacute;cula PS que se registr&oacute; m&eacute;todo alterno para el Taller de Recup&eacute;rate.
+	 *
+	 * @param String:$dato            Matr&iacute;cula UNAM a obtener la matr&iacute;cula PS.
+	 *
+	 * @return String:matricula       Matr&iacute;cula PS encontrada. Null en caso contrario.
+	 * @return int:id_plantel         Identificador de la Sede ligada al beneficiario. Null en caso contrario.
+	 *
+	 * @since  2016-07-05
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	function getMatriculaUnamRecuperate($dato = "") {
+		$results = "";
+	
+		if(!empty($dato)) {
+			$this->sql = "SELECT rtr.matricula, rtr.id_plantel FROM registro_taller_unam_recuperate rtur, registro_taller_recuperate rtr 
+					WHERE rtur.matricula = rtr.matricula 
+					AND matricula_unam = '$dato' LIMIT 1;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+	
+		return $results;
+	}
+	
 	/**
 	 * 
 	 *
@@ -77,6 +125,27 @@ class M_asistencia extends MY_Model {
 		
 		return $results;
 	}
+	
+	/**
+	 *
+	 *
+	 * @return
+	 * @author Cony Jaramillo
+	 */
+	function getTallerRecuperate($hoy = "", $matricula=""){
+		$results = "";
+	
+		if(!empty($hoy)) {
+			$this->sql = "SELECT * FROM talleres t, taller_plantel tp
+			WHERE t.id_taller = tp.id_taller AND t.fecha_inicio = '$hoy'
+			AND tp.id_plantel = (SELECT id_plantel FROM registro_taller_recuperate WHERE matricula = UPPER('$matricula') LIMIT 1) AND t.activo is true;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+	
+		return $results;
+	}
+	
 	/**
 	 * 
 	 *

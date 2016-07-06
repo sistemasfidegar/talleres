@@ -78,7 +78,8 @@
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: 'registro/getBeneficiarioReimpresion/',
+    		            //url: 'registro/getBeneficiarioReimpresion/',
+    		            url: 'registro/getBeneficiarioReimpresionRecuperate/',
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
         		            if(data == 'bad') {
@@ -89,7 +90,7 @@
         		            	$('#myModalEsperaReimpresion').modal('show'); //open modal
         		            } else {
         		            	//$.unblockUI();
-         		            	irAPdf('registro/pdf/'+ $("#matricula_asignada").val());
+         		            	irAPdf('registro/pdf/'+ data);
          		            	$("#matricula_asignada").val("");
             		        }
     		            }
@@ -100,7 +101,8 @@
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: 'registro/getBeneficiarioUnamReimpresion/',
+    		            //url: 'registro/getBeneficiarioUnamReimpresion/',
+    		            url: 'registro/getBeneficiarioUnamReimpresionRecuperate/',
     		            data: {matricula_escuela: $("#matricula_escuela").val()},
     		            success: function (data) {
     		            	if(data == 'bad') {

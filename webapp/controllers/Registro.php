@@ -107,6 +107,23 @@ class Registro extends CI_Controller {
 		}
 	}
 	
+	function getBeneficiarioReimpresionRecuperate(){
+		if(!empty($this->input->post())){
+			$matricula =  $this->input->post('matricula');
+			$aux = $this->m_registro->getMatriculaRecuperate($matricula);
+	
+			$aux = isset($aux[0]['matricula']) ? $aux[0]['matricula'] : null;
+	
+			if (!is_null($aux)) {
+				echo $aux;
+			} else {
+				echo 'bad';
+			}
+		} else {
+			header("Location: " . base_url());
+		}
+	}
+	
 	function getBeneficiarioUnam(){
 		if(!empty($this->input->post())){
 			$matricula =  $this->input->post('matricula_escuela');
@@ -171,6 +188,23 @@ class Registro extends CI_Controller {
 				} else {
 					echo $aux;
 				}
+			} else {
+				echo 'bad';
+			}
+		} else {
+			header("Location: " . base_url());
+		}
+	}
+	
+	function getBeneficiarioUnamReimpresionRecuperate(){
+		if(!empty($this->input->post())){
+			$matricula =  $this->input->post('matricula_escuela');
+			$aux = $this->m_registro->getMatriculaUnamRecuperate($matricula);
+	
+			$aux = isset($aux[0]['matricula']) ? $aux[0]['matricula'] : null;
+	
+			if (!is_null($aux)) {
+				echo $aux;
 			} else {
 				echo 'bad';
 			}
@@ -335,7 +369,8 @@ class Registro extends CI_Controller {
 	    	$pdf->setTextShadow(array('enabled' => true, 'depth_w' => 0.2, 'depth_h' => 0.2, 'color' => array(255, 255, 255), 'opacity' => 1, 'blend_mode' => 'Normal'));
 	    	
 	    	//$matricula=$this->input->post('matricula');
-	    	$registro = $this->m_registro->getRegistro($matricula);
+	    	//$registro = $this->m_registro->getRegistro($matricula); //registro normal
+	    	$registro = $this->m_registro->getRegistroRecuperate($matricula);
 	    	$datos = array('matricula' => '', 'plantel' => '', 'direccion' => '', 'fecha' => '', 'ruta' => '', 'imagen' => '', 'nombre' => '',
 	    			'paterno' => '', 'materno' => '', 'taller' => '');
 	    	
@@ -478,15 +513,20 @@ class Registro extends CI_Controller {
 	    	
 	    	foreach ($datos['taller'] as $value)////width="100%" height="100%"
 	    	{
+	    		$hora = '9:30 am';
+	    		
+	    		if($value['fecha_inicio'] == '08-07-2016') {
+	    			$hora = '9:00 am';
+	    		}
 	    		
 	    		$html1 .='
 		    			<tr>
 		    				<td width="5%"></td>
 	    					<td width="3%">&nbsp;</td> 
-		    				<td width="50%"><p>'.$value['taller'].'</p></td>
+		    				<td width="50%"><p>'. $value['taller'] .'</p></td>
 		    				<td width="3%">&nbsp;</td>
-		    				<td width="20%"><p>'.$value['fecha_inicio'].'</p></td>
-		    				<td width="20%"><p>9:30 am</p></td>
+		    				<td width="20%"><p>'. $value['fecha_inicio'] .'</p></td>
+		    				<td width="20%"><p>'. $hora .'</p></td>
 		    			</tr>
 		    			<tr><td >&nbsp;</td></tr>	    			
 	    			';    		
