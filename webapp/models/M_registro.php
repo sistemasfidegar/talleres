@@ -388,7 +388,7 @@ class M_registro extends MY_Model {
 		$results = "";
 	
 		if(!empty($matricula)) {
-			$this->sql = "SELECT rt.matricula, rt.id_plantel, s.plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(rt.fecha_registro, 'dd-mm-yyyy') fecha_registro, s.espacio
+			$this->sql = "SELECT rt.matricula, rtr.id_plantel, s.plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(rt.fecha_registro, 'dd-mm-yyyy') fecha_registro, s.espacio
 			FROM registro_taller_recuperate rtr, registro_taller rt, sede s
 			WHERE rtr.matricula = rt.matricula 
 			AND rtr.id_plantel = s.id_plantel
