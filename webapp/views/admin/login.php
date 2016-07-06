@@ -49,7 +49,7 @@
                         <?php if (!empty($crudAuth)) { ?>
                             <div class="alert alert-danger">
                             Nombre de usuario y/o contrase&ntilde;a incorrectos
-                            </div>   
+                            </div>  
                         <?php } ?>
 						<form method="POST" autocomplete="off">
 							<fieldset>
@@ -68,7 +68,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-lock"></i>
 												</span>
-												<input class="form-control" placeholder="Contrase&ntilde;a" id="crudAuth[password]" name="crudAuth[password]" type="password" value="<?php if (isset($crudAuth['password'])) { echo htmlspecialchars($crudAuth['password']); } ?>"  required>
+												<input class="form-control" placeholder="Contrase&ntilde;a" id="crudAuth[password]" name="crudAuth[password]" type="password" required>
 											</div>
 										</div>
 										<div class="form-group">
