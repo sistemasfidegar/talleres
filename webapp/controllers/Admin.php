@@ -177,7 +177,14 @@ class Admin extends CI_Controller {
 			ini_set('implicit_flush', '1');
 			ignore_user_abort(true);
 			$usuario = $this->session->userdata('CRUD_AUTH');
-			$datos = $this->m_admin->builtBeneficiarios($usuario['id_plantel'], $taller);
+			$datos = "";
+			
+			if($taller == 13 || $taller == 14) {
+				$datos = $this->m_admin->builtBeneficiariosRecuperate($usuario['id_plantel'], $taller);
+			} else {
+				$datos = $this->m_admin->builtBeneficiarios($usuario['id_plantel'], $taller);
+			}
+			
 			echo $datos;
 		} else {
 			header("Location: " . base_url('admin'));

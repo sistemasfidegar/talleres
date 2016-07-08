@@ -145,6 +145,7 @@ class M_admin extends MY_Model {
 			$this->db->select('*');
 			$this->db->from('talleres');
 			$this->db->where('id_taller', $id_taller);
+			$this->db->where('activo', true);
 			$query = $this->db->get();
 			$tallerInstance = $query->row_array();
 			$query->free_result();
@@ -181,7 +182,7 @@ class M_admin extends MY_Model {
 	}
 	
 	/**
-	 * Obtiene todos los datos de un usuario de acuerdo a su identificador.
+	 * Obtiene todas las matriculas inscritas en una Sede en espec&iacute;fico.
 	 *
 	 * @param  int:$id_plantel  Identificador del plantel a buscar.
 	 *
@@ -199,6 +200,30 @@ class M_admin extends MY_Model {
 					WHERE espera IS FALSE 
 					AND matricula NOT IN (SELECT DISTINCT matricula FROM registro_taller WHERE espera IS TRUE) 
 					AND id_plantel = $id_plantel;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+	
+		return $results;
+	}
+	
+	/**
+	 * Obtiene todas las matriculas inscritas en una Sede en espec&iacute;fico.
+	 *
+	 * @param  int:$id_plantel  Identificador del plantel a buscar.
+	 *
+	 * @return List:sedes       Lista de los datos de la Sede encontrada. Null en caso contrario.
+	 *
+	 * @since  2016-07-08
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	public function getBeneficiariosByPlantelRecuperate($id_plantel = "") {
+		$results = "";
+	
+		if(!empty($id_plantel)) {
+			$this->sql = "SELECT DISTINCT(matricula)
+			FROM registro_taller_recuperate
+			WHERE id_plantel = $id_plantel;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -385,6 +410,80 @@ class M_admin extends MY_Model {
 			$html .= '</tbody>'.chr(13);
 			$html .= '</table>'.chr(13);
 		
+			return $html;
+		} else {
+			return $html;
+		}
+	}
+	
+	/**
+	 * Se encarga de construir una Tabla en HTML con todos los beneficiarios registrados en los talleres de Recup&eacute;rate.
+	 *
+	 * @param  int:$id_plantel   Identificador de la Sede a buscar sus beneficiarios.
+	 * @param  int:$taller       Identificador del Taller a buscar.
+	 *
+	 * @return html              Listado de todos los beneficiarios inscritos. Null en caso contrario.
+	 *
+	 * @since  2016-07-08
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	public function builtBeneficiariosRecuperate($id_plantel = "", $taller = "") {
+		$html = '';
+	
+		if(!empty($id_plantel) && !empty($taller)) {
+			set_time_limit(0);
+			ini_set('memory_limit', '-1');
+			ini_set('max_execution_time', '0');
+			ini_set('zlib.output_compression', '0');
+			ini_set('implicit_flush', '1');
+			ignore_user_abort(true);
+			$beneficiarioInstance = $this->getBeneficiariosByPlantelRecuperate($id_plantel);
+			$tallerInstance = $this->getTallerById($taller);
+	
+			//Se construye la tabla que contiene a todas los beneficiarios de acuerdo a la Sede asignada dadas de alta en la BD
+			$html .= '<table id="tbl-export" class="table table-hover list table-condensed table-striped">'.chr(13);
+			$html .= '<caption style="text-align: center; font-size: 125%; font-weight: bold;">'. (isset($tallerInstance['taller']) ? $tallerInstance['taller'] : "") .'</caption>'.chr(13);
+			$html .= '<thead>'.chr(13);
+			$html .= '<tr>'.chr(13);
+			$html .= '<th>Matr&iacute;cula</th>'.chr(13);
+			$html .= '<th>Nombre Completo</th>'.chr(13);
+			$html .= '<th>CURP</th>'.chr(13);
+			//$html .= '<th>Email</th>'.chr(13);
+			//$html .= '<th>Fecha Hora Entrada</th>'.chr(13);
+			//$html .= '<th>Fecha Hora Salida</th>'.chr(13);
+			$html .= '<th>TALLER 8</th>'.chr(13);
+			$html .= '</tr>'.chr(13);
+			$html .= '</thead>'.chr(13);
+			$html .= '<tbody class="buscar">'.chr(13);
+				
+			if(!empty($beneficiarioInstance)){
+				$array_beneficiario = array();
+	
+				foreach ($beneficiarioInstance as $nuevo) {
+					$array_beneficiario[] = "'". $nuevo['matricula'] ."'";
+				}
+	
+				$beneficiariosSeperados = implode(",", $array_beneficiario);
+				$beneficiarios = $this->getNombres($beneficiariosSeperados);
+					
+				foreach ($beneficiarios as $row) {
+					$asistencia = $this->getAsistenciaByTaller($row['matricula_asignada'], $taller);
+						
+					$html .= '<tr>'.chr(13);
+					$html .= '<td>' . (isset($row['matricula_asignada']) ? $row['matricula_asignada'] : "") . '</td>'.chr(13);
+					$html .= '<td>' . (isset($row['ap']) ? $row['ap'] : "") . ' ' . (isset($row['am']) ? $row['am'] : "") . ' ' . (isset($row['nombre']) ? $row['nombre'] : "") . '</td>'.chr(13);
+					$html .= '<td>' . (isset($row['curp']) ? $row['curp'] : "") . '</td>'.chr(13);
+					//$html .= '<td>' . (isset($row['email']) ? $row['email'] : "") . '</td>'.chr(13);
+					//$html .= '<td>' . (isset($asistencia[0]['inicio']) ? $asistencia[0]['inicio'] : "") . '</td>'.chr(13);
+					//$html .= '<td>' . (isset($asistencia[0]['final']) ? $asistencia[0]['final'] : "") . '</td>'.chr(13);
+					$html .= '<td>' . (isset($asistencia[0]['inicio']) ? "ASISTI&Oacute;" : "") . '</td>'.chr(13);
+					$html .= '</tr>';
+				}
+			}
+	
+			$html .= '</tbody>'.chr(13);
+			$html .= '</table>'.chr(13);
+	
 			return $html;
 		} else {
 			return $html;
