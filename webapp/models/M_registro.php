@@ -141,11 +141,11 @@ class M_registro extends MY_Model {
 	}
 	
 	/**
-	 * Obtiene la matr&iacute;cula PS que se registr&oacute; m&eacute;todo alterno para el Taller de Recup&eacute;rate.
+	 * Obtiene la matr&iacute;cula PS que se registr&oacute;, m&eacute;todo alterno para el Taller de Recup&eacute;rate.
 	 *
-	 * @param String:$dato            Matr&iacute;cula PS a obtener la matr&iacute;cula PS.
+	 * @param  String:$dato            Matr&iacute;cula PS a obtener la matr&iacute;cula PS.
 	 *
-	 * @return String:matricula       Matr&iacute;cula PS encontrada. Null en caso contrario.
+	 * @return String:matricula        Matr&iacute;cula PS encontrada. Null en caso contrario.
 	 *
 	 * @since  2016-07-05
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
@@ -155,6 +155,51 @@ class M_registro extends MY_Model {
 	
 		if(!empty($dato)) {
 			$this->sql = "SELECT matricula FROM registro_taller_recuperate WHERE matricula = '$dato' LIMIT 1;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+	
+		return $results;
+	}
+	
+	/**
+	 * Obtiene la matr&iacute;cula PS que se registr&oacute; al Ciclo de Conferencias PREP&Aacute;rate y que no est&aacute; en lista de espera.
+	 *
+	 * @param  String:$dato           Matr&iacute;cula PS a obtener la matr&iacute;cula PS.
+	 *
+	 * @return String:matricula       Matr&iacute;cula PS encontrada. Null en caso contrario.
+	 *
+	 * @since  2016-07-26
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	function getMatriculaRegistroTaller($dato = "") {
+		$results = "";
+	
+		if(!empty($dato)) {
+			$this->sql = "SELECT matricula FROM registro_taller WHERE matricula = '$dato' AND espera IS FALSE LIMIT 1;";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+	
+		return $results;
+	}
+	
+	/**
+	 * Obtiene la matr&iacute;cula PS que se registr&oacute; al Ciclo de Conferencias PREP&Aacute;rate y que no est&aacute; en lista de espera.
+	 *
+	 * @param  String:$dato           Matr&iacute;cula UNAM a obtener la matr&iacute;cula PS.
+	 *
+	 * @return String:matricula       Matr&iacute;cula PS encontrada. Null en caso contrario.
+	 *
+	 * @since  2016-07-26
+	 * @author Ing. Alfredo Mart&iacute;nez Cobos
+	 */
+	function getMatriculaUnamRegistroTaller($dato = "") {
+		$results = "";
+	
+		if(!empty($dato)) {
+			$this->sql = "SELECT RTU.matricula FROM registro_taller_unam RTU, registro_taller RT WHERE RTU.matricula = RT.matricula 
+					AND RTU.matricula_unam = '$dato' AND RT.espera IS FALSE LIMIT 1;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -352,7 +397,7 @@ class M_registro extends MY_Model {
 	}
 	
 	/**
-	 * Obtiene los datos del beneficiatio registrado.
+	 * Obtiene los datos de un beneficiatio registrado.
 	 *
 	 * @param  String:$matricula     Matricula asignada a buscar.
 	 *
@@ -364,7 +409,7 @@ class M_registro extends MY_Model {
 		$results = "";
 		
 		if(!empty($matricula)) {
-			$this->sql = "SELECT matricula, rt.id_plantel, plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro,s.espacio
+			$this->sql = "SELECT matricula, rt.id_plantel, plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro, s.espacio
 			FROM registro_taller rt, sede s
 			WHERE rt.id_plantel = s.id_plantel
 			AND matricula = UPPER('$matricula');";

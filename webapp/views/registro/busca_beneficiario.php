@@ -29,51 +29,46 @@
 <script type="text/javascript">
         jQuery(document).ready(function(){
         	$("#asistencia").click(function () {
-        		if($("#matricula_asignada").val() != ""  ) {
+        		if($("#matricula_asignada").val() != "") {
         			$.blockUI({message: 'Procesando por favor espere...'});
         			jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: 'registro/getBeneficiario/',
+    		            url: 'registro/getBeneficiarioAsistencia/',
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
         		            if(data == 'bad') {
         		            	$.unblockUI();
         		            	$('#myModalSinRegistroReimpresion').modal('show'); //open modal
-        		            }
-        		            else
-            		        {
-        		            	$.unblockUI();
-        		            	irAPdf('asistencia/listaAsistencia/'+$("#matricula_asignada").val());
+        		            } else {
+        		            	//$.unblockUI();
+        		            	irAPdf('asistencia/listaAsistencia/'+data);
             		        }
     		            }
         			});		
         			
-        		}else if($("#matricula_escuela").val() != "" ){
+        		} else if($("#matricula_escuela").val() != ""){
         			$.blockUI({message: 'Procesando por favor espere...'});
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            url: 'registro/getBeneficiarioUnamReimpresion/',
+    		            url: 'registro/getBeneficiarioUnamAsistencia/',
     		            data: {matricula_escuela: $("#matricula_escuela").val()},
     		            success: function (data) {
     		            	if(data == 'bad') {
     		            		$.unblockUI();
         		            	$('#myModalSinRegistroReimpresion').modal('show'); //open modal
         		            } else {
-        		            	$.unblockUI();
+        		            	//$.unblockUI();
         		            	irAPdf('asistencia/listaAsistencia/'+data);
-        		            	$("#matricula_escuela").val("");
             		        }
     		            }
     		        });		
             	}
-				
-
              });
             
         	$("#reimpresion").click(function () {
-        		if($("#matricula_asignada").val() != ""  ) {
+        		if($("#matricula_asignada").val() != "" ) {
     				$.blockUI({message: 'Procesando por favor espere...'});
     	        	jQuery.ajax({
     		            type: 'post',
@@ -120,7 +115,6 @@
     		        });
     			}
         	});
-
             
     		$("#registro").click(function () {
         		if($("#matricula_asignada").val() != ""  ) {
@@ -161,7 +155,7 @@
 	    		            data: {matricula_escuela: $("#matricula_escuela").val()},
 	    		            success: function (data) {
 	    		            	 if(data == 'bad') {
-	    		            		 $.unblockUI();
+	    		            		$.unblockUI();
 	          		            	$('#myModalSinRegistro').modal('show'); //open modal
 	         		            } else if(data == 'registro') {
 	         		            	$.unblockUI();
@@ -186,7 +180,6 @@
         
         function irA(uri) {
             window.location.href =  '<?= base_url() ?>' + uri;
-            
         }	
         
         function irAPdf(uri) {
@@ -337,7 +330,7 @@
 				 <div style="text-align:left; padding-left:20px; border-bottom: 2px dotted #bbb; min-height:73px;">
                  	<img  src="resources/formulario/img/pleca_logos.png" alt="Logo" class="img-responsive center-block" style="padding-top:10px; vertical-align:top;" />&nbsp;
                  </div>
-                 <?php	if (isset($disponible)){ 
+                 <?php	if(isset($disponible)) { 
                  			if($disponible == 1) { ?>
 				<div class="form-goup">
 					<br>
@@ -350,7 +343,7 @@
 			            <tr>
 				            <td>
 					            <div style="text-align:rigth; padding-left:20px;  min-height:73px;" class="span4">
-		                			<a href="http://www.prepasi.df.gob.mx/" class="btn">Salir</a>                                         	
+		                			<a href="http://www.prepasi.cdmx.gob.mx/" class="btn">Salir</a>                                         	
 		                		</div>
 		                	</td>
 	                	</tr>
@@ -359,8 +352,8 @@
 					<?php } ?>				
 				<?php } else { ?>
                  <br>
-                 	<div style="text-align:CENTER !important;"><label  style="color:#4C4C4C;  font-size: 180%;">REIMPRESIÓN CICLO DE CONFERENCIAS "PREP&Aacute;rate"</label></div>
-				    	<table  style="width:100%; text-align: center; float: center; border-spacing: 5; <?php if($navegador=='IE'){ echo 'display:none;'; }?>">
+                 	<div style="text-align:CENTER !important;"><label  style="color:#4C4C4C;  font-size: 180%;">CICLO DE CONFERENCIAS "PREP&Aacute;rate"</label></div>
+				    	<table  style="width:100%; text-align: center; float: center; border-spacing: 5; <?php if($navegador == 'IE'){ echo 'display:none;'; }?>">
 			    	 		<tbody>
 					        	<tr>
 					         		<td colspan="3" style="padding: 0;">&nbsp;</td>
@@ -375,7 +368,6 @@
 						          	<td colspan="3" style="padding: 0;"><input type="text" id="matricula_escuela" name="matricula_escuela" value="" placeholder="Ingresa matr&iacute;cula (unam)" style="width:50%; text-transform:uppercase;"/></td>
 						        </tr>
 				         	</tbody>
-					         
 					        <tfoot>
 						        <tr>
 							      <!-- 	<td style="width: 50%;">
@@ -383,21 +375,19 @@
 					        	  	</td>
 					        	  -->
 					        	  	<td >&nbsp;</td>
-					        	 
+					        	 	 <!-- 
 					        	  	<td style="width: 100%;">
 					     				<button style="width: 40%; height:40%; float: center;" id="reimpresion" name="reimpresion" type="button" class="btn">Obtener Comprobante</button>
 					        	  	</td>
-					        	  	
-					        	  	 <!-- 
-					        	  	<td style="width: 30%">
-					     				<button style="width: 30%; height:40%; float: center;" id="asistencia" name="asistencia" type="button" class="btn">Obtener Asistencia</button>
+					        	  	  -->
+					        	  	<td style="width: 100%">
+					     				<button style="width: 40%; height:40%; float: center;" id="asistencia" name="asistencia" type="button" class="btn">Obtener Asistencia</button>
 					        	  	</td>
-					        	  -->
 						        </tr>
 					        </tfoot>
 				      	</table>
 				      	
-				      	<table style="width: 100%; float: center; <?php if($navegador!='IE'){ echo 'display:none;'; } ?>" id="mensaje">
+				      	<table style="width: 100%; float: center; <?php if($navegador != 'IE'){ echo 'display:none;'; } ?>" id="mensaje">
 				      		<tbody>
                         		<tr>
                                 	<td style="width: 50%; float: center; text-align: center; font-size: 19px;">  

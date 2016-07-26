@@ -187,8 +187,7 @@ class Asistencia extends CI_Controller {
 		}
 	}
 
-	function listaAsistencia($matricula=""){
-		
+	function listaAsistencia($matricula = ""){
 		if(!empty($matricula)){
 			$this->load->library('Pdf');
 			$pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
@@ -245,6 +244,7 @@ class Asistencia extends CI_Controller {
 			}
 			
 			$nombre = $this->m_asistencia->getNombre($matricula);
+			
 			if(!empty($nombre)) {
 				$datos['nombre'] = $nombre[0]['nombre'];
 				$datos['paterno'] = $nombre[0]['ap'];
@@ -256,26 +256,25 @@ class Asistencia extends CI_Controller {
 				redirect(base_url());
 			}
 			
-			$noTalleres= $this->m_asistencia->noTalleres($matricula);
+			/*$noTalleres = $this->m_asistencia->noTalleres($matricula);
 			$noTalleres = isset($noTalleres[0]['suma']) ? $noTalleres[0]['suma'] : null;
 			
 			if(!is_null($noTalleres)) {
-				$noTalleres= ($noTalleres/100);
+				$noTalleres = $noTalleres;
 			}
-			$datos['asistencia']=array();
-			$datos['asistencia']=$this->m_asistencia->getTalleresAsistencia($matricula);
 			
-			if(!empty($datos['asistencia'])) {
+			$datos['asistencia'] = array();
+			$asistencia = $this->m_asistencia->getTalleresAsistencia($matricula);
+			
+			if(!empty($asistencia)) {
 				$datos['asistencia'] = $asistencia;
-				
-				
 			}
 			
 			$talleres = $this->m_asistencia->getTallerByPlantel($matricula);
 			
 			if(!empty($talleres)) {
 				$datos['taller'] = $talleres;
-			}
+			}*/
 			//preparamos y maquetamos el contenido a crear
 			
 			$html ="";
@@ -338,64 +337,67 @@ class Asistencia extends CI_Controller {
 	    		
 	    	$tipos=array('C128A');
 	    	$pdf->SetFont('helvetica', '', 9, '', true);
-	    	$pdf->Cell(170,40,$matricula,0,0,'C');
+	    	$pdf->Cell(170, 40, $matricula, 0 ,0, 'C');
 	    	$pdf->write1DBarcode($matricula, 'C128A', 75,63,52,11, 0.4, $style1, 'N');
 	    	
-	    	$html1 =" <style type=text/css>
-	    			p{
+	    	$html1 =" <style type='text/css'>
+	    			p {
 	    				text-align: left;
-	    				font-weight: bold;
-						font-size: 9;
+						font-size: 11;
 						line-height: 1.5;
 	    				color:  #070005;
 	    			}
-	    			h1 {
-						 width: 100%;
-						 font-weight: bold;
-						 font-size: 13;
-						 line-height: 2;
-						 text-align: center;
-						 color: #4C4C4C;
-						}
 	    			</style>";
 	    	
-	    	$html1 .='<h1>ASISTENCIA AL CICLO DE CONFERENCIAS "PREP&Aacute;RATE"</h1>';
-	    	$html1 .='<table border="0" width="100%">
+	    	$html1 .='<table border="0" style="width:100%">
+	    			 <tr><td >&nbsp;</td></tr>';
+	    	$html1 .= '
+	    			<tr style="text-align: justify;">
+	    				<td style="text-align: justify;">
+							<p>Estimado beneficiario (a): </p>
+							<p>¡Felicidades! Ésta validación acredita que cumpliste con el requisito de asistencias a las Conferencias Participativas PREPÁrate para recibir un estímulo en especie consistente en un equipo de cómputo.</p>
+							<p>El Fideicomiso Educación Garantizada a través del Programa Prepa Sí &nbsp;tiene como &nbsp;principal objetivo evitar la deserción escolar, por ello además del estímulo mensual en efectivo que les otorgamos &nbsp;para apoyar tus gastos &nbsp;escolares; &nbsp;organiza actividades que te permitan desarrollar tus capacidades &nbsp;para mejorar tu vida académica, tu permanencia y la conclusión de estudios.</p>
+	    					<p>Por ello se desarrolló PREPÁrate que forma parte de una amplia oferta de actividades en comunidad de contenido cultural, artístico, científico y/o tecnológico, deportivo recreativo, medioambientales, &nbsp;de participación social o comunitaria, &nbsp;así como en pro de la salud y el bienestar social y económico que se realizan en tu beneficio.</p>
+							<p>Para recibir &nbsp;tu equipo de cómputo &nbsp;debes permanecer &nbsp;atento &nbsp;a &nbsp;los mensajes &nbsp;que se difundirán &nbsp;a través del correo electrónico y redes sociales, ya que hasta que el 100 % de los participantes hayan impreso esta validación se llevará a cabo la entrega.</p>
+	    				</td>
+	    			</tr>
+		    		<tr><td >&nbsp;</td></tr>';
+	    	$html1 .= '</table>';
+	    	$pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '85', $html1, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+	    	
+	    	/*$html1 .='<h1>ASISTENCIA AL CICLO DE CONFERENCIAS "PREP&Aacute;RATE"</h1>';
+	    	$html1 .='<table border="0" style="width:100%">
 	    			 <tr><td >&nbsp;</td></tr>';
 	    	
-	    	$count=0;
+	    	$count = 0;
 	    	
-	    	foreach ($datos['taller'] as $value)////width="100%" height="100%"
-	    	{
-	    			
-	    		$selected="No asistió";
+	    	foreach ($datos['taller'] as $value) {
+	    		$selected = "NO ASISTI&Oacute;";
+	    		
 	    		foreach ($datos['asistencia'] as $vol){
-	    			
-		    		if(in_array($vol['id_taller'],$value)){
-		    			$selected="Asistió";
+		    		if(in_array($vol['id_taller'], $value)){
+		    			$selected = "ASISTI&Oacute;";
 		    			$count++;
 		    		}
 	    		}
+	    		
 	    		$html1 .='
 		    			<tr>
-		    				<td width="10%"></td>
-	    					
-		    				<td width="60%"><p>'.$value['taller'].'</p></td>
-		    				<td width="10%"><p>'.$value['fecha_inicio'].'</p></td> 
-		    				<td width="3%">&nbsp;</td>
-		    				<td width="10%"><p>'.$selected.'</p></td>
-		    				
+		    				<td style="width:10%;"></td>
+		    				<td style="width:60%;"><p>'. $value['taller'] .'</p></td>
+		    				<td style="width:15%;"><p>'. $value['fecha_inicio'] .'</p></td> 
+		    				<td style="width:3%;">&nbsp;</td>
+		    				<td style="width:10%;"><p>'. $selected .'</p></td>
 		    			</tr>
 		    			<tr><td >&nbsp;</td></tr>	    			
 	    			';    	
-	    		
 	    	}
 	    	
 	    	$html1 .='</table>';
 	    	
 	    	//$pdf->writeHTML($html1, true, 0, true, 0);
 	    	$pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '85', $html1, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-	    	$porcentaje=$count*$noTalleres*100;
+	    	$porcentaje = ($count / $noTalleres) * 100;
 	    	$html2 =" <style type=text/css>
 	    			
 	    			h1{
@@ -407,22 +409,18 @@ class Asistencia extends CI_Controller {
 						 color: #4C4C4C;
 						}
 	    			</style>";
-	    	$html2.='<h1>Porcentaje de Asistencia: '.$porcentaje.'%</h1>';
+	    	$html2.='<h1>Porcentaje de Asistencia: '. $porcentaje .'%</h1>';
 	    	
 	    	
-	    	$pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '210', $html2, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+	    	$pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '210', $html2, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);*/
 	    	$pdf->lastPage();
 			
 
 	    	$nombre_archivo = utf8_decode("Asistencia.pdf");
 			$pdf->Output($nombre_archivo, 'I');
 			ob_end_flush();
-		}
-		else
-		{
+		} else {
 			header("Location: " . base_url());
 		}
 	}
-
-	
 }

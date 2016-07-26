@@ -219,7 +219,7 @@ class M_asistencia extends MY_Model {
 	}
 	function getTalleresAsistencia($matricula = ""){
 		if(!empty($matricula)) {
-			$this->sql = "SELECT T.id_taller,T.taller, fecha FROM asistencia A, talleres T WHERE A.id_taller = T.id_taller AND matricula = UPPER('$matricula') ORDER BY T.id_taller ASC;";
+			$this->sql = "SELECT DISTINCT(T.id_taller), T.taller FROM asistencia A, talleres T WHERE A.id_taller = T.id_taller AND matricula = UPPER('$matricula') ORDER BY T.id_taller ASC;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -265,10 +265,11 @@ class M_asistencia extends MY_Model {
 		$results = "";
 	
 		if(!empty($matricula)) {
-			$this->sql = "SELECT matricula, rt.id_plantel, plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro,s.espacio
+			$this->sql = "SELECT matricula, rt.id_plantel, plantel, s.ruta_transporte as ruta, s.imagen, s.direccion, TO_CHAR(fecha_registro, 'dd-mm-yyyy') fecha_registro, s.espacio
 			FROM registro_taller rt, sede s
 			WHERE rt.id_plantel = s.id_plantel
-			AND matricula = UPPER('$matricula');";
+			AND rt.matricula = UPPER('$matricula') 
+			AND espera IS FALSE;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}

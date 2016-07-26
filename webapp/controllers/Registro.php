@@ -14,21 +14,21 @@ class Registro extends CI_Controller {
 		
 		// Taller Activo
 		$aux = $this->m_registro->getTallerActivo();
-		$inicio = isset ($aux[0]['inicio']) ? new DateTime ($aux[0]['inicio']) : null;
-		$fin = isset ($aux[0]['fin']) ? new DateTime ($aux[0]['fin']) : null;
+		$inicio = isset($aux[0]['inicio']) ? new DateTime($aux[0]['inicio']) : null;
+		$fin = isset($aux[0]['fin']) ? new DateTime($aux[0]['fin']) : null;
 		
 		$this->load->view('layout/header', $datos, false );
 		
 		if (!is_null($inicio) && ! is_null($fin)) {
 			if ($hoy >= $inicio && $hoy <= $fin) {
-				$this->load->view('registro/busca_beneficiario', $datos, false );
+				$this->load->view('registro/busca_beneficiario', $datos, false);
 			} else {
-				$datos ['disponible'] = 1;
-				$this->load->view('registro/busca_beneficiario', $datos, false );
+				$datos['disponible'] = 1;
+				$this->load->view('registro/busca_beneficiario', $datos, false);
 			}
 		} else {
-			$datos ['disponible'] = 1;
-			$this->load->view('registro/busca_beneficiario', $datos, false );
+			$datos['disponible'] = 1;
+			$this->load->view('registro/busca_beneficiario', $datos, false);
 		}
 		
 		$this->load->view('layout/footer', false, false );
@@ -81,9 +81,43 @@ class Registro extends CI_Controller {
 		}
 	}
 	
+	function getBeneficiarioAsistencia() {
+		if(!empty($this->input->post())){
+			$matricula = $this->input->post('matricula');
+			$aux = $this->m_registro->getMatriculaRegistroTaller($matricula);
+			
+			$aux = isset($aux[0]['matricula']) ? $aux[0]['matricula'] : null;
+			
+			if (!is_null($aux)) {
+				echo $aux;
+			} else {
+				echo 'bad';
+			}
+		} else {
+			header("Location: " . base_url());
+		}
+	}
+	
+	function getBeneficiarioUnamAsistencia() {
+		if(!empty($this->input->post())){
+			$matricula = $this->input->post('matricula_escuela');
+			$aux = $this->m_registro->getMatriculaUnamRegistroTaller($matricula);
+				
+			$aux = isset($aux[0]['matricula']) ? $aux[0]['matricula'] : null;
+				
+			if (!is_null($aux)) {
+				echo $aux;
+			} else {
+				echo 'bad';
+			}
+		} else {
+			header("Location: " . base_url());
+		}
+	}
+	
 	function getBeneficiarioReimpresion(){
 		if(!empty($this->input->post())){
-			$matricula =  $this->input->post('matricula');
+			$matricula = $this->input->post('matricula');
 			$aux = $this->m_registro->getMatricula($matricula);
 		
 			$aux = isset($aux[0]['matricula_asignada']) ? $aux[0]['matricula_asignada'] : null;
