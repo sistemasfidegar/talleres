@@ -306,22 +306,22 @@ class Asistencia extends CI_Controller {
 			
 				$html .= "</style>";
 	    	
-	    	$html .='<h1>'.$datos['nombre'].' '.$datos['paterno'].' '.$datos['materno'].'</h1>';//$datos['nombre'].' '.$datos['paterno'].' '.$datos['materno'].
+	    	$html .='<h1>'. $datos['nombre'] .' '. $datos['paterno'] .' '. $datos['materno'] .'</h1>';//$datos['nombre'].' '.$datos['paterno'].' '.$datos['materno'].
 	    	
 	    	
 	    	
 	    	$html .='<table border="0">
 		    			<tr>
 		    				<td><h2>FECHA DE REGISTRO</h2></td>
-		    				<td colspan="2"><p>'.fecha_con_letra($datos['fecha']).'</p></td>
+		    				<td colspan="2"><p>'. fecha_con_letra($datos['fecha']) .'</p></td>
 		    			</tr>
 		    			<tr>
 		    				<td><h2>SEDE</h2></td>
-		    				<td colspan="2"><p>'.$datos['plantel'].'&nbsp;&nbsp;('.$datos['espacio'].')</p></td>
+		    				<td colspan="2"><p>'. $datos['plantel'] .'&nbsp;&nbsp;('. $datos['espacio'] .')</p></td>
 		    			</tr>
 		    			<tr>
 		    				<td><h2>DIRECCIÓN</h2></td>
-		    				<td colspan="2"><p>'.$datos['direccion'].'</p></td>
+		    				<td colspan="2"><p>'. $datos['direccion'] .'</p></td>
 		    			</tr>
 	    			</table>';
 	    	
@@ -415,7 +415,10 @@ class Asistencia extends CI_Controller {
 	    	$pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = '210', $html2, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);*/
 	    	$pdf->lastPage();
 			
-
+			if(empty($this->m_asistencia->checkImpresionValidacion($matricula))) {
+				$this->m_asistencia->insertImpresionValidacion($matricula);
+			} 
+			
 	    	$nombre_archivo = utf8_decode("Asistencia.pdf");
 			$pdf->Output($nombre_archivo, 'I');
 			ob_end_flush();

@@ -11,6 +11,18 @@ class M_asistencia extends MY_Model {
 		$this->db_b = $this->load->database('beneficiarios', TRUE);
 	}
 	
+	function checkImpresionValidacion($dato = "") {
+		$results = "";
+		
+		if(!empty($dato)) {
+			$this->sql = "SELECT * FROM impresion_validacion WHERE matricula = UPPER('$dato')";
+			$results = $this->db->query($this->sql);
+			return $results->result_array();
+		}
+		
+		return $results;
+	}
+	
 	/**
 	 * M&eacute;todo que obtiene si alg&uacute;n Taller se encuentra Activo o no.
 	 *     
@@ -274,6 +286,25 @@ class M_asistencia extends MY_Model {
 			return $results->result_array();
 		}
 	
+		return $results;
+	}
+	
+	function insertImpresionValidacion($matricula = "") {
+		$results = "";
+		
+		if(!empty($matricula)) {
+			$data = array(
+					'matricula' => strtoupper($matricula),
+					'validacion' => true
+			);
+			
+			if($this->db->insert('impresion_validacion', $data)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
 		return $results;
 	}
 	

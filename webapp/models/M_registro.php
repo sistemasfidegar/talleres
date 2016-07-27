@@ -154,7 +154,7 @@ class M_registro extends MY_Model {
 		$results = "";
 	
 		if(!empty($dato)) {
-			$this->sql = "SELECT matricula FROM registro_taller_recuperate WHERE matricula = '$dato' LIMIT 1;";
+			$this->sql = "SELECT matricula FROM registro_taller_recuperate WHERE matricula = UPPER('$dato') LIMIT 1;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -176,7 +176,7 @@ class M_registro extends MY_Model {
 		$results = "";
 	
 		if(!empty($dato)) {
-			$this->sql = "SELECT matricula FROM registro_taller WHERE matricula = '$dato' AND espera IS FALSE LIMIT 1;";
+			$this->sql = "SELECT matricula FROM registro_taller WHERE matricula = UPPER('$dato') AND espera IS FALSE LIMIT 1;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -481,9 +481,9 @@ class M_registro extends MY_Model {
 		if(!empty($sede)){
 		$this->sql="SELECT TA.taller, to_char(TA.fecha_inicio, 'DD-MM-YYYY') as fecha_inicio
 				FROM talleres TA, cat_ciclo CC, taller_plantel TP, sede S 
-				WHERE TP.id_taller= TA.id_taller AND TP.id_plantel=S.id_plantel AND 
-				TA.id_ciclo = CC.id_ciclo AND CC.activo is true AND TA.activo is true
-				AND S.id_plantel=$sede 
+				WHERE TP.id_taller = TA.id_taller AND TP.id_plantel = S.id_plantel AND 
+				TA.id_ciclo = CC.id_ciclo AND CC.activo IS TRUE AND TA.activo IS TRUE
+				AND S.id_plantel = $sede 
 				ORDER BY TA.id_taller ASC;";
 		$results = $this->db->query($this->sql);
 		return $results->result_array();

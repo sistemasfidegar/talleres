@@ -67,7 +67,7 @@ class M_admin extends MY_Model {
 					'nombre' => $post['nombre'],
 					'apellido_paterno' => $post['paterno'],
 					'apellido_materno' => $post['materno'],
-					'email' => $post['email'],
+					'email' => strtoupper($post['email']),
 					'usuario' => $this->security->xss_clean($post['usuario']),
 					'password' => $this->security->xss_clean($post['password']),
 					'id_plantel' => $post['sede'],
@@ -172,7 +172,7 @@ class M_admin extends MY_Model {
 		if(!empty($matricula) || !empty($id_taller)) {
 			$this->sql = "SELECT to_char(MIN(fecha), 'DD-MM-YYYY HH24:mm:ss') AS inicio, to_char(MAX(fecha), 'DD-MM-YYYY HH24:mm:ss') AS final 
 					FROM asistencia 
-					WHERE matricula = '$matricula' 
+					WHERE matricula = UPPER('$matricula') 
 					AND id_taller = $id_taller;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
@@ -574,7 +574,7 @@ class M_admin extends MY_Model {
 					'nombre' => $post['nombre'],
 					'apellido_paterno' => $post['paterno'],
 					'apellido_materno' => $post['materno'],
-					'email' => $post['email'],
+					'email' => strtoupper($post['email']),
 					'id_plantel' => $post['sede'],
 			);
 			
