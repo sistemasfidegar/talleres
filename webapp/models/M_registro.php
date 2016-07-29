@@ -45,7 +45,7 @@ class M_registro extends MY_Model {
 					FROM registro_taller RT, cat_ciclo CC 
 					WHERE RT.matricula = UPPER('$matricula') 
 					AND RT.id_ciclo = CC.id_ciclo 
-					AND CC.activo is true;";
+					AND CC.activo IS TRUE;";
 			$results = $this->db->query($this->sql);
 			return $results->result_array();
 		}
@@ -132,7 +132,7 @@ class M_registro extends MY_Model {
 			$this->sql = "SELECT B.matricula_asignada, P.fecha_nacimiento 
 			FROM beneficiarios B 
 			INNER JOIN b_personal P on B.matricula_asignada = P.matricula_asignada 
-			WHERE  P.matricula_asignada = UPPER('$dato') OR P.CURP = UPPER('$dato') AND B.id_archivo in (1, 2, 3);";
+			WHERE  (P.matricula_asignada = UPPER('$dato') OR P.CURP = UPPER('$dato')) AND B.id_archivo in (1, 2, 3);";
 			$results = $this->db_b->query($this->sql);
 			return $results->result_array();
 		}
@@ -360,7 +360,7 @@ class M_registro extends MY_Model {
 	 * @author Ing. Alfredo Mart&iacute;nez Cobos
 	 */
 	function create($post = "", $asistentes = "", $espera = "") {
-		if(!empty($post) || !empty($asistentes) || !empty($espera)) {
+		if(!empty($post) && !empty($asistentes) && !empty($espera)) {
 			//obtenemos el ciclo activo
 			$ciclo = $this->getCicloActivo();
 			//controlamos la transaccion

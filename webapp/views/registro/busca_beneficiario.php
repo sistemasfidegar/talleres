@@ -359,13 +359,13 @@
 					         		<td colspan="3" style="padding: 0;">&nbsp;</td>
 						        </tr>
 						        <tr style="text-align: center;">
-						          	<td colspan="3" style="padding: 0;"><input type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="Ingresa tu matr&iacute;cula PS o CURP" style="width:50%; text-transform:uppercase;"/></td>
+						          	<td colspan="3" style="padding: 0;"><input style="width:50%; text-transform:uppercase; border-style:solid; border-color:#4C4C4C;" type="text" id="matricula_asignada" name="matricula_asignada" value="" placeholder="Ingresa tu matr&iacute;cula PS o CURP" /></td>
 					        	</tr>
 						        <tr>
 					            	<td colspan="3" style="padding: 0;">&nbsp;</td>
 						        </tr>
 						        <tr style="text-align: center;">
-						          	<td colspan="3" style="padding: 0;"><input type="text" id="matricula_escuela" name="matricula_escuela" value="" placeholder="Ingresa matr&iacute;cula (unam)" style="width:50%; text-transform:uppercase;"/></td>
+						          	<td colspan="3" style="padding: 0;"><input style="width:50%; text-transform:uppercase; border-style:solid; border-color:#4C4C4C;" type="text" id="matricula_escuela" name="matricula_escuela" value="" placeholder="Ingresa matr&iacute;cula (unam)" /></td>
 						        </tr>
 				         	</tbody>
 					        <tfoot>

@@ -31,7 +31,10 @@
 <script type="text/javascript">
 	function cifrar(){
 		var input_pass = document.getElementById("crudAuth[password]");
-		input_pass.value = sha1(input_pass.value);
+
+		if(input_pass.value != "") {
+			input_pass.value = sha1(input_pass.value);
+		}
 	}
 </script>
 	
