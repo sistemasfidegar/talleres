@@ -80,6 +80,7 @@ $db['default'] = array(
 	//'password' => 'koni.pink',
 	'password' => 'cobos',
 	'database' => 'talleres_preparate_produccion',
+	//'database' => 'talleres',
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

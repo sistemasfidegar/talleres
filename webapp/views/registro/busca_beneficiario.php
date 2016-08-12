@@ -73,8 +73,8 @@
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            //url: 'registro/getBeneficiarioReimpresion/',
-    		            url: 'registro/getBeneficiarioReimpresionRecuperate/',
+    		            url: 'registro/getBeneficiarioReimpresion/',
+    		            //url: 'registro/getBeneficiarioReimpresionRecuperate/',
     		            data: {matricula: $("#matricula_asignada").val()},
     		            success: function (data) {
         		            if(data == 'bad') {
@@ -96,8 +96,8 @@
     	        	jQuery.ajax({
     		            type: 'post',
     		            dataType: 'html',
-    		            //url: 'registro/getBeneficiarioUnamReimpresion/',
-    		            url: 'registro/getBeneficiarioUnamReimpresionRecuperate/',
+    		            url: 'registro/getBeneficiarioUnamReimpresion/',
+    		            //url: 'registro/getBeneficiarioUnamReimpresionRecuperate/',
     		            data: {matricula_escuela: $("#matricula_escuela").val()},
     		            success: function (data) {
     		            	if(data == 'bad') {
@@ -370,18 +370,18 @@
 				         	</tbody>
 					        <tfoot>
 						        <tr>
-							      <!-- 	<td style="width: 50%;">
+							       <td style="width: 33%;">
 					     				<button style="width: 40%; height:40%; float: right;" id="registro" name="registro" type="button" class="btn">Iniciar Registro</button>
 					        	  	</td>
-					        	  -->
+					        	  
 					        	  	<td >&nbsp;</td>
-					        	 	 <!-- 
-					        	  	<td style="width: 100%;">
+					        	 	  
+					        	  	<td style="width: 33%;">
 					     				<button style="width: 40%; height:40%; float: center;" id="reimpresion" name="reimpresion" type="button" class="btn">Obtener Comprobante</button>
 					        	  	</td>
-					        	  	  -->
-					        	  	<td style="width: 100%">
-					     				<button style="width: 40%; height:40%; float: center;" id="asistencia" name="asistencia" type="button" class="btn">Obtener Asistencia</button>
+					        	  	  
+					        	  	<td style="width: 33%">
+					     				<button style="width: 40%; height:40%; float: left;" id="asistencia" name="asistencia" type="button" class="btn">Obtener Asistencia</button>
 					        	  	</td>
 						        </tr>
 					        </tfoot>
